@@ -64,23 +64,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (possessionObject == null) return;
 
-        float s = _currentPossessionProgress / _duration;
-        Vector3 currentPos = transform.position;
+        _currentPossessionProgress += Time.deltaTime;
+
+        float time = Mathf.Clamp01(_currentPossessionProgress / _duration);
+
+        float easedTime = _easeInOut.Evaluate(time);
+
+        Vector3 startPos = PlayerController.StartPossessionPosition;
         Vector3 targetPos = possessionObject.transform.position;
+        transform.position = Vector3.Lerp(startPos, targetPos, easedTime);
 
-        transform.position = Vector3.MoveTowards(currentPos, targetPos, _easeInOut.Evaluate(s));
-
-        if (Vector3.Distance(transform.position, targetPos) < _possessingDistanceCheck)
+        if (time >= 1f || Vector3.Distance(transform.position, targetPos) < _possessingDistanceCheck)
         {
             if (isPossessionInProgress && TryGetComponent<PlayerController>(out var controller))
             {
                 controller.PossessObject(possessionObject);
             }
-        }
-        else
-        {
-            //Debug.Log("Possession in progress");
-            _currentPossessionProgress += Time.deltaTime;
         }
     }
 

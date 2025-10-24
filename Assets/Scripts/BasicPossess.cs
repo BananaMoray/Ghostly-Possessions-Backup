@@ -6,35 +6,41 @@ public class BasicPossess : MonoBehaviour, IPossessable
     private PlayerController owner;
 
     [Header("Movement Variables")]
-    [SerializeField] private float _acceleration = 20f;
-    [SerializeField] private float _deceleration = 8f;
-    [SerializeField] private float _maxSpeed = 3f;
+    [SerializeField] 
+    private float _acceleration = 20f;
+    [SerializeField] 
+    private float _deceleration = 8f;
+    [SerializeField] 
+    private float _maxSpeed = 3f;
     private Vector3 _currentVelocity = Vector3.zero;
     private Vector2 _moveInput;
 
     private MeshRenderer _renderer;
     private Material _normalMat;
 
-    
-        
+    private Rigidbody _rb;
+
 
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody>();
+
         _renderer = GetComponent<MeshRenderer>();
         _normalMat = _renderer.material;
-        
     }
 
     public void OnPossess(PlayerController controller)
     {
         owner = controller;
-        _renderer.material = controller.GetComponent<Renderer>().material;
+        _renderer.material = owner.PossessMat;
     }
 
     public void OnDepossess()
     {
         owner = null;
         _renderer.material = _normalMat;
+        if (_rb != null) _rb.linearVelocity = Vector2.zero;
+
     }
 
     public Transform GetPossessionTransform()
@@ -62,6 +68,8 @@ public class BasicPossess : MonoBehaviour, IPossessable
             );
         }
 
+
+        //_rb.AddForce(_currentVelocity * PlayerController.PlayerStrength);
         transform.position += _currentVelocity * Time.deltaTime;
     }
 

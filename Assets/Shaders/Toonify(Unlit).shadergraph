@@ -92,6 +92,9 @@
         },
         {
             "m_Id": "a9035b38bd06488084bf83a16dbb21bc"
+        },
+        {
+            "m_Id": "ed154f78208d48b7b4024956352aee78"
         }
     ],
     "m_GroupDatas": [],
@@ -397,12 +400,15 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 452.00006103515627,
-            "y": 255.1999969482422
+            "x": 452.0000305175781,
+            "y": 255.99998474121095
         },
         "m_Blocks": [
             {
                 "m_Id": "26664f7a90aa444e8c1caa965a55bd5d"
+            },
+            {
+                "m_Id": "ed154f78208d48b7b4024956352aee78"
             }
         ]
     },
@@ -1926,7 +1932,7 @@
         "m_Id": "2ae76ea3ccc1423781d6e5b0df9dccde"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 0,
+    "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
@@ -2310,6 +2316,21 @@
         "x": -1.0,
         "y": 1.0
     },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "bbe67a14f2074be996c355e1551d964d",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Alpha",
+    "m_StageCapability": 2,
+    "m_Value": 1.0,
+    "m_DefaultValue": 1.0,
     "m_Labels": []
 }
 
@@ -2939,6 +2960,40 @@
     "m_Value": 0.11999999731779099,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "ed154f78208d48b7b4024956352aee78",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.Alpha",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "bbe67a14f2074be996c355e1551d964d"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
 }
 
 {

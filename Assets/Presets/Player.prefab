@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3042430366289668987}
   - component: {fileID: 3665311645337730257}
   - component: {fileID: 9093478421797158847}
+  - component: {fileID: 2264457343767366680}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+  - {fileID: 2100000, guid: 60638e45feaec5f41998201147b47e70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -279,15 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c463145eef67984428def2dc83a87d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isInputTypeA: 0
-  _isInputTypeB: 1
   _input: {fileID: 3042430366289668987}
   _mainCamera: {fileID: 0}
   IsPossessionInProgress: 0
   PossessionObject: {fileID: 0}
-  _possessionMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
-  _normalMat: {fileID: 0}
-  _holdDuration: 0.2
+  PossessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+  _holdDuration: 0.5
   _maxTargetDistance: 5
 --- !u!114 &9093478421797158847
 MonoBehaviour:
@@ -317,6 +315,15 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.755533
+      value: 0.33867764
+      inSlope: 1.4133241
+      outSlope: 1.4133241
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33188003
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 2
@@ -328,7 +335,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _duration: 2
+  _duration: 1
   _possessingDistanceCheck: 0.5
   MovementInput: {x: 0, y: 0}
   LookInput: {x: 0, y: 0}
+--- !u!114 &2264457343767366680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496685273045612946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813e29a6a0754074eac43630042d000c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

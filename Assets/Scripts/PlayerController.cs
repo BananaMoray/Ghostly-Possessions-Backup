@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public static bool IsPossessing = false;
     public bool IsPossessionInProgress = false;
     public GameObject PossessionObject;
+    private IPossessable _currentPossession;
 
     private MeshRenderer _renderer;
     private PlayerMovement _movement;
@@ -64,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_currentPossession != null && !IsPossessionInProgress)
+            _currentPossession.HandlePossessedMovement(_movement.MovementInput);
+
         HandleUnpossessInput();
         HandlePossessInput();
         _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
@@ -74,11 +78,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePossessInput()
     {
-        if (_isInputTypeA && _select && !_previousSelect)
-        {
-            if (!IsPossessing && !IsPossessionInProgress)
-                TryStartPossession();
-        }
 
         if (_isInputTypeB)
         {
@@ -100,13 +99,28 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        _holdTimer = 0f; // reset if button released
+                        _holdTimer = 0f;
                     }
                 }
-                else
+                else { _holdTimer = 0f; }
+            }
+        }
+    }
+    private void HandleUnpossessInput()
+    {
+
+        if (_isInputTypeB && _deselect)
+        {
+            if (IsPossessing && !IsPossessionInProgress)
+            {
+                _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
                 {
-                    _holdTimer = 0f; // no target in range
+                    UnpossessObject(); _holdTimer = 0f;
                 }
+            }
+            else
+            {
+                _holdTimer = 0f;
             }
         }
     }
@@ -150,32 +164,7 @@ public class PlayerController : MonoBehaviour
             outline.enabled = isTrue;
     }
 
-    private void HandleUnpossessInput()
-    {
-        if (_isInputTypeA && _deselect && !_previousDeselect)
-        {
-            if (IsPossessing && !IsPossessionInProgress)
-                UnpossessObject();
-        }
 
-        if (_isInputTypeB && _deselect)
-        {
-            if (IsPossessing && !IsPossessionInProgress)
-            {
-                _holdTimer += Time.deltaTime;
-
-                if (_holdTimer >= _holdDuration)
-                {
-                    UnpossessObject();
-                    _holdTimer = 0f;
-                }
-            }
-            else
-            {
-                _holdTimer = 0f; // reset if button released
-            }
-        }
-    }
 
     private void TryStartPossession()
     {
@@ -202,11 +191,15 @@ public class PlayerController : MonoBehaviour
 
     public void PossessObject(GameObject target)
     {
+
         //Debug.Log($"Player possessed {target.name}");
         _renderer.enabled = false;
+        IsPossessionInProgress = false;
         transform.position = target.transform.position;
-        _normalMat = target.GetComponent<Renderer>().material;
-        target.GetComponent<Renderer>().material = _possessionMat;
+        _currentPossession = PossessionObject.GetComponent<IPossessable>();
+        if (_currentPossession != null)
+            _currentPossession.OnPossess(this);
+
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
     }
 
@@ -220,40 +213,58 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Log("Player unpossessed the object.");
         _renderer.enabled = true;
-        PossessionObject.GetComponent<Renderer>().material = _normalMat;
+
+        if (_currentPossession != null)
+        {
+            _currentPossession.OnDepossess();
+            _currentPossession = null;
+        }
+
         SetPossessObject(null, false);
     }
 
     public void SetPossessObject(GameObject possessableObject, bool isTrue)
     {
+        //Debug.Log($"possessing {possessableObject.name}");
+        IsPossessionInProgress = isTrue;
         IsPossessing = isTrue;
+
         PossessionObject = possessableObject;
-        
+
         if (!isTrue)
         {
             _movement.ResetProgress();
             IsPossessionInProgress = false;
         }
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _movement._movementInput = context.ReadValue<Vector2>();
+        _movement.MovementInput = context.ReadValue<Vector2>();
+
+
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        _movement._lookInput = context.ReadValue<Vector2>();
+        _movement.LookInput = context.ReadValue<Vector2>();
     }
 
     public void OnDeselect(InputAction.CallbackContext context)
     {
-        _deselect = context.action.triggered;
+        if (context.performed)
+            _deselect = true;
+        else if (context.canceled)
+            _deselect = false;
     }
 
     public void OnSelect(InputAction.CallbackContext context)
     {
-        _select = context.action.triggered;
+        if (context.performed)
+            _select = true;
+        else if (context.canceled)
+            _select = false;
     }
 }
 

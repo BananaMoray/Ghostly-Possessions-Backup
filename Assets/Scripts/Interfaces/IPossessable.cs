@@ -8,7 +8,7 @@ public interface IPossessable
     void OnDepossess();
 
     void HandlePossessedMovement(Vector2 moveInput);
-    void HandlePossessedInteract(bool interactInput);
+    void HandlePossessedInteract();
 
     Transform GetPossessionTransform();
 }

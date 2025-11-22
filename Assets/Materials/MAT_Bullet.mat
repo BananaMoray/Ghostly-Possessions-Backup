@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_BG
+  m_Name: MAT_Bullet
   m_Shader: {fileID: -6465566751694194690, guid: 7bf302c51250a154f89554b716242bd5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2999
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -111,7 +111,7 @@ Material:
     - _Offset: -0.6
     - _Parallax: 0.005
     - _QueueControl: 0
-    - _QueueOffset: -1
+    - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shades: 0.3
     - _Smoothness: 0.5
@@ -124,7 +124,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.22203624, g: 0.33956373, b: 0.3735848, a: 1}
+    - _Color: {r: 0.70073867, g: 0.7954882, b: 0.8207547, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShaderColour: {r: 0, g: 0, b: 0, a: 0}
     - _Shadow_Color: {r: 1, g: 1, b: 1, a: 0}

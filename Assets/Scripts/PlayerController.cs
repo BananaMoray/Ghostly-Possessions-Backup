@@ -10,6 +10,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerController : MonoBehaviour
 {
     public static event EventHandler<PossessEventArgs> OnPossessObject;
+    public static event EventHandler<PossessEventArgs> OnInteract;
     public static event EventHandler<PossessEventArgs> OnDetectClostestPossessObject;
 
     [Header("Misc")]
@@ -30,11 +31,11 @@ public class PlayerController : MonoBehaviour
     public Material PossessMat;
     private Material _playerMat;
 
-    private bool _previousSelect;
+    private bool _previousInteract;
     private bool _previousDeselect;
 
     private bool _deselect = false;
-    private bool _select = false;
+    private bool _interact = false;
 
     public static float PlayerStrength = 1f;
 
@@ -66,21 +67,33 @@ public class PlayerController : MonoBehaviour
         if (_currentPossession != null && !IsPossessionInProgress)
             _currentPossession.HandlePossessedMovement(_movement.MovementInput);
 
-        HandleUnpossessInput();
-        HandlePossessInput();
+        if (_currentPossession != null)
+        {
+            //interact using object
+            if (_interact && _previousInteract != _interact)
+            _currentPossession.HandlePossessedInteract();
+        } 
+        else
+            HandleInteractInput();
+
+        HandleDeselectInput();
+
         _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
 
-        _previousSelect = _select;
+        _previousInteract = _interact;
         _previousDeselect = _deselect;
     }
 
-    private void HandlePossessInput()
+    private void HandleInteractInput()
     {
+
+
 
         if (IsPossessing)
         {
+
             //cancel possession
-            if (!_select && IsPossessionInProgress)
+            if (!_interact && IsPossessionInProgress)
             {
                 //_fade.FadeIn(0);
                 //Debug.Log("Possession cancelled");
@@ -98,7 +111,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (_select)
+        if (_interact)
         {
 
             if (!IsPossessionInProgress)
@@ -112,7 +125,7 @@ public class PlayerController : MonoBehaviour
         _holdTimer = 0f;
     }
 
-    private void HandleUnpossessInput()
+    private void HandleDeselectInput()
     {
 
         if (_deselect)
@@ -216,7 +229,7 @@ public class PlayerController : MonoBehaviour
         SetPossessObject(null, false);
     }
 
-    public static Vector2 StartPossessionPosition;
+    public static Vector3 StartPossessionPosition;
 
     public void SetPossessObject(GameObject possessableObject, bool isTrue)
     {
@@ -226,7 +239,10 @@ public class PlayerController : MonoBehaviour
         PossessionObject = possessableObject;
 
         if (isTrue)
+        {
             StartPossessionPosition = transform.position;
+            Debug.Log(StartPossessionPosition);
+        }
         else
             IsPossessionInProgress = false;
 
@@ -256,9 +272,9 @@ public class PlayerController : MonoBehaviour
     public void OnSelect(InputAction.CallbackContext context)
     {
         if (context.performed)
-            _select = true;
+            _interact = true;
         else if (context.canceled)
-            _select = false;
+            _interact = false;
     }
 }
 

@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleNormalMovement()
     {
-        Vector3 inputVelocity = new Vector3(MovementInput.x, MovementInput.y, 0) * _maxSpeed;
+        Vector3 inputVelocity = new Vector3(MovementInput.x, 0, MovementInput.y) * _maxSpeed;
 
         _currentVelocity = Vector3.MoveTowards(
             _currentVelocity,

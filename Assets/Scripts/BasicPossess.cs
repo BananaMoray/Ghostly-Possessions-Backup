@@ -23,6 +23,8 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
     private MeshRenderer _renderer;
     private Material _normalMat;
+    [SerializeField]
+    private Material _possessMat;
 
     private Rigidbody _rb;
 
@@ -42,7 +44,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
     public void OnPossess(PlayerController controller)
     {
         owner = controller;
-        _renderer.material = owner.PossessMat;
+        _renderer.material = _possessMat;
     }
 
     public void OnDepossess()

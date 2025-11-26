@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     private Camera _mainCamera;
     [SerializeField]
     private GameObject _player;
+    private PlayerMovement _playerMovement;
+
     [SerializeField]
     private Vector3 _offset = new Vector3(0,1,-10);
     [SerializeField]
@@ -21,22 +23,39 @@ public class CameraController : MonoBehaviour
     {
         _mainCamera = Camera.main;
         _mainCamera.transform.position = _player.transform.position + _offset;
-
+        _player = GameObject.FindWithTag("Player");
+        if( _player != null ) 
+            _playerMovement = _player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
         UpdateCameraTarget();
+
         _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, _cameraTargetPos + _offset, _cameraSpeed * Time.deltaTime);
     }
 
     private void UpdateCameraTarget()
     {
 
+
+
+
         if (_cameraTarget == null) _cameraTarget = _player;
 
         //REMEMBER DO NOT USE LERP FOR EVERYTHING START THINKING
-        _cameraTargetPos = (_player.transform.position + _cameraTarget.transform.position) / 2f;
+
+        if (_playerMovement.LookInput.sqrMagnitude > 0.1f)
+        {
+            //works only with absolute look input
+            _cameraTargetPos = _player.transform.position + new Vector3(_playerMovement.LookInput.x, 0, _playerMovement.LookInput.y) * 5;
+
+            //_cameraTargetPos = _player.transform.position + _player.transform.eulerAngles * 5;
+        }
+        else
+            _cameraTargetPos = (_player.transform.position + _cameraTarget.transform.position) / 2f;
+
+        
 
     }
 
@@ -56,7 +75,6 @@ public class CameraController : MonoBehaviour
     private void PlayerController_OnDetectClostestPossessObject(object sender, PossessEventArgs e)
     {
         _cameraTarget = e.PossessableObject;
-        Debug.Log("Target changed");
     }
 
     private void PlayerController_OnPossessObject(object sender, PossessEventArgs e)

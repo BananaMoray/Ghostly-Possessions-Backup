@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -17,6 +19,10 @@ public class BasicPossess : MonoBehaviour, IPossessable
     [SerializeField] 
     private float _maxSpeed = 3f;
     [SerializeField]
+    private float _sideMoveMultiplier = 0.3f;
+    [SerializeField]
+    private float _backMoveMultiplier = 0.2f;
+    [SerializeField]
     private float _rotationSpeed = 360f;
     private Vector3 _currentVelocity = Vector3.zero;
 
@@ -30,6 +36,11 @@ public class BasicPossess : MonoBehaviour, IPossessable
     private IShootable _shootLogic;
 
 
+
+    [Header("Thrusters")]
+    public ParticleSystem[] _thrusterParticleSystems;
+    public List<ParticleSystem.EmissionModule> _thrusterEmission;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -41,6 +52,14 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
         _mainCamera = Camera.main;
         CalculateCameraDirections();
+
+        _thrusterParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem ps in _thrusterParticleSystems)
+        {
+            var em = ps.emission;
+            em.enabled = false;
+        }
     }
 
     public void OnPossess(PlayerController controller)
@@ -76,7 +95,12 @@ public class BasicPossess : MonoBehaviour, IPossessable
         {
             //rotation Movement
             //inputVelocity = transform.forward * moveInput.y * _maxSpeed;
-            inputVelocity = transform.right * moveInput.x * (_maxSpeed / 2) + transform.forward * moveInput.y * _maxSpeed; 
+
+            float x = moveInput.x * _sideMoveMultiplier;
+
+            float z = moveInput.y > 0 ? moveInput.y : z = moveInput.y * _backMoveMultiplier;
+
+            inputVelocity = transform.right * x * (_maxSpeed / 2) + transform.forward * z * _maxSpeed; 
 
             //HandleRotation(moveInput.x);
         }
@@ -94,6 +118,28 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
         //_rb.AddForce(_currentVelocity * PlayerController.PlayerStrength);
         transform.position += _currentVelocity * Time.deltaTime;
+
+
+        //thruster stuff
+        if (_thrusterParticleSystems.Length != 0)
+        {
+            if (moveInput.y > 0.1f)
+            {
+                foreach (ParticleSystem ps in _thrusterParticleSystems)
+                {
+                    var em = ps.emission;
+                    em.enabled = true;
+                }
+            }
+            else
+            {
+                foreach (ParticleSystem ps in _thrusterParticleSystems)
+                {
+                    var em = ps.emission;
+                    em.enabled = false;
+                }
+            }
+        }
 
     }
 
@@ -138,11 +184,11 @@ public class BasicPossess : MonoBehaviour, IPossessable
     }
 
 
-    public virtual void HandlePossessedInteract()
+    public virtual void HandlePossessedAttack(bool attackInput)
     {
         if (_shootLogic != null)
         {
-            _shootLogic.OnShoot();
+            _shootLogic.OnRequestAttack(attackInput);
         }
     }
 }

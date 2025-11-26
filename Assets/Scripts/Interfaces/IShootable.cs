@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface IShootable
 {
-    void OnShoot();
+    void OnRequestAttack(bool attack);
+    void Attack();
 }

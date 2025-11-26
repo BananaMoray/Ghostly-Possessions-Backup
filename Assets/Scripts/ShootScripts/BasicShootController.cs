@@ -7,12 +7,18 @@ public class BasicShootController : MonoBehaviour, IShootable
     [SerializeField]
     private float _damage = 10f;
 
-    public void OnShoot()
+    private bool _currentAttack;
+    private bool _previousAttack;
+
+    public void OnRequestAttack(bool attack)
     {
-        ShootBullet();
+        if(attack && _previousAttack == false)
+            Attack();
+
+        _previousAttack = attack;
     }
 
-    public void ShootBullet()
+    public void Attack()
     {
         BulletController bulletController = _bullet.GetComponent<BulletController>();
 

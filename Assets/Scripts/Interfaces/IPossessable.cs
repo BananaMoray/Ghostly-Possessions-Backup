@@ -9,7 +9,7 @@ public interface IPossessable
 
     void HandlePossessedMovement(Vector2 moveInput);
     void HandlePossessedRotation(Vector2 lookInput);
-    void HandlePossessedInteract();
+    void HandlePossessedAttack(bool attackInput);
 
     Transform GetPossessionTransform();
 }

@@ -148,9 +148,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAtackInput()
     {
-
-        if (_attack && _previousAttack != _attack)
-            _currentPossession.HandlePossessedInteract();
+        _currentPossession.HandlePossessedAttack(_attack);
 
         //if (_attack)
         //{
@@ -233,6 +231,9 @@ public class PlayerController : MonoBehaviour
             _currentPossession.OnPossess(this);
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
+
+        HighlightTarget(ClosestTarget, false);
+        ClosestTarget = null;
 
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }

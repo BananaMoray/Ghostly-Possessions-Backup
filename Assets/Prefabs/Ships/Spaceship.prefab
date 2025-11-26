@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8091464793354238065}
   - component: {fileID: 6859146880151693148}
   - component: {fileID: 2343806682480221523}
+  - component: {fileID: 5443736701466239857}
   m_Layer: 0
-  m_Name: Possessable Spaceship
+  m_Name: Spaceship
   m_TagString: Possession
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +123,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementRotate: 1
-  _acceleration: 20
-  _deceleration: 10
-  _maxSpeed: 8
-  _rotationSpeed: 360
+  _acceleration: 30
+  _deceleration: 2
+  _maxSpeed: 18
+  _rotationSpeed: 240
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+--- !u!114 &5443736701466239857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334770470067231001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac416d0b951ebd4fb164efc8544d5eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _damage: 10

@@ -8,8 +8,8 @@ public class BasicPossess : MonoBehaviour, IPossessable
     private PlayerController owner;
 
     [Header("Movement Variables")]
-    [SerializeField]
-    private bool MovementRotate = false;
+    public bool SpaceShipMove = false;
+    public bool SpaceShipRotate = false;
     [SerializeField] 
     private float _acceleration = 20f;
     [SerializeField] 
@@ -19,7 +19,6 @@ public class BasicPossess : MonoBehaviour, IPossessable
     [SerializeField]
     private float _rotationSpeed = 360f;
     private Vector3 _currentVelocity = Vector3.zero;
-    private Vector2 _moveInput;
 
     private MeshRenderer _renderer;
     private Material _normalMat;
@@ -39,6 +38,9 @@ public class BasicPossess : MonoBehaviour, IPossessable
         _normalMat = _renderer.material;
 
         _shootLogic = GetComponent<IShootable>();
+
+        _mainCamera = Camera.main;
+        CalculateCameraDirections();
     }
 
     public void OnPossess(PlayerController controller)
@@ -65,7 +67,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
         //copy pasted code from player
         Vector3 inputVelocity = Vector3.zero;
 
-        if (!MovementRotate)
+        if (!SpaceShipMove)
         {
             //normal movement
             inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * _maxSpeed;
@@ -73,9 +75,10 @@ public class BasicPossess : MonoBehaviour, IPossessable
         else 
         {
             //rotation Movement
-            inputVelocity = transform.forward * moveInput.y * _maxSpeed;
+            //inputVelocity = transform.forward * moveInput.y * _maxSpeed;
+            inputVelocity = transform.right * moveInput.x * (_maxSpeed / 2) + transform.forward * moveInput.y * _maxSpeed; 
 
-            HandleRotation(moveInput.x);
+            //HandleRotation(moveInput.x);
         }
 
         _currentVelocity = Vector3.MoveTowards(_currentVelocity, inputVelocity, _acceleration * Time.deltaTime);
@@ -94,12 +97,46 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
     }
 
-    private void HandleRotation(float x)
+    //camera stuff
+    private Camera _mainCamera;
+    private Vector3 _cameraUp;
+    private Vector3 _cameraRight;
+
+    private void CalculateCameraDirections()
+    {
+        if (_mainCamera == null) return;
+
+        _cameraUp = _mainCamera.transform.up;
+        _cameraRight = _mainCamera.transform.right;
+        _cameraUp.y = 0;
+        _cameraRight.y = 0;
+        _cameraUp.Normalize();
+        _cameraRight.Normalize();
+    }
+     
+    public void HandlePossessedRotation(Vector2 lookInput)
     {
 
-        transform.Rotate(0.0f, x * _rotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+
+        if(SpaceShipRotate)
+            transform.Rotate(0.0f, lookInput.x * _rotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+        else
+        {
+            
+            Vector3 direction = (_cameraUp * lookInput.y + _cameraRight * lookInput.x);
+
+            if (direction.sqrMagnitude < 0.01f)
+                direction = (_cameraUp * lookInput.y + _cameraRight * lookInput.x);
+
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            }
+        }
 
     }
+
 
     public virtual void HandlePossessedInteract()
     {

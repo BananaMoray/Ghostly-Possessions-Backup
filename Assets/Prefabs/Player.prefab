@@ -108,7 +108,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -175,7 +175,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3665311645337730257}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnSelect
+        m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3665311645337730257}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnDeselect
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -282,10 +282,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 3042430366289668987}
   _mainCamera: {fileID: 0}
+  IsPossessing: 0
   IsPossessionInProgress: 0
   PossessionObject: {fileID: 0}
   PossessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   _holdDuration: 0.5
+  _possessionCooldown: 0.5
   _maxTargetDistance: 5
 --- !u!114 &9093478421797158847
 MonoBehaviour:

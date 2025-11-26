@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerController : MonoBehaviour
 {
     public static event EventHandler<PossessEventArgs> OnPossessObject;
-    public static event EventHandler<PossessEventArgs> OnInteract;
+    //public static event EventHandler<PossessEventArgs> OnInteract;
     public static event EventHandler<PossessEventArgs> OnDetectClostestPossessObject;
 
     [Header("Misc")]
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private Camera _mainCamera;
 
     [Header("Possession Data")]
-    public static bool IsPossessing = false;
+    public bool IsPossessing = false;
     public bool IsPossessionInProgress = false;
     public GameObject PossessionObject;
     private IPossessable _currentPossession;
@@ -32,16 +33,19 @@ public class PlayerController : MonoBehaviour
     private Material _playerMat;
 
     private bool _previousInteract;
-    private bool _previousDeselect;
+    private bool _previousAttack;
 
-    private bool _deselect = false;
+    private bool _attack = false;
     private bool _interact = false;
 
     public static float PlayerStrength = 1f;
 
     [SerializeField]
     private float _holdDuration = 0.5f;
+    [SerializeField]
+    private float _possessionCooldown = 0.5f;
     private float _holdTimer = 0f;
+    private bool _canPossess = true;
     [SerializeField]
     private float _maxTargetDistance = 5f;
 
@@ -65,29 +69,28 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (_currentPossession != null && !IsPossessionInProgress)
+        {
             _currentPossession.HandlePossessedMovement(_movement.MovementInput);
+            _currentPossession.HandlePossessedRotation(_movement.LookInput);
+        }
+            
 
         if (_currentPossession != null)
         {
             //interact using object
-            if (_interact && _previousInteract != _interact)
-            _currentPossession.HandlePossessedInteract();
-        } 
-        else
-            HandleInteractInput();
+            HandleAtackInput();
+        }
 
-        HandleDeselectInput();
+        HandleInteractInput();
 
         _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
 
         _previousInteract = _interact;
-        _previousDeselect = _deselect;
+        _previousAttack = _attack;
     }
 
     private void HandleInteractInput()
     {
-
-
 
         if (IsPossessing)
         {
@@ -100,6 +103,24 @@ public class PlayerController : MonoBehaviour
                 SetPossessObject(null, false);
             }
 
+            if (_interact && _currentPossession != null)
+            {
+                
+                _fade.FadeIn(_holdDuration);
+
+                _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
+                {
+                    UnpossessObject();
+                    //_holdTimer = 0f;
+                }
+            }
+            else if (_attack)
+            {
+                //_fade.FadeOut(0);
+            }
+            else
+                _holdTimer = 0f;
+
             return;
         }
 
@@ -111,7 +132,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (_interact)
+        if (_interact && _canPossess)
         {
 
             if (!IsPossessionInProgress)
@@ -125,28 +146,31 @@ public class PlayerController : MonoBehaviour
         _holdTimer = 0f;
     }
 
-    private void HandleDeselectInput()
+    private void HandleAtackInput()
     {
 
-        if (_deselect)
-        {
-            if (IsPossessing && !IsPossessionInProgress)
-            {
-                _fade.FadeIn(_holdDuration);
+        if (_attack && _previousAttack != _attack)
+            _currentPossession.HandlePossessedInteract();
 
-                _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
-                {
-                    UnpossessObject();
-                    //_holdTimer = 0f;
-                }
-            }
-            else if (_deselect)
-            {
-                //_fade.FadeOut(0);
-            }
-            else
-                _holdTimer = 0f;
-        }
+        //if (_attack)
+        //{
+        //    if (IsPossessing && !IsPossessionInProgress)
+        //    {
+        //        _fade.FadeIn(_holdDuration);
+
+        //        _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
+        //        {
+        //            UnpossessObject();
+        //            //_holdTimer = 0f;
+        //        }
+        //    }
+        //    else if (_attack)
+        //    {
+        //        //_fade.FadeOut(0);
+        //    }
+        //    else
+        //        _holdTimer = 0f;
+        //}
     }
 
     private void FindClosestPossessable()
@@ -209,6 +233,8 @@ public class PlayerController : MonoBehaviour
             _currentPossession.OnPossess(this);
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
+
+        StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
     public void UnpossessObject()
@@ -225,8 +251,9 @@ public class PlayerController : MonoBehaviour
             _currentPossession.OnDepossess();
             _currentPossession = null;
         }
-
         SetPossessObject(null, false);
+
+        StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
     public static Vector3 StartPossessionPosition;
@@ -261,21 +288,29 @@ public class PlayerController : MonoBehaviour
         _movement.LookInput = context.ReadValue<Vector2>();
     }
 
-    public void OnDeselect(InputAction.CallbackContext context)
+    public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
-            _deselect = true;
+            _attack = true;
         else if (context.canceled)
-            _deselect = false;
+            _attack = false;
     }
 
-    public void OnSelect(InputAction.CallbackContext context)
+    public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
             _interact = true;
         else if (context.canceled)
             _interact = false;
     }
+
+    private IEnumerator PossessionCooldown(float seconds)
+    {
+        _canPossess = false;
+        yield return new WaitForSeconds(seconds);
+        _canPossess = true;
+    }
+
 }
 
 public class PossessEventArgs : EventArgs

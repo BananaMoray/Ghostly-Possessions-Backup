@@ -30,8 +30,11 @@ public class EnemyController : MonoBehaviour
         if (MovementStrategy == null) return;
 
         Vector3 targetPos = _player != null ? _player.transform.position : Vector3.zero;
+
         MovementStrategy.Move(transform, _rb, maxSpeed, acceleration, deceleration, _currentVelocity, targetPos);
+
         MovementStrategy.Rotate(transform, targetPos, rotationSpeed);
+
         _currentVelocity = _rb.linearVelocity;
     }
 }

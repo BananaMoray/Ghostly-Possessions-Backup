@@ -126,14 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cee52bf675a334a80e59c9cb43b39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpaceShipMove: 0
+  SpaceShipMove: 1
   SpaceShipRotate: 0
-  _acceleration: 30
-  _deceleration: 2
-  _maxSpeed: 18
+  _acceleration: 15
+  _deceleration: 6
+  _maxSpeed: 12
   _sideMoveMultiplier: 0.3
   _backMoveMultiplier: 0.2
-  _rotationSpeed: 240
+  _rotationSpeed: 360
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   _thrusterParticleSystems:
   - {fileID: 3323637013735234493}
@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
-  _damage: 10
-  _knockbackStr: 5
+  _shootsfx: {fileID: 6396269571309994183}
+  _damage: 15
+  _knockbackStr: 7
 --- !u!54 &1989715164501313483
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 1
 --- !u!82 &6396269571309994183
 AudioSource:

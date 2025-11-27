@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CameraController : MonoBehaviour
     private Vector3 _offset = new Vector3(0,1,-10);
     [SerializeField]
     private float _cameraSpeed = 10f;
+    private Vector3 _camVelocity;
     [SerializeField]
     //private float _cameraPossessionSpeed = 10f;
     private GameObject _cameraTarget = null;
@@ -28,11 +30,12 @@ public class CameraController : MonoBehaviour
             _playerMovement = _player.GetComponent<PlayerMovement>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         UpdateCameraTarget();
 
         _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, _cameraTargetPos + _offset, _cameraSpeed * Time.deltaTime);
+
     }
 
     private void UpdateCameraTarget()
@@ -45,7 +48,13 @@ public class CameraController : MonoBehaviour
 
         //REMEMBER DO NOT USE LERP FOR EVERYTHING START THINKING
 
-        if (_playerMovement.LookInput.sqrMagnitude > 0.1f)
+
+        Vector2 look = _playerMovement.LookInput;
+
+        if (look.sqrMagnitude < 0.05f) 
+            look = Vector2.zero;
+
+        if (look.sqrMagnitude > 0.1f)
         {
             //works only with absolute look input
             _cameraTargetPos = _player.transform.position + new Vector3(_playerMovement.LookInput.x, 0, _playerMovement.LookInput.y) * 5;
@@ -53,9 +62,12 @@ public class CameraController : MonoBehaviour
             //_cameraTargetPos = _player.transform.position + _player.transform.eulerAngles * 5;
         }
         else
-            _cameraTargetPos = (_player.transform.position + _cameraTarget.transform.position) / 2f;
-
-        
+        {
+            if (_cameraTarget != null && _cameraTarget != _player)
+                _cameraTargetPos = Vector3.Lerp(_player.transform.position, _cameraTarget.transform.position, 0.5f);
+            else
+                _cameraTargetPos = _player.transform.position;
+        }
 
     }
 

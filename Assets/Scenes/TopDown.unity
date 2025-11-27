@@ -260,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
   _damage: 5
-  _shootDelay: 0.1
+  _shootDelay: 0.15
 --- !u!1 &58165615
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,20 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
-public class AutomaticShoot : MonoBehaviour, IShootable
+public class AutomaticShoot : BaseShootClass
 {
     [SerializeField]
-    private GameObject _bullet;
-    [SerializeField]
     private float _damage = 10f;
+    [SerializeField]
+    private float _knockbackStr = 5f;
 
-    private bool _previousAttack;
-
-    private float _shootTimer;
     public float _shootDelay = 0.1f;
     private bool _canAttack = true;
 
-    public void OnRequestAttack(bool attack)
+
+    private void Awake()
+    {
+        DamageOverride = _damage;
+        KnockbackOverride = _knockbackStr;
+    }
+
+    public override void OnRequestAttack(bool attack)
     {
         if (attack && _canAttack)
             StartCoroutine(AttackWithDelay(_shootDelay));
@@ -28,12 +32,9 @@ public class AutomaticShoot : MonoBehaviour, IShootable
         _canAttack = true;
     }
 
-    public void Attack()
+    public override void Attack()
     {
-        BulletController bulletController = _bullet.GetComponent<BulletController>();
+        base.Attack();
 
-        bulletController.BulletDamage = _damage;
-
-        Instantiate(_bullet, transform.position, transform.rotation);
     }
 }

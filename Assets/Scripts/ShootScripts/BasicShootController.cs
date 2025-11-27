@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class BasicShootController : MonoBehaviour, IShootable
+public class BasicShootController : BaseShootClass
 {
     [SerializeField]
-    private GameObject _bullet;
-    [SerializeField]
     private float _damage = 10f;
+    [SerializeField]
+    private float _knockbackStr = 5f;
 
-    private bool _currentAttack;
     private bool _previousAttack;
 
-    public void OnRequestAttack(bool attack)
+    private void Awake()
+    {
+        // Apply stats to parent overrides
+        DamageOverride = _damage;
+        KnockbackOverride = _knockbackStr;
+    }
+
+    public override void OnRequestAttack(bool attack)
     {
         if(attack && _previousAttack == false)
             Attack();
@@ -18,12 +24,14 @@ public class BasicShootController : MonoBehaviour, IShootable
         _previousAttack = attack;
     }
 
-    public void Attack()
+    public override void Attack()
     {
-        BulletController bulletController = _bullet.GetComponent<BulletController>();
+        base.Attack();
+        //Bullet bullet = _bullet.GetComponent<Bullet>();
 
-        bulletController.BulletDamage = _damage;
+        //bullet.SetDamage(_damage);
+        //bullet.SetKnockback(_knockbackStr);
 
-        Instantiate(_bullet, transform.position, transform.rotation);
+        //Instantiate(_bullet, transform.position, transform.rotation);
     }
 }

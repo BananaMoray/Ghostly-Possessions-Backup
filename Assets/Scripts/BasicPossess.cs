@@ -60,6 +60,11 @@ public class BasicPossess : MonoBehaviour, IPossessable
             var em = ps.emission;
             em.enabled = false;
         }
+
+        if (_rb != null)
+        {
+            _rb.freezeRotation = true;
+        }
     }
 
     public void OnPossess(PlayerController controller)
@@ -83,29 +88,31 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
     public void HandlePossessedMovement(Vector2 moveInput)
     {
-        //copy pasted code from player
+        if (_rb == null) return;
+
         Vector3 inputVelocity = Vector3.zero;
 
         if (!SpaceShipMove)
         {
-            //normal movement
+            //Absolute-Movement
             inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * _maxSpeed;
         }
-        else 
+        else
         {
-            //rotation Movement
-            //inputVelocity = transform.forward * moveInput.y * _maxSpeed;
-
+            //Relative-Movement
             float x = moveInput.x * _sideMoveMultiplier;
+            float z = moveInput.y > 0 ? moveInput.y : moveInput.y * _backMoveMultiplier;
 
-            float z = moveInput.y > 0 ? moveInput.y : z = moveInput.y * _backMoveMultiplier;
-
-            inputVelocity = transform.right * x * (_maxSpeed / 2) + transform.forward * z * _maxSpeed; 
-
-            //HandleRotation(moveInput.x);
+            inputVelocity =
+                (transform.right * x * (_maxSpeed / 2)) +
+                (transform.forward * z * _maxSpeed);
         }
 
-        _currentVelocity = Vector3.MoveTowards(_currentVelocity, inputVelocity, _acceleration * Time.deltaTime);
+        _currentVelocity = Vector3.MoveTowards(
+            _currentVelocity,
+            inputVelocity,
+            _acceleration * Time.deltaTime
+        );
 
         if (moveInput.magnitude < 0.01f)
         {
@@ -116,31 +123,21 @@ public class BasicPossess : MonoBehaviour, IPossessable
             );
         }
 
-        //_rb.AddForce(_currentVelocity * PlayerController.PlayerStrength);
-        transform.position += _currentVelocity * Time.deltaTime;
+
+        _rb.linearVelocity = _currentVelocity;
 
 
-        //thruster stuff
+
         if (_thrusterParticleSystems.Length != 0)
         {
-            if (moveInput.y > 0.1f)
+            bool thrusting = moveInput.y > 0.1f;
+
+            foreach (var ps in _thrusterParticleSystems)
             {
-                foreach (ParticleSystem ps in _thrusterParticleSystems)
-                {
-                    var em = ps.emission;
-                    em.enabled = true;
-                }
-            }
-            else
-            {
-                foreach (ParticleSystem ps in _thrusterParticleSystems)
-                {
-                    var em = ps.emission;
-                    em.enabled = false;
-                }
+                var em = ps.emission;
+                em.enabled = thrusting;
             }
         }
-
     }
 
     //camera stuff
@@ -162,7 +159,6 @@ public class BasicPossess : MonoBehaviour, IPossessable
      
     public void HandlePossessedRotation(Vector2 lookInput)
     {
-
 
         if(SpaceShipRotate)
             transform.Rotate(0.0f, lookInput.x * _rotationSpeed * Time.deltaTime, 0.0f, Space.Self);

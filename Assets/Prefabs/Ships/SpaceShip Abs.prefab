@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8091464793354238065}
   - component: {fileID: 6859146880151693148}
   - component: {fileID: 2343806682480221523}
-  - component: {fileID: -8211786794134314653}
+  - component: {fileID: 2505072367616293098}
+  - component: {fileID: 9046389587728713596}
   m_Layer: 0
   m_Name: SpaceShip Abs
   m_TagString: Possession
@@ -43,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334770470067231001}
-  m_Mesh: {fileID: 7855575265884089464, guid: b56fd29eae2e09d4ea0a678116eefff4, type: 3}
+  m_Mesh: {fileID: 7797633343363607550, guid: 1f7ca2a4cb0609248a3448f614a1d482, type: 3}
 --- !u!23 &8091464793354238065
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -122,13 +123,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cee52bf675a334a80e59c9cb43b39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementRotate: 0
-  _acceleration: 10
+  SpaceShipMove: 0
+  SpaceShipRotate: 0
+  _acceleration: 20
   _deceleration: 4
   _maxSpeed: 10
+  _sideMoveMultiplier: 0.3
+  _backMoveMultiplier: 0.2
   _rotationSpeed: 720
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
---- !u!114 &-8211786794134314653
+  _thrusterParticleSystems: []
+--- !u!54 &2505072367616293098
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334770470067231001}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 1
+--- !u!114 &9046389587728713596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,8 +169,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334770470067231001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac416d0b951ebd4fb164efc8544d5eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
-  _damage: 10
+  _dmgOverride: 5
+  _knockbackOverride: 5
+  _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _damage: 5
+  _knockbackStr: 5
+  _shootDelay: 0.15

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6859146880151693148}
   - component: {fileID: 2343806682480221523}
   - component: {fileID: 5443736701466239857}
+  - component: {fileID: 1989715164501313483}
   m_Layer: 0
   m_Name: SpaceShip L
   m_TagString: Possession
@@ -129,11 +130,13 @@ MonoBehaviour:
   _acceleration: 30
   _deceleration: 2
   _maxSpeed: 18
+  _sideMoveMultiplier: 0.3
+  _backMoveMultiplier: 0.2
   _rotationSpeed: 240
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   _thrusterParticleSystems:
   - {fileID: 3323637013735234493}
-  - {fileID: 0}
+  - {fileID: 3993583669342105648}
 --- !u!114 &5443736701466239857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,8 +149,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac416d0b951ebd4fb164efc8544d5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _dmgOverride: 5
+  _knockbackOverride: 5
+  _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
   _damage: 10
+  _knockbackStr: 5
+--- !u!54 &1989715164501313483
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334770470067231001}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!1 &2658914476875802757
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +305,11 @@ PrefabInstance:
 --- !u!4 &618356458796503255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 816967669514840460, guid: edd450a1de6f997489ee1a5c71619b67, type: 3}
+  m_PrefabInstance: {fileID: 270959419725674843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3993583669342105648 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3796159656270006635, guid: edd450a1de6f997489ee1a5c71619b67, type: 3}
   m_PrefabInstance: {fileID: 270959419725674843}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1923394764429054678

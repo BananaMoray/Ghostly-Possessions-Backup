@@ -6,7 +6,7 @@ public class AutomaticShoot : BaseShootClass
     [SerializeField]
     private float _damage = 10f;
     [SerializeField]
-    private float _knockbackStr = 5f;
+    private float _knockbackStr = 2f;
 
     public float _shootDelay = 0.1f;
     private bool _canAttack = true;

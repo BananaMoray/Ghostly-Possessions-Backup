@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Bullet
+  m_Name: MAT_Bullet_Enemy
   m_Shader: {fileID: -6465566751694194690, guid: 7bf302c51250a154f89554b716242bd5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -124,7 +124,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.37358063, b: 0.216981, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShaderColour: {r: 0, g: 0, b: 0, a: 0}
     - _Shadow_Color: {r: 1, g: 1, b: 1, a: 0}

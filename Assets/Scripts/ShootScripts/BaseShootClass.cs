@@ -4,16 +4,16 @@ using UnityEngine;
 public class BaseShootClass : MonoBehaviour, IShootable
 {
     [Header("Override Values")]
-    [SerializeField]
-    private float _dmgOverride = 5f;
+
+    protected float _dmgOverride;
     public float DamageOverride
     {
         get { return _dmgOverride; }
         set { _dmgOverride = value; }
     }
 
-    [SerializeField]
-    private float _knockbackOverride = 5f;
+
+    protected float _knockbackOverride;
     public float KnockbackOverride 
     {
         get {  return _knockbackOverride; }
@@ -23,11 +23,21 @@ public class BaseShootClass : MonoBehaviour, IShootable
     [SerializeField]
     private GameObject _bulletPrefab;
 
+    [SerializeField]
+    private AudioSource _shootsfx;
+    private void Awake()
+    {
+        _shootsfx = GetComponent<AudioSource>();
+        Debug.Log(_shootsfx.name);
+    }
+
     public virtual void Attack()
     {
 
         GameObject bulletObj = Instantiate(_bulletPrefab, transform.position, transform.rotation);
 
+        if (_shootsfx != null)
+            _shootsfx.Play();
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
@@ -40,10 +50,10 @@ public class BaseShootClass : MonoBehaviour, IShootable
         bullet.Damage = DamageOverride;
         bullet.KnockbackStrength = KnockbackOverride;
 
-        Collider bulletCollider = bulletObj.GetComponent<Collider>();
-        Collider shooterCollider = GetComponent<Collider>();
-        if (bulletCollider != null && shooterCollider != null)
-            Physics.IgnoreCollision(bulletCollider, shooterCollider);
+        //Collider bulletCollider = bulletObj.GetComponent<Collider>();
+        //Collider shooterCollider = GetComponent<Collider>();
+        //if (bulletCollider != null && shooterCollider != null)
+        //    Physics.IgnoreCollision(bulletCollider, shooterCollider);
     }
 
     public virtual  void OnRequestAttack(bool attack)

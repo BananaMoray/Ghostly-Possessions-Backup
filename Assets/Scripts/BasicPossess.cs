@@ -71,6 +71,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
     {
         owner = controller;
         _renderer.material = _possessMat;
+        gameObject.layer = 3;
     }
 
     public void OnDepossess()
@@ -78,6 +79,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
         owner = null;
         _renderer.material = _normalMat;
         if (_rb != null) _rb.linearVelocity = Vector2.zero;
+        gameObject.layer = 0;
 
     }
 

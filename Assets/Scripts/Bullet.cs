@@ -41,7 +41,10 @@ public class Bullet : MonoBehaviour, IDamager
     private void Awake()
     {
         //Debug.Log("bullet damage: " + BulletDamage);
+        _firedPos = transform.position;
     }
+
+    private Vector3 _firedPos;
 
     public void SetSpeed(float speed)
     {
@@ -62,6 +65,7 @@ public class Bullet : MonoBehaviour, IDamager
         Damage = damage;
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         
@@ -69,9 +73,9 @@ public class Bullet : MonoBehaviour, IDamager
         IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
         if (enemy != null)
         {
-            DamagerPosition = gameObject.transform.position;
+            DamagerPosition = (gameObject.transform.position - _firedPos).normalized;
 
-            Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
+            //Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
 
             enemy.OnTakeDamage(this);
 

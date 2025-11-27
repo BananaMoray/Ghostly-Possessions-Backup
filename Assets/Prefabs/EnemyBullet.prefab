@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8866398816292940572}
   - component: {fileID: 6541094804628068143}
   - component: {fileID: 3826165973442057562}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3d878661af5f92b4999eeec8898ff0c4, type: 2}
+  - {fileID: 2100000, guid: 5d739e99704288649a57bbd2845cab67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,8 +120,8 @@ GameObject:
   - component: {fileID: 5177877662786782095}
   - component: {fileID: -5999247359500543618}
   - component: {fileID: 6253927765951779059}
-  m_Layer: 6
-  m_Name: BasicBullet
+  m_Layer: 7
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 5340670182145942249}
   - component: {fileID: 3916760162873168570}
   - component: {fileID: 7364531046581892338}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

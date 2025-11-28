@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334770470067231001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44cee52bf675a334a80e59c9cb43b39b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpaceShipMove: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   _sideMoveMultiplier: 0.3
   _backMoveMultiplier: 0.2
   _rotationSpeed: 720
-  _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+  _possessMat: {fileID: 0}
   _thrusterParticleSystems: []
 --- !u!54 &2505072367616293098
 Rigidbody:
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _shootsfx: {fileID: 0}
   _damage: 5
   _knockbackStr: 5
   _shootDelay: 0.15

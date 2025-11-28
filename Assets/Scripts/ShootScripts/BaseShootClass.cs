@@ -48,11 +48,6 @@ public class BaseShootClass : MonoBehaviour, IShootable
 
         bullet.Damage = DamageOverride;
         bullet.KnockbackStrength = KnockbackOverride;
-
-        //Collider bulletCollider = bulletObj.GetComponent<Collider>();
-        //Collider shooterCollider = GetComponent<Collider>();
-        //if (bulletCollider != null && shooterCollider != null)
-        //    Physics.IgnoreCollision(bulletCollider, shooterCollider);
     }
 
     public virtual  void OnRequestAttack(bool attack)

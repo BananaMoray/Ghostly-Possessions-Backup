@@ -68,16 +68,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
         if (_currentPossession != null && !IsPossessionInProgress)
         {
             _currentPossession.HandlePossessedMovement(_movement.MovementInput);
             _currentPossession.HandlePossessedRotation(_movement.LookInput);
         }
-            
 
         if (_currentPossession != null)
         {
-            //interact using object
             HandleAtackInput();
         }
 
@@ -222,10 +221,6 @@ public class PlayerController : MonoBehaviour
 
     public void UnpossessObject()
     {
-        //if (!IsPossessing || IsPossessionInProgress)
-        //{
-        //    SetPossessObject(null, false);
-        //}
         _renderer.enabled = true;
 
         //sends message to IPossessable if it exists

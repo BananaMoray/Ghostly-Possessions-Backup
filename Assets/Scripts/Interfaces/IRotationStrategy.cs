@@ -1,6 +1,0 @@
-using UnityEngine;
-
-public interface IRotationStrategy
-{
-    void Rotate(Vector3 targetPosition, float rotationSpeed);
-}

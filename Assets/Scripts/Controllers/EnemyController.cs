@@ -20,14 +20,12 @@ public class EnemyController : MonoBehaviour
 
     [Header("Strategies")]
     public MonoBehaviour MovementStrategy;
-    public MonoBehaviour RotationStrategy;
+    public MonoBehaviour AttackStrategy;
 
     private IMovementStrategy _movementStrategy;
-    private IRotationStrategy _rotationStrategy;
+    private IAttackStrategy _attackStrategy;
 
-    private IShootable _shootComponent;
-    [SerializeField]
-    private float _validShootDistance = 12f;
+
 
     private void Awake()
     {
@@ -42,14 +40,14 @@ public class EnemyController : MonoBehaviour
         else
             _movementStrategy = MovementStrategy as IMovementStrategy;
 
-        if (RotationStrategy == null)
+        if (AttackStrategy == null)
             Debug.LogError($"Rotation Strategy not implemented for {gameObject.name}");
         else
-            _rotationStrategy = RotationStrategy as IRotationStrategy;
+            _attackStrategy = AttackStrategy as IAttackStrategy;
 
-        _shootComponent = GetComponent<IShootable>();
-        if (_shootComponent == null)
-            Debug.LogError($"Shoot Component not implemented for {gameObject.name}");
+        //_shootComponent = GetComponent<IShootable>();
+        //if (_shootComponent == null)
+        //    Debug.LogError($"Shoot Component not implemented for {gameObject.name}");
     }
 
     private void FixedUpdate()
@@ -60,30 +58,18 @@ public class EnemyController : MonoBehaviour
 
         _movementStrategy.Move(targetPos, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
 
-        _rotationStrategy.Rotate(targetPos, _rotationSpeed);
+        _attackStrategy.Aim(targetPos, _rotationSpeed);
+        _attackStrategy.Attack(targetPos);
 
         _currentVelocity = _rb.linearVelocity;
-
-        if (_shootComponent != null)
-        {
-            _shootComponent.OnRequestAttack(IsPlayerInRange(targetPos));
-        }
-
-    }
-
-    private bool IsPlayerInRange(Vector3 targetPos)
-    {
-        if (targetPos == Vector3.zero) return false;
-
-        return ((targetPos - transform.position).sqrMagnitude <= _validShootDistance * _validShootDistance);
     }
 
     public void ChangeMovementStrategy(IMovementStrategy movementStrategy)
     {
         _movementStrategy = movementStrategy;
     }
-    public void ChangeRotationStrategy(IRotationStrategy rotationStrategy)
+    public void ChangeRotationStrategy(IAttackStrategy rotationStrategy)
     {
-        _rotationStrategy = rotationStrategy;
+        _attackStrategy = rotationStrategy;
     }
 }

@@ -9,6 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class HPLogic : MonoBehaviour, IHealth
 {
+    public event Action OnDied;
+
     [SerializeField]
     private float _health = 30f;
 
@@ -17,9 +19,6 @@ public class HPLogic : MonoBehaviour, IHealth
 
     [SerializeField]
     private Material _damageMat;
-
-    [Header("Knockback")]
-    [SerializeField] private float knockbackDuration = 0.1f;
 
     private Rigidbody _rb;
 
@@ -63,7 +62,9 @@ public class HPLogic : MonoBehaviour, IHealth
 
         GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 
-        if (explosion != null) Debug.Log("Explosion real");
+        //if (explosion != null) Debug.Log("Explosion real");
+
+        OnDied?.Invoke();
 
         Destroy(gameObject);
     }

@@ -44,11 +44,11 @@ GameObject:
   - component: {fileID: 3409401095399011868}
   - component: {fileID: 3640072814773381611}
   - component: {fileID: 4856161928112387821}
-  - component: {fileID: 8892932109118645461}
-  - component: {fileID: 2939259055211786059}
-  - component: {fileID: 711573805966067109}
-  - component: {fileID: 7255961296012285983}
   - component: {fileID: 7982498732298293718}
+  - component: {fileID: 8892932109118645461}
+  - component: {fileID: 711573805966067109}
+  - component: {fileID: 2939259055211786059}
+  - component: {fileID: 7255961296012285983}
   - component: {fileID: 8586761437120495141}
   m_Layer: 0
   m_Name: SpaceShip - Fast
@@ -148,6 +148,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7982498732298293718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362074853248937440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d40249841771b94b8bba3120d376ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
+  _damageSFX: {fileID: 7255961296012285983}
+  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
 --- !u!114 &8892932109118645461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 362074853248937440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44cee52bf675a334a80e59c9cb43b39b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpaceShipMove: 1
@@ -170,6 +186,23 @@ MonoBehaviour:
   _rotationSpeed: 720
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   _thrusterParticleSystems: []
+--- !u!114 &711573805966067109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362074853248937440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _shootsfx: {fileID: 7255961296012285983}
+  _damage: 7.5
+  _knockbackStr: 2
+  _shootDelay: 0.15
 --- !u!54 &2939259055211786059
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -197,23 +230,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 1
---- !u!114 &711573805966067109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362074853248937440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
-  _shootsfx: {fileID: 7255961296012285983}
-  _damage: 7.5
-  _knockbackStr: 2
-  _shootDelay: 0.15
 --- !u!82 &7255961296012285983
 AudioSource:
   m_ObjectHideFlags: 0
@@ -311,23 +327,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7982498732298293718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362074853248937440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d40249841771b94b8bba3120d376ad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 100
-  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
-  knockbackDuration: 0.1
-  _damageSFX: {fileID: 7255961296012285983}
-  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
 --- !u!82 &8586761437120495141
 AudioSource:
   m_ObjectHideFlags: 0

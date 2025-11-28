@@ -5,8 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class BasicPossess : MonoBehaviour, IPossessable
+public class SpaceshipController : MonoBehaviour, IPossessable
 {
+    public static event EventHandler<PossessEventArgs> OnSpaceShipDeath;
+
     private PlayerController owner;
 
     [Header("Movement Variables")]
@@ -66,6 +68,10 @@ public class BasicPossess : MonoBehaviour, IPossessable
         {
             _rb.freezeRotation = true;
         }
+
+        if (_healthComponent is HPLogic hpLogic)
+            hpLogic.OnDied += HandleDeath;
+
     }
 
     public void OnPossess(PlayerController controller)
@@ -84,6 +90,15 @@ public class BasicPossess : MonoBehaviour, IPossessable
         gameObject.layer = 0;
         _healthComponent.SetOriginalColour();
     }
+
+    private void HandleDeath()
+    {
+        OnSpaceShipDeath?.Invoke(this, new PossessEventArgs(owner.gameObject));
+
+        if (owner != null)
+            owner.UnpossessObject();
+    }
+
 
     public Transform GetPossessionTransform()
     {

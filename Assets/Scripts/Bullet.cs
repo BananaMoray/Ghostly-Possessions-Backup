@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour, IDamager
     private float _lifeTime = 5f;
     private float _bulletTimer = 0f;
 
-    [SerializeField]
     private float _damage = 5f;
 
     public float Damage
@@ -17,7 +16,6 @@ public class Bullet : MonoBehaviour, IDamager
         set { _damage = value; }
     }
 
-    [SerializeField]
     private float _knockbackStrength;
 
     public float KnockbackStrength
@@ -40,7 +38,6 @@ public class Bullet : MonoBehaviour, IDamager
 
     private void Awake()
     {
-        //Debug.Log("bullet damage: " + BulletDamage);
         _firedPos = transform.position;
     }
 
@@ -70,14 +67,14 @@ public class Bullet : MonoBehaviour, IDamager
     {
         
 
-        IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
-        if (enemy != null)
+        IHealth HealthComponent = other.gameObject.GetComponent<IHealth>();
+        if (HealthComponent != null)
         {
             DamagerPosition = (gameObject.transform.position - _firedPos).normalized;
 
             //Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
 
-            enemy.OnTakeDamage(this);
+            HealthComponent.OnTakeDamage(this);
 
             Destroy(this.gameObject);
         }
@@ -90,9 +87,7 @@ public class Bullet : MonoBehaviour, IDamager
 
         if (_bulletTimer >= _lifeTime)
         {
-            //Debug.Log("Goodbye Bullet");
             Destroy(transform.gameObject);
-
         }
 
         _bulletTimer += Time.deltaTime;

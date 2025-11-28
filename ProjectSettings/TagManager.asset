@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Possession
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Water
   - UI
   - PlayerBullets
-  - Bullets
+  - Enemy Bullets
   - Enemy
   - 
   - 

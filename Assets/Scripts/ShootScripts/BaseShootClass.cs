@@ -12,7 +12,6 @@ public class BaseShootClass : MonoBehaviour, IShootable
         set { _dmgOverride = value; }
     }
 
-
     protected float _knockbackOverride;
     public float KnockbackOverride 
     {

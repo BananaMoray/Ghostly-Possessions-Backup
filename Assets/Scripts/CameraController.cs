@@ -35,20 +35,14 @@ public class CameraController : MonoBehaviour
         UpdateCameraTarget();
 
         _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, _cameraTargetPos + _offset, _cameraSpeed * Time.deltaTime);
-
     }
 
     private void UpdateCameraTarget()
     {
 
-
-
-
         if (_cameraTarget == null) _cameraTarget = _player;
 
         //REMEMBER DO NOT USE LERP FOR EVERYTHING START THINKING
-
-
         Vector2 look = _playerMovement.LookInput;
 
         if (look.sqrMagnitude < 0.05f) 

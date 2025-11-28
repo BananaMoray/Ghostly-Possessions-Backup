@@ -2522,6 +2522,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UFO
       objectReference: {fileID: 0}
+    - target: {fileID: 1334770470067231001, guid: c843f0697a1ca7a408d4f0e74355dfb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2505072367616293098, guid: c843f0697a1ca7a408d4f0e74355dfb6, type: 3}
       propertyPath: m_Constraints
       value: 84
@@ -3897,6 +3901,10 @@ PrefabInstance:
     - target: {fileID: 1334770470067231001, guid: 7c2caed5e08fd3d42882958369bf32ee, type: 3}
       propertyPath: m_Name
       value: Possessable Spaceship (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1334770470067231001, guid: 7c2caed5e08fd3d42882958369bf32ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8956757291230916930, guid: 7c2caed5e08fd3d42882958369bf32ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5490,6 +5498,10 @@ PrefabInstance:
     - target: {fileID: 362074853248937440, guid: 5c4eee3bba3ad9641a7e2d6d9e3b3386, type: 3}
       propertyPath: m_Name
       value: Possessable Spaceship (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 362074853248937440, guid: 5c4eee3bba3ad9641a7e2d6d9e3b3386, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7672879828267728134, guid: 5c4eee3bba3ad9641a7e2d6d9e3b3386, type: 3}
       propertyPath: m_LocalPosition.x

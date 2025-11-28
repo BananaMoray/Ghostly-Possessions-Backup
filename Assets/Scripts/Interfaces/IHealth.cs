@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public interface IEnemy 
+public interface IHealth 
 {
     void OnTakeDamage(IDamager damager);
-
-    void OnAttack();
+    void SetOriginalColour();
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicShootController : BaseShootClass
+public class TapShoot : BaseShootClass
 {
     [SerializeField]
     private float _damage = 10f;

@@ -149,26 +149,6 @@ public class PlayerController : MonoBehaviour
     private void HandleAtackInput()
     {
         _currentPossession.HandlePossessedAttack(_attack);
-
-        //if (_attack)
-        //{
-        //    if (IsPossessing && !IsPossessionInProgress)
-        //    {
-        //        _fade.FadeIn(_holdDuration);
-
-        //        _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
-        //        {
-        //            UnpossessObject();
-        //            //_holdTimer = 0f;
-        //        }
-        //    }
-        //    else if (_attack)
-        //    {
-        //        //_fade.FadeOut(0);
-        //    }
-        //    else
-        //        _holdTimer = 0f;
-        //}
     }
 
     private void FindClosestPossessable()
@@ -228,7 +208,9 @@ public class PlayerController : MonoBehaviour
 
         //sends message to IPossessable
         if (_currentPossession != null)
+        {
             _currentPossession.OnPossess(this);
+        }
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
 
@@ -311,6 +293,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _canPossess = true;
     }
+
+
+
+
+
 
 }
 

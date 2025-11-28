@@ -33,9 +33,9 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
     private Rigidbody _rb;
 
-    private IShootable _shootLogic;
+    private IShootable _shootComponent;
 
-
+    private IHealth _healthComponent;
 
     [Header("Thrusters")]
     public ParticleSystem[] _thrusterParticleSystems;
@@ -48,7 +48,8 @@ public class BasicPossess : MonoBehaviour, IPossessable
         _renderer = GetComponent<MeshRenderer>();
         _normalMat = _renderer.material;
 
-        _shootLogic = GetComponent<IShootable>();
+        _shootComponent = GetComponent<IShootable>();
+        _healthComponent = GetComponent<IHealth>();
 
         _mainCamera = Camera.main;
         CalculateCameraDirections();
@@ -72,6 +73,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
         owner = controller;
         _renderer.material = _possessMat;
         gameObject.layer = 3;
+        _healthComponent.SetOriginalColour();
     }
 
     public void OnDepossess()
@@ -80,7 +82,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
         _renderer.material = _normalMat;
         if (_rb != null) _rb.linearVelocity = Vector2.zero;
         gameObject.layer = 0;
-
+        _healthComponent.SetOriginalColour();
     }
 
     public Transform GetPossessionTransform()
@@ -125,10 +127,7 @@ public class BasicPossess : MonoBehaviour, IPossessable
             );
         }
 
-
         _rb.linearVelocity = _currentVelocity;
-
-
 
         if (_thrusterParticleSystems.Length != 0)
         {
@@ -184,9 +183,9 @@ public class BasicPossess : MonoBehaviour, IPossessable
 
     public virtual void HandlePossessedAttack(bool attackInput)
     {
-        if (_shootLogic != null)
+        if (_shootComponent != null)
         {
-            _shootLogic.OnRequestAttack(attackInput);
+            _shootComponent.OnRequestAttack(attackInput);
         }
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 public class LeftRightMovementStrategy : MonoBehaviour, IMovementStrategy
 {
     private float _distance = 10f;
-    private float _speed = 0.5f;
     private Vector3 _startPos;
     private bool _initialized = false;
 

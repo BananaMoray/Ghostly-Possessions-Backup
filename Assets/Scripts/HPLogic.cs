@@ -100,7 +100,7 @@ public class HPLogic : MonoBehaviour, IHealth
             {
                 TakeDamage(1f);
                 _currentHPDrainTimer = 0;
-                Debug.Log("Health drained");
+                //Debug.Log("Health drained");
             }
         }
     }

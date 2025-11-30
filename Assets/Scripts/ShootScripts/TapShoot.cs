@@ -6,6 +6,8 @@ public class TapShoot : BaseShootClass
     private float _damage = 10f;
     [SerializeField]
     private float _knockbackStr = 5f;
+    [SerializeField]
+    private float _lifetime = 2f;
 
     private bool _previousAttack;
 
@@ -14,6 +16,7 @@ public class TapShoot : BaseShootClass
         // Apply stats to parent overrides
         DamageOverride = _damage;
         KnockbackOverride = _knockbackStr;
+        LifeTimeOverride = _lifetime;
     }
 
     public override void OnRequestAttack(bool attack)

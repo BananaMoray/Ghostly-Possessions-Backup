@@ -56,6 +56,7 @@ public class BaseShootClass : MonoBehaviour, IShootable
 
         bullet.Damage = DamageOverride;
         bullet.KnockbackStrength = KnockbackOverride;
+        bullet.SetLifeTime(LifeTimeOverride);
     }
 
     public virtual  void OnRequestAttack(bool attack)

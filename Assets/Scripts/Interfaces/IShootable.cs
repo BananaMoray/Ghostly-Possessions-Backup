@@ -10,4 +10,5 @@ public interface IShootable
         get; set;
     }
     public float KnockbackOverride { get; set; }
+    public float LifeTimeOverride { get; set; }
 }

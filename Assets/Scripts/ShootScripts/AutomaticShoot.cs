@@ -6,7 +6,9 @@ public class AutomaticShoot : BaseShootClass
     [SerializeField]
     private float _damage = 10f;
     [SerializeField]
-    private float _knockbackStr = 2f;
+    private float _knockbackStrength = 2f;
+    [SerializeField]
+    private float _lifetime = 2f;
 
     public float _shootDelay = 0.1f;
     private bool _canAttack = true;
@@ -15,7 +17,8 @@ public class AutomaticShoot : BaseShootClass
     private void Awake()
     {
         DamageOverride = _damage;
-        KnockbackOverride = _knockbackStr;
+        KnockbackOverride = _knockbackStrength;
+        LifeTimeOverride = _lifetime;
     }
 
     public override void OnRequestAttack(bool attack)

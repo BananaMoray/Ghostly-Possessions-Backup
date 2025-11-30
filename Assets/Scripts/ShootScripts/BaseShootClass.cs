@@ -19,6 +19,14 @@ public class BaseShootClass : MonoBehaviour, IShootable
         set { _knockbackOverride = value; }
     }
 
+    protected float _lifeTimeOverride;
+
+    public float LifeTimeOverride
+    {
+        get { return _lifeTimeOverride; }
+        set { _lifeTimeOverride = value; }
+    }
+
     [SerializeField]
     private GameObject _bulletPrefab;
 

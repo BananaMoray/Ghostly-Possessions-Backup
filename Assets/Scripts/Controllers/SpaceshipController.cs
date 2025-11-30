@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
 public class SpaceshipController : MonoBehaviour, IPossessable
@@ -11,19 +12,25 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private PlayerController owner;
 
-    [Header("Movement Variables")]
-    public bool SpaceShipMove = false;
-    public bool SpaceShipRotate = false;
-    [SerializeField] 
-    private float _acceleration = 20f;
-    [SerializeField] 
+    [Header("Movement Settings")]
+    public bool UseRelativeMovement = false;
+    public bool UseRelativeRotation = false;
+    [Header("Accelleration and Deceleration")]
+    [Tooltip("Increases Speed at which Velocity is being gained.")]
+    [SerializeField]
+    private float _acceleration = 15f;
+    [Tooltip("Increases Speed at which Velocity is being lost.")]
+    [SerializeField]
     private float _deceleration = 8f;
-    [SerializeField] 
-    private float _maxSpeed = 3f;
+    [Header("Speed Variables")]
     [SerializeField]
-    private float _sideMoveMultiplier = 0.3f;
+    private float _maxSpeed = 6f;
+    [Tooltip("Maximum Speed at which the player moves when boosting.")]
     [SerializeField]
-    private float _backMoveMultiplier = 0.2f;
+    private float _boostSpeed = 10f;
+    [Tooltip("Maximum time that the player can boost. Not yet implemented.")]
+    [SerializeField]
+    private float _MaxBoostTime = 10f;
     [SerializeField]
     private float _rotationSpeed = 360f;
     private Vector3 _currentVelocity = Vector3.zero;
@@ -38,6 +45,8 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private IShootable _shootComponent;
 
     private IHealth _healthComponent;
+
+    public Vector2 MoveDirection;
 
     [Header("Thrusters")]
     public ParticleSystem[] _thrusterParticleSystems;
@@ -71,23 +80,29 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         if (_healthComponent is HPLogic hpLogic)
             hpLogic.OnDied += HandleDeath;
-
     }
 
-    public void OnPossess(PlayerController controller)
+    public void OnStartPossess(PlayerController controller)
     {
         owner = controller;
         _renderer.material = _possessMat;
         gameObject.layer = 3;
+
+        _healthComponent.HealthDrainEnabled = true;
+        _healthComponent.SetHPBarActive(true);
         _healthComponent.SetOriginalColour();
     }
 
-    public void OnDepossess()
+    public void OnStopPossess()
     {
         owner = null;
         _renderer.material = _normalMat;
         if (_rb != null) _rb.linearVelocity = Vector2.zero;
         gameObject.layer = 0;
+
+        EnableThrusters(false);
+        _healthComponent.HealthDrainEnabled = false;
+        _healthComponent.SetHPBarActive(false);
         _healthComponent.SetOriginalColour();
     }
 
@@ -99,61 +114,67 @@ public class SpaceshipController : MonoBehaviour, IPossessable
             owner.UnpossessObject();
     }
 
-
     public Transform GetPossessionTransform()
     {
         return transform;
     }
 
-    public void HandlePossessedMovement(Vector2 moveInput)
+    public void HandlePossessedInput(Vector2 moveInput, Vector2 lookInput)
+    {
+        HandleMovement(moveInput);
+
+        HandleRotation(moveInput, lookInput);
+
+        _rb.linearVelocity = _currentVelocity;
+
+        EnableThrusters(_isBoosting);
+    }
+
+    private void HandleMovement(Vector2 moveInput)
     {
         if (_rb == null) return;
 
         Vector3 inputVelocity = Vector3.zero;
 
-        if (!SpaceShipMove)
-        {
-            //Absolute-Movement
-            inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * _maxSpeed;
-        }
-        else
-        {
-            //Relative-Movement
-            float x = moveInput.x * _sideMoveMultiplier;
-            float z = moveInput.y > 0 ? moveInput.y : moveInput.y * _backMoveMultiplier;
+        //Absolute-Movement
+        inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * _maxSpeed;
 
-            inputVelocity =
-                (transform.right * x * (_maxSpeed / 2)) +
-                (transform.forward * z * _maxSpeed);
+        if (_isBoosting)
+        {
+            float x = moveInput.x;
+            float z = _isBoosting == true ? 1 : 0;
+
+            inputVelocity = (transform.right * x) + (transform.forward * z * _boostSpeed);
+
         }
 
-        _currentVelocity = Vector3.MoveTowards(
-            _currentVelocity,
-            inputVelocity,
-            _acceleration * Time.deltaTime
-        );
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, inputVelocity, _acceleration * Time.deltaTime);
 
         if (moveInput.magnitude < 0.01f)
         {
-            _currentVelocity = Vector3.MoveTowards(
-                _currentVelocity,
-                Vector3.zero,
-                _deceleration * Time.deltaTime
-            );
+            _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
         }
+    }
 
-        _rb.linearVelocity = _currentVelocity;
-
+    private void EnableThrusters(bool b)
+    {
         if (_thrusterParticleSystems.Length != 0)
         {
-            bool thrusting = moveInput.y > 0.1f;
+            //bool thrusting = moveInput.y > 0.1f;
 
             foreach (var ps in _thrusterParticleSystems)
             {
                 var em = ps.emission;
-                em.enabled = thrusting;
+                em.enabled = b;
             }
         }
+    }
+
+    private bool _isBoosting;
+
+    public virtual void HandlePossessedBoost(bool boostInput)
+    {
+        _isBoosting = boostInput;
     }
 
     //camera stuff
@@ -172,27 +193,28 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         _cameraUp.Normalize();
         _cameraRight.Normalize();
     }
-     
-    public void HandlePossessedRotation(Vector2 lookInput)
+
+    Vector3 _lookDirection = Vector3.zero;
+
+    public void HandleRotation(Vector2 moveInput, Vector2 lookInput)
     {
 
-        if(SpaceShipRotate)
-            transform.Rotate(0.0f, lookInput.x * _rotationSpeed * Time.deltaTime, 0.0f, Space.Self);
+        if (!_isBoosting)
+        {
+            if (lookInput.sqrMagnitude > 0.01f)
+                _lookDirection = (_cameraUp * lookInput.y + _cameraRight * lookInput.x);
+        }
         else
         {
-            
-            Vector3 direction = (_cameraUp * lookInput.y + _cameraRight * lookInput.x);
-
-            if (direction.sqrMagnitude < 0.01f)
-                direction = (_cameraUp * lookInput.y + _cameraRight * lookInput.x);
-
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            }
+            if (moveInput.sqrMagnitude > 0.01f)
+                _lookDirection = (_cameraUp * moveInput.y + _cameraRight * moveInput.x);
         }
 
+        if (_lookDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(_lookDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        }
     }
 
 

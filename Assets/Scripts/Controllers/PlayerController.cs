@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _attack = false;
     private bool _interact = false;
+    private bool _boost = false;
 
     public static float PlayerStrength = 1f;
 
@@ -71,13 +72,14 @@ public class PlayerController : MonoBehaviour
 
         if (_currentPossession != null && !IsPossessionInProgress)
         {
-            _currentPossession.HandlePossessedMovement(_movement.MovementInput);
-            _currentPossession.HandlePossessedRotation(_movement.LookInput);
+            _currentPossession.HandlePossessedInput(_movement.MovementInput, _movement.LookInput);
+            //_currentPossession.HandlePossessedRotation(_movement.LookInput);
         }
 
         if (_currentPossession != null)
         {
-            HandleAtackInput();
+            HandleAttackInput();
+            HandleBoostInput();
         }
 
         HandleInteractInput();
@@ -145,9 +147,13 @@ public class PlayerController : MonoBehaviour
         _holdTimer = 0f;
     }
 
-    private void HandleAtackInput()
+    private void HandleAttackInput()
     {
         _currentPossession.HandlePossessedAttack(_attack);
+    }
+    private void HandleBoostInput()
+    {
+        _currentPossession.HandlePossessedBoost(_boost);
     }
 
     private void FindClosestPossessable()
@@ -208,7 +214,7 @@ public class PlayerController : MonoBehaviour
         //sends message to IPossessable
         if (_currentPossession != null)
         {
-            _currentPossession.OnPossess(this);
+            _currentPossession.OnStartPossess(this);
         }
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
@@ -226,7 +232,7 @@ public class PlayerController : MonoBehaviour
         //sends message to IPossessable if it exists
         if (_currentPossession != null)
         {
-            _currentPossession.OnDepossess();
+            _currentPossession.OnStopPossess();
             _currentPossession = null;
         }
         SetPossessObject(null, false);
@@ -246,7 +252,7 @@ public class PlayerController : MonoBehaviour
         if (isTrue)
         {
             StartPossessionPosition = transform.position;
-            Debug.Log(StartPossessionPosition);
+            //Debug.Log(StartPossessionPosition);
         }
         else
             IsPossessionInProgress = false;
@@ -281,6 +287,14 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled)
             _interact = false;
     }
+    public void OnBoost(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            _boost = true;
+        else if (context.canceled)
+            _boost = false;
+    }
+
 
     private IEnumerator PossessionCooldown(float seconds)
     {

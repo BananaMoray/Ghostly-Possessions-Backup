@@ -65,7 +65,6 @@ public class Bullet : MonoBehaviour, IDamager
 
     private void OnTriggerEnter(Collider other)
     {
-        
 
         IHealth HealthComponent = other.gameObject.GetComponent<IHealth>();
         if (HealthComponent != null)
@@ -74,7 +73,7 @@ public class Bullet : MonoBehaviour, IDamager
 
             //Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
 
-            HealthComponent.OnTakeDamage(this);
+            HealthComponent.OnTakeEnemyDamage(this);
 
             Destroy(this.gameObject);
         }

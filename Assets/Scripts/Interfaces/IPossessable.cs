@@ -3,13 +3,13 @@ using UnityEngine;
 public interface IPossessable
 {
 
-    void OnPossess(PlayerController controller);
+    void OnStartPossess(PlayerController controller);
 
-    void OnDepossess();
+    void OnStopPossess();
 
-    void HandlePossessedMovement(Vector2 moveInput);
-    void HandlePossessedRotation(Vector2 lookInput);
+    void HandlePossessedInput(Vector2 moveInput, Vector2 lookInput);
     void HandlePossessedAttack(bool attackInput);
+    void HandlePossessedBoost(bool attackInput);
 
     Transform GetPossessionTransform();
 }

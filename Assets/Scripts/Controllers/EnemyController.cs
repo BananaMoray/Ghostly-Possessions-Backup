@@ -54,6 +54,8 @@ public class EnemyController : MonoBehaviour
     {
         if (MovementStrategy == null) return;
 
+        _currentVelocity = _rb.linearVelocity;
+
         Vector3 targetPos = _player != null ? _player.transform.position : Vector3.zero;
 
         _movementStrategy.Move(targetPos, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
@@ -61,7 +63,7 @@ public class EnemyController : MonoBehaviour
         _attackStrategy.Aim(targetPos, _rotationSpeed);
         _attackStrategy.Attack(targetPos);
 
-        _currentVelocity = _rb.linearVelocity;
+
     }
 
     public void ChangeMovementStrategy(IMovementStrategy movementStrategy)

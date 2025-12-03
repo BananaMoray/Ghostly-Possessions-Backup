@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
@@ -34,6 +35,7 @@ public class CameraController : MonoBehaviour
     {
         UpdateCameraTarget();
 
+        //_mainCamera.transform.position = Vector3.MoveTowards(_mainCamera.transform.position, _cameraTargetPos + _offset, _cameraSpeed * Time.deltaTime);
         _mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, _cameraTargetPos + _offset, _cameraSpeed * Time.deltaTime);
     }
 

@@ -161,8 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
+  HpDrainRateInSeconds: 1
   _damageSFX: {fileID: 8586761437120495141}
+  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
   _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
 --- !u!114 &8892932109118645461
@@ -183,8 +184,7 @@ MonoBehaviour:
   _deceleration: 2
   _maxSpeed: 10
   _boostSpeed: 16
-  _sideMoveMultiplier: 1
-  _backMoveMultiplier: 0.2
+  _BoostHPDrainMultiploer: 3
   _rotationSpeed: 720
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   MoveDirection: {x: 0, y: 0}
@@ -204,8 +204,9 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
   _shootsfx: {fileID: 7255961296012285983}
   _damage: 5
-  _knockbackStr: 1
-  _shootDelay: 0.1
+  _knockbackStrength: 2
+  _lifetime: 1
+  _shootDelay: 0.2
 --- !u!54 &2939259055211786059
 Rigidbody:
   m_ObjectHideFlags: 0

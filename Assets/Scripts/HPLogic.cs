@@ -17,8 +17,8 @@ public class HPLogic : MonoBehaviour, IHealth
     private float _maxHealth = 30f;
     private float _currentHealth;
 
-    [SerializeField]
-    private float _hpDrainRateInSeconds = 1f;
+
+    public float HpDrainRateInSeconds = 1f;
     private float _currentHPDrainTimer;
 
     //rigidbody
@@ -96,7 +96,7 @@ public class HPLogic : MonoBehaviour, IHealth
         if (HealthDrainEnabled)
         {
             _currentHPDrainTimer += Time.deltaTime;
-            if (_currentHPDrainTimer >= _hpDrainRateInSeconds)
+            if (_currentHPDrainTimer >= HpDrainRateInSeconds)
             {
                 TakeDamage(1f);
                 _currentHPDrainTimer = 0;
@@ -128,10 +128,13 @@ public class HPLogic : MonoBehaviour, IHealth
     public void OnTakeEnemyDamage(IDamager damager)
     {
         TakeDamage(damager.Damage);
-
-        StartCoroutine(KnockbackRoutine(damager.DamagerPosition, damager.KnockbackStrength));
-        StartCoroutine(TakeDamageFeedback(0.05f));
         HitStopManager.HitStop(0.02f);
+
+        if (_currentHealth > 0)
+        {
+            StartCoroutine(KnockbackRoutine(damager.DamagerPosition, damager.KnockbackStrength));
+            StartCoroutine(TakeDamageFeedback(0.05f));
+        }
 
     }
 
@@ -166,6 +169,8 @@ public class HPLogic : MonoBehaviour, IHealth
         if (!_rb) yield break;
 
         Vector3 direction = (pos).normalized;
+
+        //_rb.linearVelocity = Vector3.zero;
 
         _rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
     }

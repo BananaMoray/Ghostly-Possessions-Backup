@@ -28,9 +28,9 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     [Tooltip("Maximum Speed at which the player moves when boosting.")]
     [SerializeField]
     private float _boostSpeed = 10f;
-    [Tooltip("Maximum time that the player can boost. Not yet implemented.")]
+    [Tooltip("Multiplier by which the HP is drained while boosting.")]
     [SerializeField]
-    private float _MaxBoostTime = 10f;
+    private float _BoostHPDrainMultiploer = 3f;
     [SerializeField]
     private float _rotationSpeed = 360f;
     private Vector3 _currentVelocity = Vector3.zero;
@@ -158,10 +158,11 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private void EnableThrusters(bool b)
     {
+        if (_healthComponent != null)
+            (_healthComponent as HPLogic).HpDrainRateInSeconds = b ? 1 / _BoostHPDrainMultiploer : 1;
+
         if (_thrusterParticleSystems.Length != 0)
         {
-            //bool thrusting = moveInput.y > 0.1f;
-
             foreach (var ps in _thrusterParticleSystems)
             {
                 var em = ps.emission;

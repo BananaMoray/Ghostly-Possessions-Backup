@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class HPLogic : MonoBehaviour, IHealth
 {
@@ -14,19 +9,19 @@ public class HPLogic : MonoBehaviour, IHealth
 
     [Header("HP Values")]
     [SerializeField]
-    private float _maxHealth = 30f;
-    private float _currentHealth;
+    protected float _maxHealth = 30f;
+    protected float _currentHealth;
 
 
     public float HpDrainRateInSeconds = 1f;
-    private float _currentHPDrainTimer;
+    private float _drainTimer;
 
     //rigidbody
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
 
     [Header("Prefabs")]
     [SerializeField]
-    private AudioSource _damageSFX;
+    protected AudioSource _damageSFX;
 
     //material values
     [SerializeField]
@@ -35,12 +30,12 @@ public class HPLogic : MonoBehaviour, IHealth
     private Material _originMat;
 
     [SerializeField]
-    private GameObject _explosionPrefab;
+    protected GameObject _explosionPrefab;
 
-    //HPBar Stuff
-    [SerializeField]
-    private GameObject _hpBarPrefab;
-    private Slider _hpBarSlider;
+    ////HPBar Stuff
+    //[SerializeField]
+    //private GameObject _hpBarPrefab;
+    //private Slider _hpBarSlider;
 
     public float MaxHealth
     {
@@ -48,11 +43,11 @@ public class HPLogic : MonoBehaviour, IHealth
         set { _maxHealth = value; }
     }
 
-    public GameObject HPBar
-    {
-        get { return _hpBarPrefab; }
-        set { _hpBarPrefab = value; }
-    }
+    //public GameObject HPBar
+    //{
+    //    get { return _hpBarPrefab; }
+    //    set { _hpBarPrefab = value; }
+    //}
 
     private bool _healthDrainEnabled;
 
@@ -62,55 +57,56 @@ public class HPLogic : MonoBehaviour, IHealth
         set { _healthDrainEnabled = value; }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
-        _originMat = _meshRenderer.material;
+
+        if (_meshRenderer != null)
+            _originMat = _meshRenderer.material;
+
         _rb = GetComponent<Rigidbody>();
+
         _currentHealth = MaxHealth;
 
-        if (_hpBarPrefab != null)
-        {
-            InstantiateHPBar();
-        }
+        //if (_hpBarPrefab != null)
+        //{
+        //    InstantiateHPBar();
+        //}
     }
 
-    private void InstantiateHPBar()
+    //protected virtual void InstantiateHPBar()
+    //{
+    //    HPBar = Instantiate(_hpBarPrefab, transform.position, new Quaternion(90, 0, 0, 0));
+    //    _hpBarSlider = HPBar.GetComponentInChildren<Slider>();
+    //    HPBar.GetComponent<HPBarController>().owner = gameObject;
+    //    SetHPBarActive(false);
+    //}
+
+    public virtual void SetHPBarActive(bool b)
     {
-        HPBar = Instantiate(_hpBarPrefab, transform.position, new Quaternion(90, 0, 0, 0));
-        _hpBarSlider = HPBar.GetComponentInChildren<Slider>();
-        HPBar.GetComponent<HPBarController>().owner = gameObject;
-        SetHPBarActive(false);
+
     }
 
-    public void SetHPBarActive(bool b)
-    {
-        if (HPBar != null)
-        {
-            HPBar.SetActive(b);
-        }
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         if (HealthDrainEnabled)
         {
-            _currentHPDrainTimer += Time.deltaTime;
-            if (_currentHPDrainTimer >= HpDrainRateInSeconds)
+            _drainTimer += Time.deltaTime;
+            if (_drainTimer >= HpDrainRateInSeconds)
             {
                 TakeDamage(1f);
-                _currentHPDrainTimer = 0;
+                _drainTimer = 0;
                 //Debug.Log("Health drained");
             }
         }
     }
 
-    public void SetOriginalColour()
+    public virtual void SetOriginalColour()
     {
         _originMat = _meshRenderer.material;
     }
 
-    private void TakeDamage(float damage)
+    protected virtual void TakeDamage(float damage)
     {
         _currentHealth -= damage;
 
@@ -119,13 +115,13 @@ public class HPLogic : MonoBehaviour, IHealth
             Die();
         }
 
-        if (HPBar != null)
-            _hpBarSlider.value = GetCurrentHealthPercent();
+        //if (HPBar != null)
+        //    _hpBarSlider.value = GetCurrentHealthPercent();
 
         //Debug.Log($"{this.gameObject.name} current HP%: {GetCurrentHealthPercent() * 100}%, Current HP: {_health}/{MaxHealth}");
     }
 
-    public void OnTakeEnemyDamage(IDamager damager)
+    public virtual void OnTakeEnemyDamage(IDamager damager)
     {
         TakeDamage(damager.Damage);
         HitStopManager.HitStop(0.02f);
@@ -138,7 +134,7 @@ public class HPLogic : MonoBehaviour, IHealth
 
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         HitStopManager.HitStop(0.05f);
 
@@ -148,7 +144,7 @@ public class HPLogic : MonoBehaviour, IHealth
 
         OnDied?.Invoke();
 
-        Destroy(HPBar);
+        //Destroy(HPBar);
         Destroy(gameObject);
     }
 
@@ -164,7 +160,7 @@ public class HPLogic : MonoBehaviour, IHealth
         _meshRenderer.material = _originMat;
     }
 
-    private IEnumerator KnockbackRoutine(Vector3 pos, float KnockbackForce)
+    protected IEnumerator KnockbackRoutine(Vector3 pos, float KnockbackForce)
     {
         if (!_rb) yield break;
 

@@ -33,7 +33,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private float _BoostHPDrainMultiploer = 3f;
     [SerializeField]
     private float _rotationSpeed = 360f;
-    private Vector3 _currentVelocity = Vector3.zero;
+    public Vector3 CurrentVelocity = Vector3.zero;
 
     private MeshRenderer _renderer;
     private Material _normalMat;
@@ -125,7 +125,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         HandleRotation(moveInput, lookInput);
 
-        _rb.linearVelocity = _currentVelocity;
+        _rb.linearVelocity = CurrentVelocity;
 
         EnableThrusters(_isBoosting);
     }
@@ -148,11 +148,11 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         }
 
-        _currentVelocity = Vector3.MoveTowards(_currentVelocity, inputVelocity, _acceleration * Time.deltaTime);
+        CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, inputVelocity, _acceleration * Time.deltaTime);
 
         if (moveInput.magnitude < 0.01f)
         {
-            _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
+            CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
         }
     }
 

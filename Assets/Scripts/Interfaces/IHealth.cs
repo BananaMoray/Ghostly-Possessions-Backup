@@ -5,7 +5,6 @@ public interface IHealth
 {
 
     public float MaxHealth {  get; set; }
-    public GameObject HPBar { get; set; }
     public bool HealthDrainEnabled {  get; set; }
     public void OnTakeEnemyDamage(IDamager damager);
     public float GetCurrentHealthPercent();

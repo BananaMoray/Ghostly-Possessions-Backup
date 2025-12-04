@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float _deceleration = 8f;
     [SerializeField] 
     private float _maxSpeed = 3f;
-    private Vector3 _currentVelocity = Vector3.zero;
+    public Vector3 CurrentVelocity = Vector3.zero;
 
     [Header("Possession Movement")]
     [SerializeField] 
@@ -42,22 +42,22 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 inputVelocity = new Vector3(MovementInput.x, 0, MovementInput.y) * _maxSpeed;
 
-        _currentVelocity = Vector3.MoveTowards(
-            _currentVelocity,
+        CurrentVelocity = Vector3.MoveTowards(
+            CurrentVelocity,
             inputVelocity,
             _acceleration * Time.deltaTime
         );
 
         if (MovementInput.magnitude < 0.01f)
         {
-            _currentVelocity = Vector3.MoveTowards(
-                _currentVelocity,
+            CurrentVelocity = Vector3.MoveTowards(
+                CurrentVelocity,
                 Vector3.zero,
                 _deceleration * Time.deltaTime
             );
         }
 
-        transform.position += _currentVelocity * Time.deltaTime;
+        transform.position += CurrentVelocity * Time.deltaTime;
     }
 
     private void HandlePossessionMovement(bool isPossessionInProgress, GameObject possessionObject)

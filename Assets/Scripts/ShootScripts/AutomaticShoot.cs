@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class AutomaticShoot : BaseShootClass
 {
-    [SerializeField]
-    private float _damage = 10f;
-    [SerializeField]
-    private float _knockbackStrength = 2f;
-    [SerializeField]
-    private float _lifetime = 2f;
+    //[SerializeField]
+    //private float _damage = 10f;
+    //[SerializeField]
+    //private float _knockbackStrength = 2f;
+    //[SerializeField]
+    //private float _lifetime = 2f;
 
     public float _shootDelay = 0.1f;
     private bool _canAttack = true;
 
 
-    private void Awake()
-    {
-        DamageOverride = _damage;
-        KnockbackOverride = _knockbackStrength;
-        LifeTimeOverride = _lifetime;
-    }
+    //private void Awake()
+    //{
+    //    DamageOverride = _damage;
+    //    KnockbackOverride = _knockbackStrength;
+    //    LifeTimeOverride = _lifetime;
+    //}
 
     public override void OnRequestAttack(bool attack)
     {
@@ -30,8 +30,11 @@ public class AutomaticShoot : BaseShootClass
     public IEnumerator AttackWithDelay(float delay)
     {
         _canAttack = false;
+
         Attack();
+
         yield return new WaitForSeconds(delay);
+
         _canAttack = true;
     }
 
@@ -39,5 +42,10 @@ public class AutomaticShoot : BaseShootClass
     {
         base.Attack();
 
+    }
+
+    public override void Attack(int amount, float angle)
+    {
+        base.Attack(amount, angle);
     }
 }

@@ -6,6 +6,7 @@ public class HPBarController : MonoBehaviour
 
     private void Update()
     {
+        if (owner == null) return;
         transform.position = owner.transform.position;
     }
 }

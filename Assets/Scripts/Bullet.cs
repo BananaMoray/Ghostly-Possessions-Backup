@@ -5,10 +5,16 @@ public class Bullet : MonoBehaviour, IDamager
     [SerializeField]
     private float _bulletSpeed = 5;
     [SerializeField]
-    private float _lifeTime = 5f;
+    public float LifeTime = 5f;
     private float _bulletTimer = 0f;
 
     private float _damage = 5f;
+
+    public float Speed
+    {
+        get { return _bulletSpeed; }
+        set { _bulletSpeed = value; }
+    }
 
     public float Damage
     {
@@ -23,6 +29,7 @@ public class Bullet : MonoBehaviour, IDamager
         get => _knockbackStrength;
         set => _knockbackStrength = value;
     }
+
     public Vector3 DamagerPosition
     {
         get; set;
@@ -32,35 +39,16 @@ public class Bullet : MonoBehaviour, IDamager
     {
         Damage = damage;
         KnockbackStrength = knockbackStr;
-        _bulletSpeed = bulletSpeed;
-        _lifeTime = lifeTime;
+        Speed = bulletSpeed;
+        LifeTime = lifeTime;
     }
 
     private void Awake()
     {
-        _firedPos = transform.position;
+        _firedPosition = transform.position;
     }
 
-    private Vector3 _firedPos;
-
-    public void SetSpeed(float speed)
-    {
-        _bulletSpeed = speed;
-    }
-
-    public void SetLifeTime(float time)
-    {
-        _lifeTime = time;
-    }
-
-    public void SetKnockback(float strength)
-    {
-        KnockbackStrength = strength;
-    }
-    public void SetDamage(float damage)
-    {
-        Damage = damage;
-    }
+    private Vector3 _firedPosition;
 
 
     private void OnTriggerEnter(Collider other)
@@ -69,7 +57,7 @@ public class Bullet : MonoBehaviour, IDamager
         IHealth HealthComponent = other.gameObject.GetComponent<IHealth>();
         if (HealthComponent != null)
         {
-            DamagerPosition = (gameObject.transform.position - _firedPos).normalized;
+            DamagerPosition = (gameObject.transform.position - _firedPosition).normalized;
 
             //Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
 
@@ -82,9 +70,9 @@ public class Bullet : MonoBehaviour, IDamager
 
     void Update()
     {
-        transform.position += transform.forward * _bulletSpeed * Time.deltaTime;
+        transform.position += transform.forward * Speed * Time.deltaTime;
 
-        if (_bulletTimer >= _lifeTime)
+        if (_bulletTimer >= LifeTime)
         {
             Destroy(transform.gameObject);
         }

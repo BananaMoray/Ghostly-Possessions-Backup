@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerFade _fade;
 
+    public Vector3 CurrentVelocity;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -73,6 +75,8 @@ public class PlayerController : MonoBehaviour
         if (_currentPossession != null && !IsPossessionInProgress)
         {
             _currentPossession.HandlePossessedInput(_movement.MovementInput, _movement.LookInput);
+            CurrentVelocity = (_currentPossession as SpaceshipController).CurrentVelocity;
+            //Debug.Log(CurrentVelocity);
             //_currentPossession.HandlePossessedRotation(_movement.LookInput);
         }
 
@@ -81,8 +85,12 @@ public class PlayerController : MonoBehaviour
             HandleAttackInput();
             HandleBoostInput();
         }
+        else
+        {
+            CurrentVelocity = _movement.CurrentVelocity;
+        }
 
-        HandleInteractInput();
+            HandleInteractInput();
 
         _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
 

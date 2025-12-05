@@ -1,5 +1,7 @@
 ﻿
+using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BaseShootClass : MonoBehaviour, IShootable
 {
@@ -7,7 +9,10 @@ public class BaseShootClass : MonoBehaviour, IShootable
     private GameObject _bulletPrefab;
 
     [SerializeField]
-    private AudioSource _shootsfx;
+    private AudioResource _shootsfx;
+
+    [SerializeField]
+    private GameObject[] _barrels;
 
     [Header("Override Values")]
 
@@ -43,10 +48,23 @@ public class BaseShootClass : MonoBehaviour, IShootable
         set { _lifeTimeOverride = value; }
     }
 
+    [Header("Screenshake Variables")]
+    [SerializeField]
+    [Range(0, 3f)]
+    private float _screenShakeAmount = 0f;
+
+    [SerializeField]
+    [Range(0, 1f)]
+    private float _screenShakeDuration = 0f;
+
     private void Awake()
     {
-        _shootsfx = GetComponent<AudioSource>();
-        Debug.Log(_shootsfx.name);
+        //_barrels = GameObject.Tag("Barrel");
+
+        //_barrels.Add(GameObject.FindGameObjectsWithTag("Barrel)"));
+
+        //_shootsfx = GetComponent<AudioSource>();
+        //Debug.Log(_shootsfx.name);
     }
 
     public virtual void Attack()
@@ -70,7 +88,7 @@ public class BaseShootClass : MonoBehaviour, IShootable
             }
             else
             {
-                t = (float) i / (amount - 1);
+                t = (float)i / (amount - 1);
             }
 
             float currentAngle = Mathf.Lerp(-halfAngle, halfAngle, t);
@@ -81,12 +99,19 @@ public class BaseShootClass : MonoBehaviour, IShootable
         }
     }
 
+    private Vector3 _shotOrigin;
+
     public GameObject SpawnBullet(Quaternion rot)
     {
-        GameObject bulletObj = Instantiate(_bulletPrefab, transform.position, rot);
+        DetermineCurrentBarrel();
+
+        if (_screenShakeAmount >  0f)
+            ScreenShakeManager.ShakeScreen(_screenShakeAmount, _screenShakeDuration);
+
+        GameObject bulletObj = Instantiate(_bulletPrefab, _shotOrigin, rot);
 
         if (_shootsfx != null)
-            _shootsfx.Play();
+            SoundManager.Instance.PlaySoundFXClip(_shootsfx, transform, SoundManager.SFXVolume);
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
@@ -104,6 +129,22 @@ public class BaseShootClass : MonoBehaviour, IShootable
         return bulletObj;
     }
 
+    private int _currentBarrel;
+
+    private void DetermineCurrentBarrel()
+    {
+        if (_barrels.Length >= 1)
+        {
+            _shotOrigin = _barrels[_currentBarrel].transform.position;
+
+            _currentBarrel++;
+
+            if (_currentBarrel >= _barrels.Length)
+                _currentBarrel = 0;
+        }
+        else
+            _shotOrigin = transform.position;
+    }
 
     public virtual void OnRequestAttack(bool attack)
     {

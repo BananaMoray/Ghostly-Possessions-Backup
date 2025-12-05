@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Possession
   - Enemy
+  - Barrel
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,6 @@ public class HitStopManager : MonoBehaviour
 {
     private static HitStopManager _instance;
     private bool _isHitStopping = false;
-
     private void Awake()
     {
         _instance = this;
@@ -13,6 +12,7 @@ public class HitStopManager : MonoBehaviour
 
     public static void HitStop(float duration)
     {
+        //singelton lmaoooooo
         if (_instance != null)
             _instance.StartCoroutine(_instance.DoHitStop(duration));
     }

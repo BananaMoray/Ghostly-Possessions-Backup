@@ -48,9 +48,12 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     public Vector2 MoveDirection;
 
-    [Header("Thrusters")]
+    [Header("Particle Systems")]
     public ParticleSystem[] _thrusterParticleSystems;
     public List<ParticleSystem.EmissionModule> _thrusterEmission;
+    [SerializeField]
+    private GameObject _sparksPrefab;
+    private GameObject _sparks;
 
     private void Awake()
     {
@@ -80,6 +83,13 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         if (_healthComponent is HPLogic hpLogic)
             hpLogic.OnDied += HandleDeath;
+
+        if(_sparksPrefab != null)
+        {
+            _sparks = Instantiate(_sparksPrefab, transform.position, Quaternion.identity) as GameObject;
+            _sparks.transform.SetParent(transform);
+        }
+            
     }
 
     public void OnStartPossess(PlayerController controller)
@@ -87,6 +97,8 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         owner = controller;
         _renderer.material = _possessMat;
         gameObject.layer = 3;
+
+        _sparks.SetActive(false);
 
         _healthComponent.HealthDrainEnabled = true;
         _healthComponent.SetHPBarActive(true);

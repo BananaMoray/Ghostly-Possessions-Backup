@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1233149941 &-8760794815296356640
+--- !u!1233149941 &-5465327277008518673
 AudioContainerElement:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: laserShoot (1)_{-8760794815296356640}
-  m_AudioClip: {fileID: 8300000, guid: cfdd9ed580a82ab4383288fc75a67515, type: 3}
+  m_Name: BrimstoneShot_{-5465327277008518673}
+  m_AudioClip: {fileID: 8300000, guid: 79ff46c5bfd9ab249871c4ec11efe28c, type: 3}
   m_Volume: 0
   m_Enabled: 1
 --- !u!1307931743 &6418180475301049370
@@ -16,20 +16,20 @@ AudioRandomContainer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Automatic
+  m_Name: Beam
   m_Volume: 0
   m_Pitch: 0
   m_AutomaticTriggerTime: 0
   m_LoopCount: 1
   m_VolumeRandomizationRange: {x: 0, y: 0}
-  m_PitchRandomizationRange: {x: -196.36334, y: 349.09082}
+  m_PitchRandomizationRange: {x: -581.8182, y: 130.90912}
   m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
   m_LoopCountRandomizationRange: {x: 0, y: 0}
   m_Elements:
-  - {fileID: -8760794815296356640}
+  - {fileID: -5465327277008518673}
   m_AvoidRepeatingLast: 0
   m_PlaybackMode: 0
-  m_TriggerMode: 0
+  m_TriggerMode: 1
   m_AutomaticTriggerMode: 1
   m_LoopMode: 2
   m_VolumeRandomizationEnabled: 0

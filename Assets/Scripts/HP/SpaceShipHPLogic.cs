@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,11 +73,50 @@ public class SpaceshipHPLogic : HPLogic
         _fillImage.color = Color.Lerp(_lowColour, _fullColour, hpPercent);
     }
 
-    protected override void Die()
+    private bool _isDying = false;
+
+    protected override void ExplodeOnDeath()
     {
         if (_hpBar != null)
             Destroy(_hpBar);
 
-        base.Die();
+        if (!_isDying)
+            StartCoroutine(ExplodeDelayRoutine());
+    }
+
+    public IEnumerator ExplodeDelayRoutine()
+    {
+        _isDying = true;
+
+        _meshRenderer.material = _damageMat;
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+
+        yield return new WaitForSeconds(0.4f);
+
+        _meshRenderer.material = _originMat;
+
+        yield return new WaitForSeconds(0.4f);
+
+        _meshRenderer.material = _damageMat;
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+
+        yield return new WaitForSeconds(0.4f);
+
+        _meshRenderer.material = _originMat;
+
+        yield return new WaitForSeconds(0.4f);
+
+        _meshRenderer.material = _damageMat;
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+
+        yield return new WaitForSeconds(0.4f);
+
+        _meshRenderer.material = _originMat;
+
+        yield return new WaitForSeconds(0.4f);
+
+        HitStopManager.HitStop(0.1f);
+
+        base.ExplodeOnDeath();
     }
 }

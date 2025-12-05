@@ -195,12 +195,15 @@ public class PlayerController : MonoBehaviour
         if (obj == null) return;
 
         Outline outline = obj.GetComponent<Outline>();
+
         if (outline == null && isTrue)
             outline = obj.AddComponent<Outline>();
 
         if (outline != null)
+        {
             outline.OutlineWidth = 7.0f;
             outline.enabled = isTrue;
+        }
     }
 
     private bool IsInRange(Vector3 position)

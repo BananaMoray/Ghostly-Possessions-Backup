@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class HPLogic : MonoBehaviour, IHealth
 {
     public event Action OnDied;
 
-    [Header("HP Values")]
+    [Header("Variables")]
     [SerializeField]
     protected float _maxHealth = 30f;
     protected float _currentHealth;
@@ -21,13 +22,13 @@ public class HPLogic : MonoBehaviour, IHealth
 
     [Header("Prefabs")]
     [SerializeField]
-    protected AudioSource _damageSFX;
+    protected AudioResource _damageSFX;
 
     //material values
     [SerializeField]
-    private Material _damageMat;
-    private MeshRenderer _meshRenderer;
-    private Material _originMat;
+    protected Material _damageMat;
+    protected MeshRenderer _meshRenderer;
+    protected Material _originMat;
 
     [SerializeField]
     protected GameObject _explosionPrefab;
@@ -112,13 +113,18 @@ public class HPLogic : MonoBehaviour, IHealth
 
         if (_currentHealth <= 0)
         {
-            Die();
+            ExplodeOrInactivate();
         }
 
         //if (HPBar != null)
         //    _hpBarSlider.value = GetCurrentHealthPercent();
 
         //Debug.Log($"{this.gameObject.name} current HP%: {GetCurrentHealthPercent() * 100}%, Current HP: {_health}/{MaxHealth}");
+    }
+
+    private void ExplodeOrInactivate()
+    {
+        ExplodeOnDeath();
     }
 
     public virtual void OnTakeEnemyDamage(IDamager damager)
@@ -134,7 +140,7 @@ public class HPLogic : MonoBehaviour, IHealth
 
     }
 
-    protected virtual void Die()
+    protected virtual void ExplodeOnDeath()
     {
         HitStopManager.HitStop(0.05f);
 
@@ -153,7 +159,7 @@ public class HPLogic : MonoBehaviour, IHealth
         _meshRenderer.material = _damageMat;
 
         if (_damageSFX != null)
-            _damageSFX.Play();
+            SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
 
         yield return new WaitForSeconds(seconds);
 

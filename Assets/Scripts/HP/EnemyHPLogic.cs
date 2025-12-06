@@ -24,7 +24,7 @@ public class EnemyHPLogic : HPLogic
 
     private bool TurnIntoSpaceship(float shipPossessChance)
     {
-        float chance = Random.Range(0, 1);
+        float chance = Random.Range(0f, 1f);
 
         return chance <= _shipPossessChance;
     }

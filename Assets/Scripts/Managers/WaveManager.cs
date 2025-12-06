@@ -35,41 +35,48 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (spawnTimer <= 0)
-        //{
-        //    //spawn an enemy
-        //    if (enemiesToSpawn.Count > 0)
-        //    {
-        //        GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
-        //        enemiesToSpawn.RemoveAt(0); // and remove it
-        //        spawnedEnemies.Add(enemy);
-        //        spawnTimer = spawnInterval;
+        if (spawnTimer <= 0)
+        {
+            //spawn an enemy
+            if (enemiesToSpawn.Count > 0)
+            {
+                GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
+                enemiesToSpawn.RemoveAt(0); // and remove it
+                spawnedEnemies.Add(enemy);
+                spawnTimer = spawnInterval;
 
-        //        if (spawnIndex + 1 <= spawnLocation.Length - 1)
-        //        {
-        //            spawnIndex++;
-        //        }
-        //        else
-        //        {
-        //            spawnIndex = 0;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        waveTimer = 0; // if no enemies remain, end wave
-        //    }
-        //}
-        //else
-        //{
-        //    spawnTimer -= Time.fixedDeltaTime;
-        //    waveTimer -= Time.fixedDeltaTime;
-        //}
+                if (spawnIndex + 1 <= spawnLocation.Length - 1)
+                {
+                    spawnIndex++;
+                }
+                else
+                {
+                    spawnIndex = 0;
+                }
+            }
+            else
+            {
+                waveTimer = 0; // if no enemies remain, end wave
+            }
+        }
+        else
+        {
+            spawnTimer -= Time.fixedDeltaTime;
+            waveTimer -= Time.fixedDeltaTime;
+        }
 
-        //if (waveTimer <= 0 && spawnedEnemies.Count <= 0)
+        //if (waveTimer <= 0 && spawnedEnemies.Count <= 0) 
         //{
         //    _currentWave++;
+        //    Debug.Log("New Wave");
         //    GenerateWave();
         //}
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            _currentWave++;
+            GenerateWave();
+        }
     }
 
     public void GenerateWave()

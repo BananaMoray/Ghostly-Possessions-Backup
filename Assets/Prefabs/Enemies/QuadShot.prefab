@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ff893334e1d794c9e9de06a3d4a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 8
-  _acceleration: 15
+  _maxSpeed: 7
+  _acceleration: 8
   _deceleration: 1
   _rotationSpeed: 720
   _player: {fileID: 0}
@@ -201,13 +201,13 @@ MonoBehaviour:
   - {fileID: 7074449087702017802}
   - {fileID: 3018935285747458916}
   - {fileID: 5755715222751553435}
-  _dmgOverride: 7.5
+  _dmgOverride: 5
   _knockbackOverride: 3
-  _speedOverride: 30
+  _speedOverride: 15
   _lifeTimeOverride: 2
   _screenShakeAmount: 0
   _screenShakeDuration: 0
-  _shootDelay: 0.9
+  _shootDelay: 0.6
 --- !u!54 &8048287857709528080
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -193,9 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9094fb86b082946a01a2b636127f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _validShootDistance: 30
+  _validShootDistance: 12
   _aimMoreMultiplier: 2
-  _projectileSpeed: 30
+  _projectileSpeed: 25
 --- !u!114 &8081614809688968420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,13 +213,13 @@ MonoBehaviour:
   _barrels:
   - {fileID: 5595880562985160099}
   - {fileID: 7872237155372035466}
-  _dmgOverride: 10
+  _dmgOverride: 5
   _knockbackOverride: 1
-  _speedOverride: 30
+  _speedOverride: 25
   _lifeTimeOverride: 2
   _screenShakeAmount: 0
   _screenShakeDuration: 0
-  _shootDelay: 0.7
+  _shootDelay: 0.5
 --- !u!54 &5945118401443134658
 Rigidbody:
   m_ObjectHideFlags: 0

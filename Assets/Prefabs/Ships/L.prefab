@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8484225989671053282}
   - component: {fileID: 4239741050897034425}
   m_Layer: 0
-  m_Name: SpaceShip - L
+  m_Name: L
   m_TagString: Possession
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 125
+  _maxHealth: 150
   HpDrainRateInSeconds: 1
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}

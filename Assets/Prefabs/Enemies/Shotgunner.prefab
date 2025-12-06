@@ -193,7 +193,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: af3114b370dcf2d41bbb3837b05470e1, type: 2}
   _barrels: []
-  _dmgOverride: 6
+  _dmgOverride: 7.5
   _knockbackOverride: 5
   _speedOverride: 10
   _lifeTimeOverride: 3

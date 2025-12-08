@@ -142,8 +142,6 @@ public class HPLogic : MonoBehaviour, IHealth
 
     protected virtual void ExplodeOnDeath()
     {
-        HitStopManager.HitStop(0.05f);
-
         GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 
         //if (explosion != null) Debug.Log("Explosion real");

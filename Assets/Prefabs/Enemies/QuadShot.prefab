@@ -75,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88980c03f3d01794e831de01274c7037, type: 2}
+  - {fileID: 2100000, guid: 287657da2193e0645a52a2759f4294ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,6 +156,14 @@ MonoBehaviour:
   _player: {fileID: 0}
   MovementStrategy: {fileID: 3248456197426454691}
   AttackStrategy: {fileID: 4029743435256932621}
+  CurrentIntention: 1
+  _attackRange: 12
+  _cowardice: 0.1
+  _retreatTimer: 2.5
+  _losCoolDown: 2
+  _losMask:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &3248456197426454691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +190,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _validShootDistance: 12
+  _losMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4702115065501611022
 MonoBehaviour:
   m_ObjectHideFlags: 0

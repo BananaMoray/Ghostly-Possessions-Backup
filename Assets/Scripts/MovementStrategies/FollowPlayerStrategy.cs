@@ -16,13 +16,16 @@ public class FollowPlayerStrategy : MonoBehaviour, IMovementStrategy
         Vector3 moveDirection = Vector3.zero;
 
         //i have to square my mininum distance here, since the magnitude is also squared
-        if ((targetPosition - transform.position).sqrMagnitude > _minDistance * _minDistance)
-        {
-            moveDirection = (targetPosition - transform.position).normalized;
-            //Debug.Log();
-        }
-        else
-            moveDirection = Vector3.zero;
+        //if ((targetPosition - transform.position).sqrMagnitude > _minDistance * _minDistance)
+        //{
+        //    moveDirection = (targetPosition - transform.position).normalized;
+        //    //Debug.Log();
+        //}
+        //else
+        //    moveDirection = Vector3.zero;
+
+        moveDirection = (targetPosition - transform.position).normalized;
+        //Debug.Log();
 
         desiredVelocity = moveDirection * maxSpeed;
          

@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
@@ -15,13 +15,21 @@ public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
     [SerializeField]
     private float _projectileSpeed = 30f;
 
+
+
     private PlayerController _playerMovement;
+
+    [SerializeField] 
+    private Transform _rayOrigin;
 
     private void Awake()
     {
         _shootComponent = GetComponent<IShootable>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         _playerMovement = player.GetComponent<PlayerController>();
+
+        if (_rayOrigin == null)
+            _rayOrigin = transform;
     }
 
     private bool IsPlayerInRange(Vector3 targetPos)
@@ -62,18 +70,76 @@ public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
         return predictedPos;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
 
-        // Convert the local coordinate values into world
-        // coordinates for the matrix transformation.
 
-        Gizmos.DrawCube(_predictPos, Vector3.one);
-    }
+    //private bool HasLineOfSight(Vector3 targetPos)
+    //{
+    //    Vector3 origin = _rayOrigin.position;
+    //    Vector3 direction = (targetPos - origin).normalized;
+
+    //    if (Physics.Raycast(origin, direction, out RaycastHit hit, (direction - origin).sqrMagnitude))
+    //    {
+    //        return hit.collider.CompareTag("Player");
+    //    }
+
+    //    return false;
+    //}
+
+    //int sampleCount;
+
+    //Vector3 start;
+    //Vector3 end;
+    //Vector3 direction;
+
+    //public bool HasLineOfSight(Vector3 enemyPos, Vector3 playerPos, LayerMask obstacleMask)
+    //{
+    //    start = enemyPos;
+    //    end = playerPos;
+
+    //    direction = (end - start);
+    //    float distance = direction.magnitude;
+
+    //    direction.Normalize();
+
+    //    sampleCount = Mathf.CeilToInt(distance / _losSampleRadius);
+
+    //    for (int i = 1; i < sampleCount; i++)
+    //    {
+    //        Vector3 samplePos = start + direction * (i * _losSampleRadius);
+
+    //        Collider[] hits = Physics.OverlapSphere(samplePos, _losSampleRadius, obstacleMask);
+
+    //        foreach (Collider hit in hits)
+    //        {
+    //            //we simply choose to ignore the player smiles
+    //            if (!hit.CompareTag("Player"))
+    //                return false;
+    //        }
+    //    }
+    //    return true;
+    //}
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.white;
+
+    //    // Convert the local coordinate values into world
+    //    // coordinates for the matrix transformation.
+
+    //    Gizmos.DrawCube(_predictPos, Vector3.one);
+
+    //    Gizmos.DrawLine(_rayOrigin.position, _predictPos);
+
+    //    for (int i = 1; i < sampleCount; i++)
+    //    {
+    //        Vector3 gizmoPos= start + direction * (i * _losSampleRadius);
+    //        Gizmos.DrawSphere(gizmoPos, _losSampleRadius);
+    //    }
+    //}
+
 
     public void Attack(Vector3 targetPosition)
     {
-        _shootComponent.OnRequestAttack(IsPlayerInRange(targetPosition));
+        _shootComponent.OnRequestAttack(true);
     }
 }

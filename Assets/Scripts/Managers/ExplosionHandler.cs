@@ -5,10 +5,20 @@ public class ExplosionHandler : MonoBehaviour
     private float _lifeTime = 2f;
     private float _currentLife;
 
+    [SerializeField]
+    [Range(0, 2f)]
+    private float _hitStopTime = .5f;
+    [SerializeField]
+    [Range(0, 2f)]
+    private float _shakeAmount = 1.5f;
+    [SerializeField]
+    [Range(0, 1f)]
+    private float _shakeTime = .3f;
+
     private void Awake()
     {
-        ScreenShakeManager.ShakeScreen(.4f, .5f);
-        HitStopManager.HitStop(0.1f);
+        HitStopManager.HitStop(_hitStopTime);
+        ScreenShakeManager.ShakeScreen(_shakeAmount, _shakeTime);
     }
     private void Update()
     {

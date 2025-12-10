@@ -119,23 +119,15 @@ public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
     //    return true;
     //}
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.white;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
 
-    //    // Convert the local coordinate values into world
-    //    // coordinates for the matrix transformation.
+        // Convert the local coordinate values into world
+        // coordinates for the matrix transformation.
 
-    //    Gizmos.DrawCube(_predictPos, Vector3.one);
-
-    //    Gizmos.DrawLine(_rayOrigin.position, _predictPos);
-
-    //    for (int i = 1; i < sampleCount; i++)
-    //    {
-    //        Vector3 gizmoPos= start + direction * (i * _losSampleRadius);
-    //        Gizmos.DrawSphere(gizmoPos, _losSampleRadius);
-    //    }
-    //}
+        Gizmos.DrawCube(_predictPos, Vector3.one);
+    }
 
 
     public void Attack(Vector3 targetPosition)

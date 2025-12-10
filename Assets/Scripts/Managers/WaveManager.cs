@@ -56,7 +56,7 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
-                waveTimer = 0; // if no enemies remain, end wave
+                waveTimer = 0;
             }
         }
         else
@@ -65,18 +65,18 @@ public class WaveManager : MonoBehaviour
             waveTimer -= Time.fixedDeltaTime;
         }
 
-        //if (waveTimer <= 0 && spawnedEnemies.Count <= 0) 
-        //{
-        //    _currentWave++;
-        //    Debug.Log("New Wave");
-        //    GenerateWave();
-        //}
-
-        if(Input.GetKeyDown(KeyCode.P))
+        if (waveTimer <= 0)
         {
             _currentWave++;
+            Debug.Log("New Wave");
             GenerateWave();
         }
+
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    _currentWave++;
+        //    GenerateWave();
+        //}
     }
 
     public void GenerateWave()

@@ -141,7 +141,7 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        Debug.Log(CurrentIntention);
+        //Debug.Log(CurrentIntention);
     }
 
     private void UpdateIntention()
@@ -176,7 +176,7 @@ public class EnemyController : MonoBehaviour
             if (hasLineOfSight)
             {
                 CurrentIntention = EnemyIntention.Attacking;
-                Debug.Log($"Attacking Activated");
+                //Debug.Log($"Attacking Activated");
                 _lostimer = 0;
             }
             else

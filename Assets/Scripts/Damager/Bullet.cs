@@ -67,7 +67,6 @@ public class Bullet : MonoBehaviour, IDamager
         }
     }
 
-
     void Update()
     {
         transform.position += transform.forward * Speed * Time.deltaTime;

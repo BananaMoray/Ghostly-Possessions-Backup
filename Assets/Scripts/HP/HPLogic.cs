@@ -130,7 +130,6 @@ public class HPLogic : MonoBehaviour, IHealth
     public virtual void OnTakeEnemyDamage(IDamager damager)
     {
         TakeDamage(damager.Damage);
-        HitStopManager.HitStop(0.02f);
 
         if (_currentHealth > 0)
         {
@@ -162,13 +161,15 @@ public class HPLogic : MonoBehaviour, IHealth
         yield return new WaitForSeconds(seconds);
 
         _meshRenderer.material = _originMat;
+
+        HitStopManager.HitStop(0.02f);
     }
 
     protected IEnumerator KnockbackRoutine(Vector3 pos, float KnockbackForce)
     {
         if (!_rb) yield break;
 
-        Vector3 direction = (pos).normalized;
+        Vector3 direction = pos;
 
         //_rb.linearVelocity = Vector3.zero;
 

@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ff893334e1d794c9e9de06a3d4a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 4
   _acceleration: 15
   _deceleration: 4
+  _maxSpeed: 4
   _rotationSpeed: 360
   _player: {fileID: 0}
   MovementStrategy: {fileID: 3088593189096056055}
@@ -176,6 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9d273038ce50b439ce3e8b1df2596c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directionCount: 16
+  _checkDistance: 10
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 257
   _minDistance: 7
 --- !u!114 &6404670862933720059
 MonoBehaviour:

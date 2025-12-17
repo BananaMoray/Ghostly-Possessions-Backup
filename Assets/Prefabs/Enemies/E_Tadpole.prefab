@@ -149,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ff893334e1d794c9e9de06a3d4a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 3
   _acceleration: 20
   _deceleration: 8
+  _maxSpeed: 3
   _rotationSpeed: 720
   _player: {fileID: 0}
   MovementStrategy: {fileID: 7380002130092569445}
@@ -176,6 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9d273038ce50b439ce3e8b1df2596c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directionCount: 16
+  _checkDistance: 10
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 257
   _minDistance: 7
 --- !u!114 &1491910739433449262
 MonoBehaviour:
@@ -207,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _validShootDistance: 12
   _aimMoreMultiplier: 0
-  _projectileSpeed: 25
+  _projectileSpeed: 20
   _rayOrigin: {fileID: 0}
 --- !u!114 &8081614809688968420
 MonoBehaviour:
@@ -228,7 +233,7 @@ MonoBehaviour:
   - {fileID: 7872237155372035466}
   _dmgOverride: 5
   _knockbackOverride: 1
-  _speedOverride: 25
+  _speedOverride: 20
   _lifeTimeOverride: 2
   _screenShakeAmount: 0
   _screenShakeDuration: 0

@@ -1,30 +1,19 @@
 using UnityEngine;
 
-public class FollowPlayerStrategy : MonoBehaviour, IMovementStrategy
+public class FollowPlayerStrategy : BaseMovementStrategy
 {
-    [SerializeField]
-    private float _minDistance = 10f;
+    [SerializeField] private float _minDistance = 5f;
 
-    Vector3 newVelocity = Vector3.zero;
+    public FollowPlayerStrategy() { }
 
-    public void Move(Vector3 targetPosition, Rigidbody rb, float maxSpeed, float acceleration, float deceleration, Vector3 currentVelocity)
+    protected override Vector3 GetIntentionDirection(Vector3 enemyPos, Vector3 targetPos, EnemyIntention intention)
     {
-        //dont do anything if there is no player
-        if (targetPosition == Vector3.zero) return;
 
-        Vector3 moveDirection = Vector3.zero;
+        Vector3 toPlayer = targetPos - enemyPos;
 
-        moveDirection = (targetPosition - transform.position).normalized;
+        if (toPlayer.sqrMagnitude < _minDistance * _minDistance)
+            return Vector3.zero;
 
-        if (moveDirection.sqrMagnitude > 0.01f)
-        {
-            newVelocity = Vector3.MoveTowards(currentVelocity, moveDirection * maxSpeed, acceleration * Time.deltaTime);
-        }
-        else
-            newVelocity = Vector3.MoveTowards(currentVelocity, moveDirection * maxSpeed, deceleration * Time.deltaTime);
-
-
-
-        rb.linearVelocity = newVelocity;
+        return toPlayer.normalized;
     }
 }

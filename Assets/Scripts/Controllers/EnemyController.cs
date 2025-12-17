@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -15,13 +15,16 @@ public enum EnemyIntention
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField]
-    private float _maxSpeed = 3f;
+    [Header("Acceleration and Deceleration")]
     [SerializeField]
     private float _acceleration = 20f;
     [SerializeField]
     private float _deceleration = 8f;
+
+    [Header("Movement")]
+    [SerializeField]
+    private float _maxSpeed = 3f;
+
     [SerializeField]
     private float _rotationSpeed = 360f;
 
@@ -103,6 +106,8 @@ public class EnemyController : MonoBehaviour
 
     private void HandleAttackIntention(Vector3 targetPos)
     {
+        if (_attackStrategy == null) return;
+
         //enemy always aims
         _attackStrategy.Aim(targetPos, _rotationSpeed);
 
@@ -113,35 +118,71 @@ public class EnemyController : MonoBehaviour
 
     private void HandleMovementIntention(Vector3 targetPos)
     {
-        //case switches to differentiate between 
+        if (_movementStrategy == null) return;
+
+        Vector3 desiredDir = Vector3.zero;
 
         switch (CurrentIntention)
         {
             //if pursuing, perfom previous established movement  
             case EnemyIntention.Pursuing:
-                _movementStrategy.Move(targetPos, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+                desiredDir = _movementStrategy.GetDesiredDirection(transform.position, targetPos, CurrentIntention);
+                //_movementStrategy.Move(preferredDir, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
                 break;
 
             //when attacking, stay in position, dont move
             case EnemyIntention.Attacking:
-                _movementStrategy.Move(transform.position, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+                desiredDir = Vector3.zero;
                 break;
 
             //calculate the inverse of the player position, then retreat there
             case EnemyIntention.Retreating:
-                Vector3 retreatPos = transform.position - (targetPos - transform.position).normalized * 6f;
-                _movementStrategy?.Move(retreatPos, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+                desiredDir = _movementStrategy.GetDesiredDirection(transform.position, targetPos, CurrentIntention) * -1;
                 break;
 
-            //move perpendicular to the current position to potentially evade attacks
-            case EnemyIntention.Evading:
-                //cross product yuippei
-                Vector3 perpendicularPos = Vector3.Cross((targetPos - transform.position).normalized, transform.up);
-                _movementStrategy.Move(targetPos * 0.2f + perpendicularPos * 10f, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
-                break;
+
         }
 
-        //Debug.Log(CurrentIntention);
+        Vector3 desiredVelocity = desiredDir * _maxSpeed;
+
+        if (desiredVelocity.sqrMagnitude > 0.1f)
+        {
+            _rb.linearVelocity = Vector3.MoveTowards(_rb.linearVelocity, desiredVelocity, _acceleration * Time.deltaTime);
+        }
+        else
+        {
+            _rb.linearVelocity = Vector3.MoveTowards(_rb.linearVelocity, Vector3.zero, _deceleration * Time.deltaTime);
+        }
+
+
+
+        //case switches to differentiate between
+
+        //switch (CurrentIntention)
+        //    {
+        //        //if pursuing, perfom previous established movement  
+        //        case EnemyIntention.Pursuing:
+        //            _movementStrategy.Move(preferredDir, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+        //            break;
+
+        //        //when attacking, stay in position, dont move
+        //        case EnemyIntention.Attacking:
+        //            _movementStrategy.Move(transform.position, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+        //            break;
+
+        //        //calculate the inverse of the player position, then retreat there
+        //        case EnemyIntention.Retreating:
+        //            Vector3 retreatPos = transform.position - (targetPos - transform.position).normalized * 6f;
+        //            _movementStrategy?.Move(retreatPos, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+        //            break;
+
+        //        //move perpendicular to the current position to potentially evade attacks
+        //        case EnemyIntention.Evading:
+        //            //cross product yuippei
+        //            Vector3 perpendicularPos = Vector3.Cross((targetPos - transform.position).normalized, transform.up);
+        //            _movementStrategy.Move(targetPos * 0.2f + perpendicularPos * 10f, _rb, _maxSpeed, _acceleration, _deceleration, _currentVelocity);
+        //            break;
+        //    }
     }
 
     private void UpdateIntention()
@@ -149,8 +190,6 @@ public class EnemyController : MonoBehaviour
         bool hasLineOfSight = HasLineOfSight(transform.position, _player.transform.position, _losMask);
 
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-
-
 
         if (CurrentIntention == EnemyIntention.Retreating)
         {
@@ -180,29 +219,22 @@ public class EnemyController : MonoBehaviour
                 _lostimer = 0;
             }
             else
-            {
-                CurrentIntention = EnemyIntention.Evading;
-                _lostimer += Time.deltaTime;
+                CurrentIntention = EnemyIntention.Pursuing;
+            //else
+            //{
+            //    CurrentIntention = EnemyIntention.Evading;
+            //    _lostimer += Time.deltaTime;
 
-                if (_lostimer >= _losCoolDown)
-                {
-                    CurrentIntention = EnemyIntention.Pursuing;
-                }
-            }
+            //    if (_lostimer >= _losCoolDown)
+            //    {
+            //        CurrentIntention = EnemyIntention.Pursuing;
+            //    }
+            //}
         }
         else
             CurrentIntention = EnemyIntention.Pursuing;
 
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(_origin, _direction);
-    }
-
-    Vector3 _origin = Vector3.zero;
-    Vector3 _direction = Vector3.zero;
 
     public bool HasLineOfSight(Vector3 enemyPos, Vector3 playerPos, LayerMask obstacleMask)
     {
@@ -229,17 +261,6 @@ public class EnemyController : MonoBehaviour
                 if (hit == _collider)
                     continue;
 
-
-                ////if the object is not the player, set false
-                //if (hit.CompareTag("Player"))
-                //{
-                //    Debug.Log($"Hit playerrr");
-                //    return true;
-                //}
-
-
-
-                //Debug.Log($"Hit {hit.name} at collider {hit}");
                 return false;
             }
         }

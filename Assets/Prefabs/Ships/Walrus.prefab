@@ -149,8 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseRelativeMovement: 0
   UseRelativeRotation: 0
-  _acceleration: 15
-  _deceleration: 6
+  _acceleration: 7
+  _deceleration: 4
   _maxSpeed: 8
   _boostSpeed: 12
   _BoostHPDrainMultiploer: 7

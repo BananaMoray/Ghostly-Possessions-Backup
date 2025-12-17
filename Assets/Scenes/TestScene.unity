@@ -624,6 +624,63 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1001 &674889579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1262851914636733443, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_Name
+      value: Walrus
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
 --- !u!1 &777663728
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,71 +974,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b98f5c13108364a46bc1478172d6a46f, type: 3}
---- !u!1001 &1112716786
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1262851914636733443, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_Name
-      value: Walrus
-      objectReference: {fileID: 0}
-    - target: {fileID: 4239741050897034425, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: _screenShakeAmount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4325489781609914778, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: _maxHealth
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819785901456956530, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
 --- !u!1 &1271347406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,8 +1120,12 @@ MonoBehaviour:
     Cost: 1
   - EnemyPrefab: {fileID: 521658619450124428, guid: b98f5c13108364a46bc1478172d6a46f, type: 3}
     Cost: 2
+  - EnemyPrefab: {fileID: 260895238121877028, guid: 6a4b6942bdb0cb948badcc5645a53759, type: 3}
+    Cost: 6
+  - EnemyPrefab: {fileID: 6270951512766143809, guid: 41bcdafd905d345419fc7fcbf629bdd7, type: 3}
+    Cost: 6
   - EnemyPrefab: {fileID: 427539394382539542, guid: 6732b41ec23e30b4295286330b82128f, type: 3}
-    Cost: 3
+    Cost: 4
   _currentWave: 1
   WaveValue: 0
   WaveTotalValue: 0
@@ -2046,7 +2042,7 @@ SceneRoots:
   - {fileID: 1544650057}
   - {fileID: 1382728734}
   - {fileID: 1112012674}
-  - {fileID: 1112716786}
   - {fileID: 1806284126}
   - {fileID: 2128143812}
   - {fileID: 899296035}
+  - {fileID: 674889579}

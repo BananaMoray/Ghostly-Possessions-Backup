@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
+  _damagerPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: 64c2b9a76bbe02a4dbd52edee04bef96, type: 2}
   _barrels:
   - {fileID: 2434528923531821194}
@@ -416,7 +416,7 @@ MonoBehaviour:
   _acceleration: 9
   _deceleration: 6
   _maxSpeed: 4
-  _rotationSpeed: 480
+  _rotationSpeed: 240
   _player: {fileID: 0}
   MovementStrategy: {fileID: -4809872830081242883}
   AttackStrategy: {fileID: -3908162253884508728}

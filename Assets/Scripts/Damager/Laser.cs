@@ -1,18 +1,20 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IDamager
+public class Laser : MonoBehaviour, IDamager
 {
-    [SerializeField]
-    private float _bulletSpeed = 5;
 
-    private float _bulletTimer = 0f;
+    private float _speed = 5;
+
+    private float _lifeTimer = 0f;
 
     private float _damage = 5f;
 
     public float Speed
     {
-        get { return _bulletSpeed; }
-        set { _bulletSpeed = value; }
+        get { return _speed; }
+        set { _speed = value; }
     }
 
     public float Damage
@@ -29,6 +31,11 @@ public class Bullet : MonoBehaviour, IDamager
         set => _knockbackStrength = value;
     }
 
+    public Vector3 DamagerPosition
+    {
+        get; set;
+    }
+
     private float _lifeTime;
 
     public float LifeTime
@@ -37,10 +44,6 @@ public class Bullet : MonoBehaviour, IDamager
         set => _lifeTime = value;
     }
 
-    public Vector3 DamagerPosition
-    {
-        get; set;
-    }
 
     private void Awake()
     {
@@ -58,23 +61,41 @@ public class Bullet : MonoBehaviour, IDamager
         {
             DamagerPosition = (gameObject.transform.position - _firedPosition).normalized;
 
-            //Debug.Log($"Has hit enemy: {other.gameObject.name} for {Damage} damage");
-
             HealthComponent.OnTakeEnemyDamage(this);
 
-            Destroy(this.gameObject);
+
         }
     }
 
     void Update()
     {
-        transform.position += transform.forward * Speed * Time.deltaTime;
+        //transform.position += transform.forward * Speed * Time.deltaTime;
 
-        if (_bulletTimer >= LifeTime)
+        if (_lifeTimer >= LifeTime && !_isShrinking)
         {
-            Destroy(transform.gameObject);
+            StartCoroutine(KillLaser(0.25f));
         }
 
-        _bulletTimer += Time.deltaTime;
+        _lifeTimer += Time.deltaTime;
+
+        if (_isShrinking)
+        {
+            GetComponent<Collider>().enabled = false;
+
+            Vector3 targetScale = new Vector3(0, 0, transform.localScale.z);
+
+            transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, 6f * Time.deltaTime);
+        }
     }
+
+    private bool _isShrinking;
+
+    public IEnumerator KillLaser(float delay)
+{
+    _isShrinking = true;
+
+    yield return new WaitForSeconds(delay);
+
+    Destroy(transform.gameObject);
+}
 }

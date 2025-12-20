@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 public class BaseShootClass : MonoBehaviour, IShootable
 {
     [SerializeField]
-    private GameObject _bulletPrefab;
+    private GameObject _damagerPrefab;
 
     [SerializeField]
     private AudioResource _shootsfx;
@@ -69,7 +69,7 @@ public class BaseShootClass : MonoBehaviour, IShootable
 
     public virtual void Attack()
     {
-        SpawnBullet(transform.rotation);
+        SpawnDamager(transform.rotation);
     }
 
     public virtual void Attack(int amount, float angle)
@@ -95,38 +95,38 @@ public class BaseShootClass : MonoBehaviour, IShootable
 
             Quaternion rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, currentAngle, 0));
 
-            SpawnBullet(rotation);
+            SpawnDamager(rotation);
         }
     }
 
     private Vector3 _shotOrigin;
 
-    public GameObject SpawnBullet(Quaternion rot)
+    public GameObject SpawnDamager(Quaternion rot)
     {
         DetermineCurrentBarrel();
 
         if (_screenShakeAmount >  0f)
             ScreenShakeManager.ShakeScreen(_screenShakeAmount, _screenShakeDuration);
 
-        GameObject bulletObj = Instantiate(_bulletPrefab, _shotOrigin, rot);
+        GameObject damagerObj = Instantiate(_damagerPrefab, _shotOrigin, rot);
 
         if (_shootsfx != null)
             SoundManager.Instance.PlaySoundFXClip(_shootsfx, transform, SoundManager.SFXVolume);
 
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        IDamager damager = damagerObj.GetComponent<IDamager>();
 
-        if (bullet == null)
+        if (damager == null)
         {
-            Debug.LogError("no bullet!");
+            Debug.LogError("no damager attached to script!");
             return null;
         }
 
-        bullet.Damage = DamageOverride;
-        bullet.KnockbackStrength = KnockbackOverride;
-        bullet.LifeTime = LifeTimeOverride;
-        bullet.Speed = SpeedOverride;
+        damager.Damage = DamageOverride;
+        damager.KnockbackStrength = KnockbackOverride;
+        damager.LifeTime = LifeTimeOverride;
+        damager.Speed = SpeedOverride;
 
-        return bulletObj;
+        return damagerObj;
     }
 
     private int _currentBarrel;

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 653912608239671559}
   - component: {fileID: 8866398816292940572}
   - component: {fileID: 6541094804628068143}
-  m_Layer: 0
+  - component: {fileID: 3826165973442057562}
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d739e99704288649a57bbd2845cab67, type: 2}
+  - {fileID: 2100000, guid: 3d878661af5f92b4999eeec8898ff0c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3826165973442057562
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7943697105900746127}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7965188665383883108
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,8 +120,8 @@ GameObject:
   - component: {fileID: 5177877662786782095}
   - component: {fileID: -5999247359500543618}
   - component: {fileID: 6253927765951779059}
-  m_Layer: 7
-  m_Name: EnemyBullet
+  m_Layer: 6
+  m_Name: BasicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 7965188665383883108}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6446676, y: -0.5172238, z: 0.36967054}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -134,8 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f20b384fabcc243af6484c5bb32ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 30
-  _lifeTime: 3
+  _bulletSpeed: 40
 --- !u!54 &-5999247359500543618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -197,7 +218,7 @@ GameObject:
   - component: {fileID: 5340670182145942249}
   - component: {fileID: 3916760162873168570}
   - component: {fileID: 7364531046581892338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

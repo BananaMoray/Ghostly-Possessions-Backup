@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
+  _damagerPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: 026cd5ea2d40ae2429a371c4879922a4, type: 2}
   _barrels:
   - {fileID: 4132381467750711094}

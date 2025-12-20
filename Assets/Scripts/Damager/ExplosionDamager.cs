@@ -28,6 +28,14 @@ public class ExplosionDamager : MonoBehaviour, IDamager
         set => _knockbackStrength = value;
     }
 
+    private float _lifeTime;
+
+    public float LifeTime
+    {
+        get => _lifeTime;
+        set => _lifeTime = value;
+    }
+
     public Vector3 DamagerPosition
     {
         get; set;

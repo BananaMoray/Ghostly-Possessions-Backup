@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e06949b37a30e7469df068484654219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _damagerPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: af3114b370dcf2d41bbb3837b05470e1, type: 2}
   _barrels:
   - {fileID: 8770122956520241961}

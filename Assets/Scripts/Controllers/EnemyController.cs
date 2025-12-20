@@ -76,6 +76,7 @@ public class EnemyController : MonoBehaviour
             _healthComponent = GetComponent<IHealth>();
 
         if (MovementStrategy == null)
+            
             Debug.LogError($"Movement Strategy not implemented for {gameObject.name}");
         else
             _movementStrategy = MovementStrategy as IMovementStrategy;

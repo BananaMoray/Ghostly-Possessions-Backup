@@ -12,37 +12,69 @@ public class SpawnManager : MonoBehaviour
     //private float _spawnRadius = 20f;
     //[SerializeField]
     //private float _checkRadius = 2f;
-    //[SerializeField]
-    //private int _spawnCount = 20;
+    [SerializeField]
+    private float _playerDistanceCheck = 10f;
     [SerializeField]
     private LayerMask _losMask;
+    private GameObject _player;
 
     private void Awake()
     {
         //SpawnAsteroids();
         if (Instance == null)
             Instance = this;
+
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public GameObject SpawnPrefab(GameObject prefab, float radius, float checkRadius, int spawnCount, bool respectPlayerRadius)
+    public GameObject InstantiatePrefab(GameObject prefab, float radius, float checkRadius, int spawnCount, bool respectPlayerRadius)
     {
-        GameObject gObject = null;
-        //bool isValidPosition = false;
+        GameObject lastSpawned = null;
 
         for (int i = 0; i < spawnCount; i++)
         {
-            Vector3 spawnPos = RandomisePosition(radius);
+            Vector3 spawnPos = Vector3.zero;
+            bool validPosition = false;
 
-            Collider[] hits = Physics.OverlapSphere(spawnPos, checkRadius, _losMask);
+            int attempts = 0;
+            int maxAttempts = 50;
 
-            while (hits.Length > 0)
-                RandomisePosition(radius);
+            while (!validPosition && attempts < maxAttempts)
+            {
+                spawnPos = RandomisePosition(radius);
 
-            gObject = Instantiate(prefab, spawnPos, Quaternion.identity);
+                Collider[] hits = Physics.OverlapSphere(spawnPos, checkRadius, _losMask);
+
+
+                validPosition = hits.Length == 0;
+
+                if (respectPlayerRadius)
+                {
+                    float distToPlayer = Vector3.Distance(spawnPos, _player.transform.position);
+
+                    if (distToPlayer < 10f)
+                    {
+                        validPosition = false;
+                        Debug.Log("Too close to player");
+                    }
+                        
+                }
+
+                attempts++;
+            }
+
+            if (!validPosition)
+            {
+                Debug.LogWarning("scary scary no spawn position possible");
+                continue;
+            }
+
+
+
+            lastSpawned = Instantiate(prefab, spawnPos, Quaternion.identity);
         }
 
-
-        return gObject;
+        return lastSpawned;
     }
 
     private Vector3 RandomisePosition(float radius)

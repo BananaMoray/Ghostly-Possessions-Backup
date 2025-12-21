@@ -69,6 +69,7 @@ public class ChargeShoot : BaseShootClass
     {
         _chargeSlider.value = _chargeTimer / _chargeTime;
         _chargePrefab.transform.position = transform.position;
+        _chargePrefab.transform.rotation = Quaternion.identity;
     }
 
     public override void Attack()

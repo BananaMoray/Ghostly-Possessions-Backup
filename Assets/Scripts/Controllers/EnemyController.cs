@@ -57,6 +57,7 @@ public class EnemyController : MonoBehaviour
     private float _lostimer;
 
     private float _losSampleRadius = 0.3f;
+
     [SerializeField]
     private LayerMask _losMask;
 

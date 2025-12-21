@@ -26,22 +26,23 @@ public class WaveManager : MonoBehaviour
     private float spawnTimer;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
-    // Start is called before the first frame update
+
     void Start()
     {
         GenerateWave();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (spawnTimer <= 0)
         {
-            //spawn an enemy
+            //spawn an enemy using SpawnManager
             if (enemiesToSpawn.Count > 0)
             {
-                GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity); // spawn first enemy in our list
-                enemiesToSpawn.RemoveAt(0); // and remove it
+                GameObject enemy = SpawnManager.Instance.SpawnPrefab(enemiesToSpawn[0], 40, 3, 1);
+
+                //GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity);
+                enemiesToSpawn.RemoveAt(0);
                 spawnedEnemies.Add(enemy);
                 spawnTimer = spawnInterval;
 
@@ -71,12 +72,6 @@ public class WaveManager : MonoBehaviour
             Debug.Log("New Wave");
             GenerateWave();
         }
-
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    _currentWave++;
-        //    GenerateWave();
-        //}
     }
 
     public void GenerateWave()

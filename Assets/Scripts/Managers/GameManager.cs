@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SpawnManager.Instance.SpawnPrefab(_asteroidPrefab, _spawnRadius, _checkRadius, _spawnCount);
+        SpawnManager.Instance.SpawnPrefab(_asteroidPrefab, _spawnRadius, _checkRadius, _spawnCount, false);
     }
 
     void Update()

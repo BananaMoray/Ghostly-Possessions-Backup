@@ -11,18 +11,32 @@ public class EnemyHPLogic : HPLogic
     [SerializeField]
     private GameObject _spaceShipPrefab;
 
+    private bool _hasDied = false;
+
     protected override void ExplodeOnDeath()
     {
-        if (TurnIntoSpaceship(_shipPossessChance) && _spaceShipPrefab != null)
+        if (_hasDied) return;
+
+        Debug.Log($"{gameObject.name} died");
+        WaveManager.Instance.DecreaseEnemyCount();
+
+        if (WilTurnIntoSpaceship(_shipPossessChance) && _spaceShipPrefab != null)
         {
-            Instantiate(_spaceShipPrefab, transform.position, transform.rotation);
-            Destroy(gameObject);
+            Die();
         }
         else
             base.ExplodeOnDeath();
+
+        _hasDied = true;
     }
 
-    private bool TurnIntoSpaceship(float shipPossessChance)
+    private void Die()
+    {
+        Instantiate(_spaceShipPrefab, transform.position, transform.rotation);
+        Destroy(gameObject); //eventually make a pool pattern please
+    }
+
+    private bool WilTurnIntoSpaceship(float shipPossessChance)
     {
         float chance = Random.Range(0f, 1f);
 

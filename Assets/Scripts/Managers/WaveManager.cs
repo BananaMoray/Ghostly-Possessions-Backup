@@ -1,17 +1,28 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance;
+
     [SerializeField]
     private int _currentWave;
 
     [SerializeField]
+    [Range(1f, 2f)]
     private float _waveValueMultiplier = 1.05f;
     [SerializeField]
+    [Range(0, 5f)]
     private float _waveValueDivisor = 3.5f;
     [SerializeField]
+    [Range(1,10)]
     private int _waveValueBase = 10;
+    [SerializeField]
+    [Range(0, 25)]
+    private int _waveOffset = 0;
     [SerializeField]
     private int _maxEnemyAmount = 25;
     [SerializeField]
@@ -21,6 +32,9 @@ public class WaveManager : MonoBehaviour
 
     public List<Enemy> enemies = new List<Enemy>();
 
+    public TextMeshProUGUI UIText;
+    public GameObject WaveUI;
+    private TextMeshProUGUI _waveText;
 
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
 
@@ -36,19 +50,35 @@ public class WaveManager : MonoBehaviour
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    private void Awake()
+    {
+        //singleton moments
+        if (Instance == null)
+            Instance = this;
+
+        _waveText = WaveUI.GetComponentInChildren<TextMeshProUGUI>();
+        WaveUI.SetActive(false);
+    }
+
     void Start()
     {
-        GenerateWave();
+        StartCoroutine(StartNewWave(3f));
+    }
+
+    private void Update()
+    {
+        UpdateUI();
     }
 
     void FixedUpdate()
     {
+
         if (spawnTimer <= 0)
         {
             //spawn an enemy using SpawnManager
             if (enemiesToSpawn.Count > 0)
             {
-                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 40, 3, true);
+                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 30, 3, true);
 
                 //GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity);
                 enemiesToSpawn.RemoveAt(0);
@@ -67,46 +97,74 @@ public class WaveManager : MonoBehaviour
             waveTimer -= Time.fixedDeltaTime;
         }
 
-        if (waveTimer <= 0)
-        {
-            _currentWave++;
-            Debug.Log($"Wave {_currentWave} begin");
-            GenerateWave();
-        }
+
+    }
+
+    private void UpdateUI()
+    {
+        UIText.text = $"Current wave: {_currentWave}<br>Enemies to defeat: {_waveEnemyAmount}<br>Current WaveValue: {WaveValue}";
     }
 
     public void GenerateWave()
     {
         //WaveValue = (int)(_waveValueBase + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
-        WaveValue = (int)(_waveValueBase + (_currentWave / _waveValueDivisor) + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
-        GenerateEnemies();
+        WaveValue = (int)(_waveValueBase 
+            + (_currentWave + _waveOffset / _waveValueDivisor) 
+            + (Mathf.Pow(_waveValueMultiplier, _currentWave + _waveOffset)));
+        GenerateEnemies(WaveValue);
 
         spawnInterval = waveDuration / enemiesToSpawn.Count;
         _waveEnemyAmount = enemiesToSpawn.Count;
         waveTimer = waveDuration; 
     }
 
-    public void GenerateEnemies()
+    public void GenerateEnemies(int waveValue)
     {
+        int value = waveValue;
 
         List<GameObject> generatedEnemies = new List<GameObject>();
-        while (WaveValue > 0 || generatedEnemies.Count < _maxEnemyAmount)
+        while (value > 0 || generatedEnemies.Count < _maxEnemyAmount)
         {
             int randEnemyId = Random.Range(0, enemies.Count);
-            int randEnemyCost = enemies[randEnemyId].Cost;
+            int enemyCost = enemies[randEnemyId].Cost;
 
-            if (WaveValue - randEnemyCost >= 0)
+            if (value - enemyCost >= 0)
             {
                 generatedEnemies.Add(enemies[randEnemyId].EnemyPrefab);
-                WaveValue -= randEnemyCost;
+                value -= enemyCost;
             }
-            else if (WaveValue <= 0)
+            else if (value <= 0)
             {
                 break;
             }
         }
         enemiesToSpawn.Clear();
         enemiesToSpawn = generatedEnemies;
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        _waveEnemyAmount -= 1;
+        Debug.Log("-1 enemy");
+
+        if (_waveEnemyAmount <= 0)
+        {
+            _currentWave++;
+            //Debug.Log($"Wave {_currentWave} begin");
+            StartCoroutine(StartNewWave(3f));
+        }
+
+    }
+
+    private IEnumerator StartNewWave(float duration)
+    {
+        yield return new WaitForSeconds(2f);
+        WaveUI.SetActive(true);
+        _waveText.text = $"WAVE {_currentWave}";
+        
+        yield return new WaitForSeconds(duration);
+        GenerateWave();
+        WaveUI.SetActive(false);
     }
 
 }

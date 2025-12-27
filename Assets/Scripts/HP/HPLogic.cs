@@ -115,11 +115,6 @@ public class HPLogic : MonoBehaviour, IHealth
         {
             ExplodeOrInactivate();
         }
-
-        //if (HPBar != null)
-        //    _hpBarSlider.value = GetCurrentHealthPercent();
-
-        //Debug.Log($"{this.gameObject.name} current HP%: {GetCurrentHealthPercent() * 100}%, Current HP: {_health}/{MaxHealth}");
     }
 
     private void ExplodeOrInactivate()

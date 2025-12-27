@@ -153,7 +153,7 @@ MonoBehaviour:
   _deceleration: 4
   _maxSpeed: 8
   _boostSpeed: 12
-  _BoostHPDrainMultiploer: 7
+  _AbilityHPDrainMultiplier: 3
   _rotationSpeed: 240
   CurrentVelocity: {x: 0, y: 0, z: 0}
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
@@ -201,14 +201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damagerPrefab: {fileID: 7965188665383883108, guid: ab9cdc7b2d3041e498705390af0f6382, type: 3}
+  _damagerPrefab: {fileID: 7965188665383883108, guid: fe0b6ece9d3b276468d8fd1ecb09602e, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: 64c2b9a76bbe02a4dbd52edee04bef96, type: 2}
   _barrels:
   - {fileID: 3814878815311482395}
   - {fileID: 5652385399061944454}
   _dmgOverride: 12.5
-  _knockbackOverride: 7
-  _speedOverride: 40
+  _knockbackOverride: 20
+  _speedOverride: 20
   _lifeTimeOverride: 2
   _screenShakeAmount: 0.2
   _screenShakeDuration: 0.4

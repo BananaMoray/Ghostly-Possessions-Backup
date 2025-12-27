@@ -131,12 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea3b6a48a713ff4c8293b99d18e61ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 45
+  _maxHealth: 40
   HpDrainRateInSeconds: 1
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
-  _shipPossessChance: 0.33
+  _shipPossessChance: 0.4
   _spaceShipPrefab: {fileID: 362074853248937440, guid: 5c4eee3bba3ad9641a7e2d6d9e3b3386, type: 3}
 --- !u!114 &2357746864666573814
 MonoBehaviour:

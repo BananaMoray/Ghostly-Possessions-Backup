@@ -50,10 +50,9 @@ GameObject:
   - component: {fileID: 2782339877712290767}
   - component: {fileID: 1126610280224822931}
   - component: {fileID: 4156115164936082431}
-  - component: {fileID: -8442891837014029541}
   m_Layer: 8
   m_Name: E_Marlin
-  m_TagString: Possession
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea3b6a48a713ff4c8293b99d18e61ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 50
+  _maxHealth: 45
   HpDrainRateInSeconds: 1
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
@@ -257,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _validShootDistance: 15
-  _aimMoreMultiplier: 0.25
+  _aimMoreMultiplier: -1.5
   _projectileSpeed: 50
   _rayOrigin: {fileID: 0}
 --- !u!114 &4156115164936082431
@@ -275,29 +274,7 @@ MonoBehaviour:
   _damagerPrefab: {fileID: 7965188665383883108, guid: 0c9e79815991f0c48a83b5e9a8b0e447, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: f721d47174e87ad42b2768ad2ab90175, type: 2}
   _barrels: []
-  _dmgOverride: 20
-  _knockbackOverride: 3
-  _speedOverride: 0
-  _lifeTimeOverride: 0.3
-  _screenShakeAmount: 0.3
-  _screenShakeDuration: 0.4
-  _shootDelay: 3
---- !u!114 &-8442891837014029541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2679693574300970167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damagerPrefab: {fileID: 7965188665383883108, guid: 0c9e79815991f0c48a83b5e9a8b0e447, type: 3}
-  _shootsfx: {fileID: 6418180475301049370, guid: f721d47174e87ad42b2768ad2ab90175, type: 2}
-  _barrels: []
-  _dmgOverride: 20
+  _dmgOverride: 10
   _knockbackOverride: 3
   _speedOverride: 0
   _lifeTimeOverride: 0.3

@@ -9,7 +9,7 @@ public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
     [SerializeField]
     private float _validShootDistance = 12f;
     [Tooltip("Higher value means better prediction abilities. 0 has no tracking. 1 is perfect tracking. 2 overshoots.")]
-    [Range(0f, 2f)]
+    [Range(-2f, 2f)]
     [SerializeField]
     private float _aimMoreMultiplier = 1.0f;
     [SerializeField]

@@ -244,7 +244,7 @@ MonoBehaviour:
   _shootsfx: {fileID: 6418180475301049370, guid: f721d47174e87ad42b2768ad2ab90175, type: 2}
   _barrels:
   - {fileID: 8524575464163021923}
-  _dmgOverride: 20
+  _dmgOverride: 25
   _knockbackOverride: 3
   _speedOverride: 0
   _lifeTimeOverride: 0.3

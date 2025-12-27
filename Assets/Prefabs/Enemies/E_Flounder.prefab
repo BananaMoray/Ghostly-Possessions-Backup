@@ -135,7 +135,7 @@ MonoBehaviour:
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
-  _shipPossessChance: 0.33
+  _shipPossessChance: 0.4
   _spaceShipPrefab: {fileID: 7413028498818811229, guid: 3f1ab7cf77a95a14cba4323ff29826b5, type: 3}
 --- !u!114 &3759375820619489890
 MonoBehaviour:
@@ -157,7 +157,7 @@ MonoBehaviour:
   MovementStrategy: {fileID: 3088593189096056055}
   AttackStrategy: {fileID: 6404670862933720059}
   CurrentIntention: 1
-  _attackRange: 8
+  _attackRange: 14
   _cowardice: 0.1
   _retreatTimer: 2.5
   _losCoolDown: 2
@@ -220,11 +220,11 @@ MonoBehaviour:
   _knockbackOverride: 5
   _speedOverride: 10
   _lifeTimeOverride: 3
-  _screenShakeAmount: 0.3
-  _screenShakeDuration: 0.3
+  _screenShakeAmount: 0.2
+  _screenShakeDuration: 0.5
   _shootDelay: 1.5
   pelletCount: 3
-  spreadAngle: 30
+  spreadAngle: 25
 --- !u!54 &6584649267717270792
 Rigidbody:
   m_ObjectHideFlags: 0

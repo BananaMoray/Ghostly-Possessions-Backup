@@ -348,7 +348,7 @@ MonoBehaviour:
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
-  _shipPossessChance: 0.2
+  _shipPossessChance: 0.3
   _spaceShipPrefab: {fileID: 1262851914636733443, guid: 0b5e4cefa6001cb4ea87cc2dfd035d55, type: 3}
 --- !u!54 &3787493632207429980
 Rigidbody:
@@ -389,14 +389,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f0c655aa0eb544a8fa29e9e33cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damagerPrefab: {fileID: 7965188665383883108, guid: 7a10afeed61d64841ad61d3e78036803, type: 3}
+  _damagerPrefab: {fileID: 7965188665383883108, guid: a9e248a512dba614f8dff1a5be5453bb, type: 3}
   _shootsfx: {fileID: 6418180475301049370, guid: 64c2b9a76bbe02a4dbd52edee04bef96, type: 2}
   _barrels:
   - {fileID: 2434528923531821194}
   - {fileID: 4682416285974315848}
-  _dmgOverride: 10
-  _knockbackOverride: 5
-  _speedOverride: 15
+  _dmgOverride: 15
+  _knockbackOverride: 20
+  _speedOverride: 10
   _lifeTimeOverride: 2
   _screenShakeAmount: 0.1
   _screenShakeDuration: 0.4

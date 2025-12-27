@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea3b6a48a713ff4c8293b99d18e61ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 25
+  _maxHealth: 20
   HpDrainRateInSeconds: 1
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
@@ -149,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ff893334e1d794c9e9de06a3d4a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 20
-  _deceleration: 8
+  _acceleration: 15
+  _deceleration: 3
   _maxSpeed: 3
-  _rotationSpeed: 720
+  _rotationSpeed: 240
   _player: {fileID: 0}
   MovementStrategy: {fileID: 7380002130092569445}
   AttackStrategy: {fileID: 150560320254029548}
@@ -233,11 +233,11 @@ MonoBehaviour:
   - {fileID: 7872237155372035466}
   _dmgOverride: 5
   _knockbackOverride: 1
-  _speedOverride: 20
+  _speedOverride: 15
   _lifeTimeOverride: 2
   _screenShakeAmount: 0
   _screenShakeDuration: 0
-  _shootDelay: 0.5
+  _shootDelay: 0.8
 --- !u!54 &5945118401443134658
 Rigidbody:
   m_ObjectHideFlags: 0

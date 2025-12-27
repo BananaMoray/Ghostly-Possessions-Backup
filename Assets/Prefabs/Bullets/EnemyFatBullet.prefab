@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 653912608239671559}
   - component: {fileID: 8866398816292940572}
   - component: {fileID: 6541094804628068143}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.37, y: 0.37, z: 0.93}
+  m_LocalScale: {x: 2, y: 0.37, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 206515427350897462}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3d878661af5f92b4999eeec8898ff0c4, type: 2}
+  - {fileID: 2100000, guid: 5d739e99704288649a57bbd2845cab67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,11 +95,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 206515427350897462}
-  - component: {fileID: 5177877662786782095}
   - component: {fileID: -5999247359500543618}
-  - component: {fileID: 6253927765951779059}
-  m_Layer: 6
-  m_Name: BasicBullet
+  - component: {fileID: 7159773713963292563}
+  - component: {fileID: 7875081394014586141}
+  m_Layer: 7
+  m_Name: EnemyFatBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,19 +122,6 @@ Transform:
   - {fileID: 653912608239671559}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5177877662786782095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7965188665383883108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f20b384fabcc243af6484c5bb32ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletSpeed: 40
 --- !u!54 &-5999247359500543618
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,8 +149,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &6253927765951779059
-CapsuleCollider:
+--- !u!65 &7159773713963292563
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -180,11 +167,22 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.41
-  m_Height: 1.37
-  m_Direction: 2
+  serializedVersion: 3
+  m_Size: {x: 2.1612806, y: 0.54093313, z: 0.5763951}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7875081394014586141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965188665383883108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3800335298ac4447b8dd35d3c33c061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpeed: 20
 --- !u!1 &8271212189439047619
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +194,7 @@ GameObject:
   - component: {fileID: 5340670182145942249}
   - component: {fileID: 3916760162873168570}
   - component: {fileID: 7364531046581892338}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

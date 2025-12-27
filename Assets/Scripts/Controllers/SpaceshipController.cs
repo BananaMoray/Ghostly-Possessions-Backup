@@ -30,7 +30,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private float _boostSpeed = 10f;
     [Tooltip("Multiplier by which the HP is drained while boosting.")]
     [SerializeField]
-    private float _BoostHPDrainMultiploer = 3f;
+    private float _AbilityHPDrainMultiplier = 3f;
     [SerializeField]
     private float _rotationSpeed = 360f;
     public Vector3 CurrentVelocity = Vector3.zero;
@@ -171,7 +171,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private void EnableThrusters(bool b)
     {
         if (_healthComponent != null)
-            (_healthComponent as HPLogic).HpDrainRateInSeconds = b ? 1 / _BoostHPDrainMultiploer : 1;
+            (_healthComponent as HPLogic).HpDrainRateInSeconds = b ? 1 / _AbilityHPDrainMultiplier : 1;
 
         if (_thrusterParticleSystems.Length != 0)
         {

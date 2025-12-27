@@ -7,18 +7,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] waves;
 
-    [SerializeField]
-    private GameObject _asteroidPrefab;
-    [SerializeField]
-    private float _spawnRadius = 40f;
-    [SerializeField]
-    private float _checkRadius = 2f;
-    [SerializeField]
-    private int _spawnCount = 30;
 
-    private void Awake()
+
+    private void Start()
     {
-        SpawnManager.Instance.InstantiatePrefab(_asteroidPrefab, _spawnRadius, _checkRadius, _spawnCount, false);
+
     }
 
     void Update()

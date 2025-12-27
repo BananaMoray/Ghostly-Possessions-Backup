@@ -473,10 +473,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves: []
-  _asteroidPrefab: {fileID: 7045984081611109977, guid: 718759e948327024895642933b9566b7, type: 3}
-  _spawnRadius: 40
-  _checkRadius: 2
-  _spawnCount: 30
 --- !u!4 &285095739
 Transform:
   m_ObjectHideFlags: 0
@@ -886,6 +882,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f509df150465fe4599edde3f8e21213, type: 3}
+--- !u!1 &746022344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 746022346}
+  - component: {fileID: 746022345}
+  m_Layer: 0
+  m_Name: AsteroidManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &746022345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746022344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9b7eaa3b596834fab312bffc4395f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _asteroidPrefab: {fileID: 7045984081611109977, guid: 718759e948327024895642933b9566b7, type: 3}
+  _spawnRadius: 40
+  _checkRadius: 2
+  _spawnCount: 30
+  _respectPlayer: 1
+  Asteroids: []
+--- !u!4 &746022346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746022344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &777663728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,16 +1647,15 @@ MonoBehaviour:
   - EnemyPrefab: {fileID: 260895238121877028, guid: 5f509df150465fe4599edde3f8e21213, type: 3}
     Cost: 1
   - EnemyPrefab: {fileID: 521658619450124428, guid: b98f5c13108364a46bc1478172d6a46f, type: 3}
-    Cost: 2
+    Cost: 3
   - EnemyPrefab: {fileID: 260895238121877028, guid: 6a4b6942bdb0cb948badcc5645a53759, type: 3}
     Cost: 6
   - EnemyPrefab: {fileID: 6270951512766143809, guid: 41bcdafd905d345419fc7fcbf629bdd7, type: 3}
     Cost: 6
   - EnemyPrefab: {fileID: 427539394382539542, guid: 6732b41ec23e30b4295286330b82128f, type: 3}
-    Cost: 4
+    Cost: 5
   _currentWave: 1
   WaveValue: 0
-  WaveTotalValue: 0
   _waveValueMultiplier: 1.2
   _waveValueBase: 4
   _maxEnemyAmount: 20
@@ -2930,7 +2975,7 @@ MonoBehaviour:
   _playerDistanceCheck: 10
   _losMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 257
 --- !u!4 &2080753987
 Transform:
   m_ObjectHideFlags: 0
@@ -3140,8 +3185,9 @@ SceneRoots:
   - {fileID: 570572062}
   - {fileID: 1568707169}
   - {fileID: 2042784188}
-  - {fileID: 285095739}
   - {fileID: 2080753987}
+  - {fileID: 285095739}
+  - {fileID: 746022346}
   - {fileID: 1467028733}
   - {fileID: 1544650057}
   - {fileID: 1382728734}

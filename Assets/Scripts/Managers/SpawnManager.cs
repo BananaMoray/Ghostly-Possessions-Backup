@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public GameObject InstantiatePrefab(GameObject prefab, float radius, float checkRadius, int spawnCount, bool respectPlayerRadius)
+    public GameObject InstantiatePrefabs(GameObject prefab, float radius, float checkRadius, int spawnCount, bool respectPlayerRadius)
     {
         GameObject lastSpawned = null;
 
@@ -52,7 +52,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     float distToPlayer = Vector3.Distance(spawnPos, _player.transform.position);
 
-                    if (distToPlayer < 10f)
+                    if (distToPlayer < _playerDistanceCheck)
                     {
                         validPosition = false;
                         Debug.Log("Too close to player");
@@ -77,12 +77,58 @@ public class SpawnManager : MonoBehaviour
         return lastSpawned;
     }
 
+    public GameObject InstantiatePrefab(GameObject prefab, float radius, float checkRadius, bool respectPlayerRadius)
+    {
+        GameObject lastSpawned = null;
+
+
+            Vector3 spawnPos = Vector3.zero;
+            bool validPosition = false;
+
+            int attempts = 0;
+            int maxAttempts = 50;
+
+            while (!validPosition && attempts < maxAttempts)
+            {
+                spawnPos = RandomisePosition(radius);
+
+                Collider[] hits = Physics.OverlapSphere(spawnPos, checkRadius, _losMask);
+
+
+                validPosition = hits.Length == 0;
+
+                if (respectPlayerRadius)
+                {
+                    float distToPlayer = Vector3.Distance(spawnPos, _player.transform.position);
+
+                    if (distToPlayer < _playerDistanceCheck)
+                    {
+                        validPosition = false;
+                        Debug.Log("Too close to player");
+                    }
+
+                }
+
+                attempts++;
+            }
+
+            lastSpawned = Instantiate(prefab, spawnPos, Quaternion.identity);
+        
+
+        return lastSpawned;
+    }
+
     private Vector3 RandomisePosition(float radius)
     {
-        Vector3 pos = Random.insideUnitSphere * radius;
+        Vector3 pos = _player.transform.position + Random.insideUnitSphere * radius;
 
         pos.y = 0;
 
         return pos;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
     }
 }

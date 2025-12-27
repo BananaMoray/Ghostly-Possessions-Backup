@@ -3,17 +3,24 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
     [SerializeField]
     private int _currentWave;
-    public int WaveValue;
-    public int WaveTotalValue;
+
     [SerializeField]
-    private float _waveValueMultiplier = 1.5f;
+    private float _waveValueMultiplier = 1.05f;
+    [SerializeField]
+    private float _waveValueDivisor = 3.5f;
     [SerializeField]
     private int _waveValueBase = 10;
     [SerializeField]
     private int _maxEnemyAmount = 25;
+    [SerializeField]
+    private AnimationCurve _curve;
+
+    public int WaveValue;
+
+    public List<Enemy> enemies = new List<Enemy>();
+
 
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
 
@@ -24,6 +31,8 @@ public class WaveManager : MonoBehaviour
     private float waveTimer;
     private float spawnInterval;
     private float spawnTimer;
+
+    private int _waveEnemyAmount;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
@@ -39,21 +48,13 @@ public class WaveManager : MonoBehaviour
             //spawn an enemy using SpawnManager
             if (enemiesToSpawn.Count > 0)
             {
-                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 40, 3, 1, true);
+                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 40, 3, true);
 
                 //GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity);
                 enemiesToSpawn.RemoveAt(0);
                 spawnedEnemies.Add(enemy);
                 spawnTimer = spawnInterval;
 
-                if (spawnIndex + 1 <= spawnLocation.Length - 1)
-                {
-                    spawnIndex++;
-                }
-                else
-                {
-                    spawnIndex = 0;
-                }
             }
             else
             {
@@ -69,32 +70,24 @@ public class WaveManager : MonoBehaviour
         if (waveTimer <= 0)
         {
             _currentWave++;
-            Debug.Log("New Wave");
+            Debug.Log($"Wave {_currentWave} begin");
             GenerateWave();
         }
     }
 
     public void GenerateWave()
     {
-        WaveTotalValue = (int)(_waveValueBase + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
-        WaveValue = WaveTotalValue;
+        //WaveValue = (int)(_waveValueBase + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
+        WaveValue = (int)(_waveValueBase + (_currentWave / _waveValueDivisor) + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
         GenerateEnemies();
 
-        spawnInterval = waveDuration / enemiesToSpawn.Count; // gives a fixed time between each enemies
-        waveTimer = waveDuration; // wave duration is read only
+        spawnInterval = waveDuration / enemiesToSpawn.Count;
+        _waveEnemyAmount = enemiesToSpawn.Count;
+        waveTimer = waveDuration; 
     }
 
     public void GenerateEnemies()
     {
-        // Create a temporary list of enemies to generate
-        // 
-        // in a loop grab a random enemy 
-        // see if we can afford it
-        // if we can, add it to our list, and deduct the cost.
-
-        // repeat... 
-
-        //  -> if we have no points left, leave the loop
 
         List<GameObject> generatedEnemies = new List<GameObject>();
         while (WaveValue > 0 || generatedEnemies.Count < _maxEnemyAmount)
@@ -118,9 +111,11 @@ public class WaveManager : MonoBehaviour
 
 }
 
-[System.Serializable]
+[System.Serializable] //otherwise i cant access them in the inspector
 public class Enemy
 {
     public GameObject EnemyPrefab;
+    [Range(1, 30)]
+    [Tooltip("This is the value of the enemy in the store.")]
     public int Cost;
 }

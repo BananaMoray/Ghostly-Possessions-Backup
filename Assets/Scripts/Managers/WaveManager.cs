@@ -10,16 +10,15 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField]
     private int _currentWave;
-
+    [SerializeField]
+    [Range(0, 10)]
+    private int _waveValueBase = 10;
     [SerializeField]
     [Range(1f, 2f)]
     private float _waveValueMultiplier = 1.05f;
     [SerializeField]
     [Range(0, 5f)]
     private float _waveValueDivisor = 3.5f;
-    [SerializeField]
-    [Range(1,10)]
-    private int _waveValueBase = 10;
     [SerializeField]
     [Range(0, 25)]
     private int _waveOffset = 0;
@@ -30,7 +29,7 @@ public class WaveManager : MonoBehaviour
 
     public int WaveValue;
 
-    public List<Enemy> enemies = new List<Enemy>();
+    public List<EnemyData> enemies = new List<EnemyData>();
 
     public TextMeshProUGUI UIText;
     public GameObject WaveUI;
@@ -43,12 +42,16 @@ public class WaveManager : MonoBehaviour
 
     public int waveDuration;
     private float waveTimer;
-    private float spawnInterval;
+    [SerializeField]
+    [Range(0, 5)]
+    private float spawnInterval = 5f;
     private float spawnTimer;
 
     private int _waveEnemyAmount;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
+
+    private float _totalWeight = 0;
 
     private void Awake()
     {
@@ -58,6 +61,7 @@ public class WaveManager : MonoBehaviour
 
         _waveText = WaveUI.GetComponentInChildren<TextMeshProUGUI>();
         WaveUI.SetActive(false);
+
     }
 
     void Start()
@@ -102,50 +106,92 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        UIText.text = $"Current wave: {_currentWave}<br>Enemies to defeat: {_waveEnemyAmount}<br>Current WaveValue: {WaveValue}";
+        UIText.text = $"Current wave: {_currentWave}" +
+            $"<br>Enemies to defeat: {_waveEnemyAmount}" +
+            $"<br>Current WaveValue: {WaveValue}" +
+            $"<br>Total Weight: {_totalWeight}";
     }
 
     public void GenerateWave()
     {
         //WaveValue = (int)(_waveValueBase + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
-        WaveValue = (int)(_waveValueBase 
-            + (_currentWave + _waveOffset / _waveValueDivisor) 
+        WaveValue = (int)(_waveValueBase
+            + (_currentWave + _waveOffset / _waveValueDivisor)
             + (Mathf.Pow(_waveValueMultiplier, _currentWave + _waveOffset)));
         GenerateEnemies(WaveValue);
 
-        spawnInterval = waveDuration / enemiesToSpawn.Count;
+        //spawnInterval = waveDuration / enemiesToSpawn.Count;
         _waveEnemyAmount = enemiesToSpawn.Count;
-        waveTimer = waveDuration; 
+        waveTimer = waveDuration;
     }
+
+
 
     public void GenerateEnemies(int waveValue)
     {
-        int value = waveValue;
+        //int value = waveValue;
 
-        List<GameObject> generatedEnemies = new List<GameObject>();
-        while (value > 0 || generatedEnemies.Count < _maxEnemyAmount)
-        {
-            int randEnemyId = Random.Range(0, enemies.Count);
-            int enemyCost = enemies[randEnemyId].Cost;
+        //List<GameObject> generatedEnemies = new List<GameObject>();
 
-            if (value - enemyCost >= 0)
-            {
-                generatedEnemies.Add(enemies[randEnemyId].EnemyPrefab);
-                value -= enemyCost;
-            }
-            else if (value <= 0)
-            {
-                break;
-            }
-        }
+        //while (value > 0 || generatedEnemies.Count < _maxEnemyAmount)
+        //{
+        //    int randEnemyId = Random.Range(0, enemies.Count);
+        //    int enemyCost = enemies[randEnemyId].Cost;
+
+        //    if (value - enemyCost >= 0)
+        //    {
+        //        generatedEnemies.Add(enemies[randEnemyId].EnemyPrefab);
+        //        value -= enemyCost;
+        //    }
+        //    else if (value <= 0)
+        //    {
+        //        break;
+        //    }
+        //}
+        //enemiesToSpawn.Clear();
+        //enemiesToSpawn = generatedEnemies;
+
         enemiesToSpawn.Clear();
-        enemiesToSpawn = generatedEnemies;
+
+        _totalWeight = 0;
+
+        foreach (EnemyData enemy in enemies)
+        {
+            _totalWeight += enemy.Weight;
+        }
+
+        int spawnCount = Mathf.Clamp(waveValue, 1, _maxEnemyAmount);
+
+        for (int i = 0; i < spawnCount; i++)
+        {
+            EnemyData selectedEnemy = GetWeightedEnemy();
+
+            if (selectedEnemy == null)
+                break;
+
+            enemiesToSpawn.Add(selectedEnemy.EnemyPrefab);
+        }
+    }
+
+    private EnemyData GetWeightedEnemy()
+    {
+        float roll = Random.Range(0f, _totalWeight);
+        float cumulative = 0f;
+
+        foreach (EnemyData enemy in enemies)
+        {
+            cumulative += enemy.Weight;
+            if (roll <= cumulative)
+                return enemy;
+        }
+
+        return null; // fallback (should never hit)
     }
 
     public void DecreaseEnemyCount()
     {
         _waveEnemyAmount -= 1;
-        Debug.Log("-1 enemy");
+        //Debug.Log("-1 enemy");
 
         if (_waveEnemyAmount <= 0)
         {
@@ -161,7 +207,7 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         WaveUI.SetActive(true);
         _waveText.text = $"WAVE {_currentWave}";
-        
+
         yield return new WaitForSeconds(duration);
         GenerateWave();
         WaveUI.SetActive(false);
@@ -170,10 +216,13 @@ public class WaveManager : MonoBehaviour
 }
 
 [System.Serializable] //otherwise i cant access them in the inspector
-public class Enemy
+public class EnemyData
 {
     public GameObject EnemyPrefab;
     [Range(1, 30)]
     [Tooltip("This is the value of the enemy in the store.")]
     public int Cost;
+    [Range(.1f, 5)]
+    [Tooltip("This is the weight of the enemy on the wheel.")]
+    public float Weight = 5;
 }

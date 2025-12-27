@@ -17,7 +17,7 @@ public class EnemyHPLogic : HPLogic
     {
         if (_hasDied) return;
 
-        Debug.Log($"{gameObject.name} died");
+        //Debug.Log($"{gameObject.name} died");
         WaveManager.Instance.DecreaseEnemyCount();
 
         if (WilTurnIntoSpaceship(_shipPossessChance) && _spaceShipPrefab != null)

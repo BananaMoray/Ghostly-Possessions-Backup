@@ -33,22 +33,11 @@ public class HPLogic : MonoBehaviour, IHealth
     [SerializeField]
     protected GameObject _explosionPrefab;
 
-    ////HPBar Stuff
-    //[SerializeField]
-    //private GameObject _hpBarPrefab;
-    //private Slider _hpBarSlider;
-
     public float MaxHealth
     {
         get { return _maxHealth; }
         set { _maxHealth = value; }
     }
-
-    //public GameObject HPBar
-    //{
-    //    get { return _hpBarPrefab; }
-    //    set { _hpBarPrefab = value; }
-    //}
 
     private bool _healthDrainEnabled;
 
@@ -68,20 +57,8 @@ public class HPLogic : MonoBehaviour, IHealth
         _rb = GetComponent<Rigidbody>();
 
         _currentHealth = MaxHealth;
-
-        //if (_hpBarPrefab != null)
-        //{
-        //    InstantiateHPBar();
-        //}
     }
 
-    //protected virtual void InstantiateHPBar()
-    //{
-    //    HPBar = Instantiate(_hpBarPrefab, transform.position, new Quaternion(90, 0, 0, 0));
-    //    _hpBarSlider = HPBar.GetComponentInChildren<Slider>();
-    //    HPBar.GetComponent<HPBarController>().owner = gameObject;
-    //    SetHPBarActive(false);
-    //}
 
     public virtual void SetHPBarActive(bool b)
     {
@@ -115,6 +92,16 @@ public class HPLogic : MonoBehaviour, IHealth
         {
             ExplodeOrInactivate();
         }
+    }
+
+    protected virtual void HealDamage(float health)
+    {
+        _currentHealth += health;
+    }
+
+    public virtual void ResetHealth()
+    {
+        _currentHealth = MaxHealth;
     }
 
     private void ExplodeOrInactivate()

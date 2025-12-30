@@ -416,7 +416,7 @@ MonoBehaviour:
   _acceleration: 9
   _deceleration: 6
   _maxSpeed: 4
-  _rotationSpeed: 240
+  _rotationSpeed: 120
   _player: {fileID: 0}
   MovementStrategy: {fileID: -4809872830081242883}
   AttackStrategy: {fileID: -3908162253884508728}

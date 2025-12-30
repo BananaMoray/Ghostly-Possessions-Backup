@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 CurrentVelocity;
 
+    private HPLogic _healthComponent;
+    private Rigidbody _rb;
+    private Collider _collider;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -67,8 +71,11 @@ public class PlayerController : MonoBehaviour
         {
             throw new NotImplementedException();
         }
-    }
 
+        _healthComponent = GetComponent<HPLogic>();
+        _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
+    }
     private void FixedUpdate()
     {
 
@@ -226,9 +233,14 @@ public class PlayerController : MonoBehaviour
         if (_currentPossession != null)
         {
             _currentPossession.OnStartPossess(this);
+
         }
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
+
+        _healthComponent.HealthDrainEnabled = false;
+        _healthComponent.ResetHealth();
+        _collider.enabled = false;
 
         HighlightTarget(ClosestTarget, false);
         ClosestTarget = null;
@@ -245,8 +257,13 @@ public class PlayerController : MonoBehaviour
         {
             _currentPossession.OnStopPossess();
             _currentPossession = null;
+
         }
         SetPossessObject(null, false);
+
+        _healthComponent.HealthDrainEnabled = true;
+        _collider.enabled = true;
+        
 
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
@@ -313,11 +330,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _canPossess = true;
     }
-
-
-
-
-
 
 }
 

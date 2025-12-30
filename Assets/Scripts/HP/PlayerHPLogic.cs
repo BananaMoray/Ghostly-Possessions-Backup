@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpaceshipHPLogic : HPLogic
+public class PlayerHPLogic : HPLogic
 {
+    [Header("HUD")]
+    [SerializeField]
+    private Material _freezeMat;
+
     [Header("HP Bar")]
     [SerializeField]
     private GameObject _hpBarPrefab;
@@ -21,7 +25,13 @@ public class SpaceshipHPLogic : HPLogic
         base.Awake();
 
         if (_hpBarPrefab != null)
+        {
             CreateHPBar();
+            SetHPBarActive(true);
+        }
+            
+        HealthDrainEnabled = true;
+
     }
 
     private void CreateHPBar()
@@ -50,8 +60,12 @@ public class SpaceshipHPLogic : HPLogic
     {
         base.TakeDamage(dmg);
 
-
         UpdateHUD();
+    }
+
+    public override void OnTakeEnemyDamage(IDamager damager)
+    {
+        //StartCoroutine(KnockbackRoutine(damager.DamagerPosition, damager.KnockbackStrength));
     }
 
     public override void SetHPBarActive(bool b)
@@ -64,6 +78,12 @@ public class SpaceshipHPLogic : HPLogic
 
     private void UpdateHUD()
     {
+        if (_freezeMat != null)
+        {
+            _freezeMat.SetFloat("_Value", Mathf.Clamp(1.3f - GetCurrentHealthPercent(), 0, 1));
+            
+        }
+
         if (_fillImage == null) return;
 
         float hpPercent = GetCurrentHealthPercent();
@@ -71,53 +91,47 @@ public class SpaceshipHPLogic : HPLogic
         if (_hpSlider != null)
             _hpSlider.value = GetCurrentHealthPercent();
 
+
         _fillImage.color = Color.Lerp(_lowColour, _fullColour, hpPercent);
     }
 
-    private bool _isDying = false;
+    private bool _isAlive = false;
 
     protected override void ExplodeOnDeath()
     {
         if (_hpBar != null)
             Destroy(_hpBar);
 
-        if (!_isDying)
+        if (!_isAlive)
             StartCoroutine(ExplodeDelayRoutine());
+    }
+
+    public override void ResetHealth()
+    {
+        //_currentHealth = MaxHealth;
+        
+        StartCoroutine(ThawPlayer());
     }
 
     public IEnumerator ExplodeDelayRoutine()
     {
-        _isDying = true;
+        _isAlive = true;
 
-        _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+        yield return null;
 
-        yield return new WaitForSeconds(0.4f);
+        gameObject.SetActive(false);
+    }
 
-        _meshRenderer.material = _originMat;
+    public IEnumerator ThawPlayer()
+    {
+        HealthDrainEnabled = false;
 
-        yield return new WaitForSeconds(0.4f);
+        while (_currentHealth < MaxHealth)
+        {
+            _currentHealth += 0.05f;
+            UpdateHUD();
+        }
 
-        _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
-
-        yield return new WaitForSeconds(0.4f);
-
-        _meshRenderer.material = _originMat;
-
-        yield return new WaitForSeconds(0.4f);
-
-        _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
-
-        yield return new WaitForSeconds(0.4f);
-
-        _meshRenderer.material = _originMat;
-
-        yield return new WaitForSeconds(0.4f);
-
-        HitStopManager.HitStop(0.1f);
-
-        base.ExplodeOnDeath();
+        yield return null;
     }
 }

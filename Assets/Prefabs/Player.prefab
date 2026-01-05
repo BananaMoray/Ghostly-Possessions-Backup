@@ -520,6 +520,7 @@ MonoBehaviour:
   _possessionCooldown: 0.5
   _maxTargetDistance: 5
   CurrentVelocity: {x: 0, y: 0, z: 0}
+  DebugModeEnabled: 0
 --- !u!114 &9093478421797158847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +604,7 @@ MonoBehaviour:
   _damageMat: {fileID: 2100000, guid: 311313efa011949e98b6761d652ad13c, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
   _freezeMat: {fileID: 2100000, guid: ac5a5397809be314a908916504dba963, type: 2}
-  _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
+  _hpBarPrefab: {fileID: 0}
 --- !u!54 &741139938675549326
 Rigidbody:
   m_ObjectHideFlags: 0

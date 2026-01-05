@@ -7,12 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] waves;
 
-
-
-    private void Start()
-    {
-
-    }
+    public static int maxShips = 10;
 
     void Update()
     {

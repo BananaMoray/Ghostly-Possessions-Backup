@@ -72,7 +72,7 @@ public class BaseMovementStrategy : MonoBehaviour, IMovementStrategy
         {
             Vector3 samplePos = origin + direction * (i * _losSampleRadius);
 
-            Collider[] hits = Physics.OverlapSphere(samplePos, _losSampleRadius);
+            Collider[] hits = Physics.OverlapSphere(samplePos, _losSampleRadius, _obstacleMask);
 
             foreach (Collider hit in hits)
             {

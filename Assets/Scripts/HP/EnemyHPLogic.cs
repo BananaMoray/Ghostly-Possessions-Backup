@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,6 +39,11 @@ public class EnemyHPLogic : HPLogic
 
     private bool WilTurnIntoSpaceship(float shipPossessChance)
     {
+        GameObject[] ships = GameObject.FindGameObjectsWithTag("Possession");
+
+        if (ships.Count() > GameManager.maxShips)
+            return false;
+
         float chance = Random.Range(0f, 1f);
 
         return chance <= _shipPossessChance;

@@ -29,9 +29,6 @@ public class PlayerHPLogic : HPLogic
             CreateHPBar();
             SetHPBarActive(true);
         }
-            
-        HealthDrainEnabled = true;
-
     }
 
     private void CreateHPBar()

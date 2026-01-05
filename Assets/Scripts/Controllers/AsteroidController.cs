@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AsteroidController : MonoBehaviour
+public class AsteroidController : TileOwnedObject
 {
 
     void Start()

@@ -120,11 +120,10 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 RandomisePosition(float radius)
     {
-        Vector3 pos = _player.transform.position + Random.insideUnitSphere * radius;
+        float xpos = Random.Range(-radius, radius);
+        float ypos = Random.Range(-radius, radius);
 
-        pos.y = 0;
-
-        return pos;
+        return new Vector3(xpos, 0, ypos);
     }
 
     private void OnDrawGizmos()

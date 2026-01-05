@@ -13,7 +13,6 @@ public class HPLogic : MonoBehaviour, IHealth
     protected float _maxHealth = 30f;
     protected float _currentHealth;
 
-
     public float HpDrainRateInSeconds = 1f;
     private float _drainTimer;
 

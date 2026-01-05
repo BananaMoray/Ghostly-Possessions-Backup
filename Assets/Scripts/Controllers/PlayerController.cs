@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Collider _collider;
 
+    [SerializeField]
+    private bool DebugModeEnabled = false;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -73,8 +76,15 @@ public class PlayerController : MonoBehaviour
         }
 
         _healthComponent = GetComponent<HPLogic>();
+
+        if (_healthComponent == null)
+            throw new NotImplementedException();
+
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
+
+        if (!DebugModeEnabled)
+            _healthComponent.HealthDrainEnabled = true;
     }
     private void FixedUpdate()
     {
@@ -83,8 +93,6 @@ public class PlayerController : MonoBehaviour
         {
             _currentPossession.HandlePossessedInput(_movement.MovementInput, _movement.LookInput);
             CurrentVelocity = (_currentPossession as SpaceshipController).CurrentVelocity;
-            //Debug.Log(CurrentVelocity);
-            //_currentPossession.HandlePossessedRotation(_movement.LookInput);
         }
 
         if (_currentPossession != null)
@@ -261,7 +269,9 @@ public class PlayerController : MonoBehaviour
         }
         SetPossessObject(null, false);
 
-        _healthComponent.HealthDrainEnabled = true;
+        if (!DebugModeEnabled)
+            _healthComponent.HealthDrainEnabled = true;
+
         _collider.enabled = true;
         
 

@@ -82,7 +82,7 @@ public class WaveManager : MonoBehaviour
             //spawn an enemy using SpawnManager
             if (enemiesToSpawn.Count > 0)
             {
-                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 30, 3, true);
+                GameObject enemy = (GameObject)SpawnManager.Instance.InstantiatePrefab(enemiesToSpawn[0], 35, 3, true);
 
                 //GameObject enemy = (GameObject)Instantiate(enemiesToSpawn[0], spawnLocation[spawnIndex].position, Quaternion.identity);
                 enemiesToSpawn.RemoveAt(0);

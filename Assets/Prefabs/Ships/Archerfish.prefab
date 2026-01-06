@@ -193,8 +193,8 @@ GameObject:
   - component: {fileID: 1620247056753119994}
   - component: {fileID: 6019565373138967446}
   - component: {fileID: 3208940231634147018}
-  - component: {fileID: 703073709571770197}
   - component: {fileID: 4181450014162999854}
+  - component: {fileID: 703073709571770197}
   - component: {fileID: 3743830669166555308}
   - component: {fileID: 8039243902205459402}
   m_Layer: 0
@@ -299,24 +299,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &703073709571770197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108331433041269354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 90
-  HpDrainRateInSeconds: 1
-  _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
-  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
-  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
-  _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
 --- !u!114 &4181450014162999854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +327,25 @@ MonoBehaviour:
   - {fileID: 4072019461644575473}
   - {fileID: 7949596452608444515}
   _sparksPrefab: {fileID: 9139647719430629355, guid: 37fa8b38f2e017c40810076aa6f2c92d, type: 3}
+  _crossHairID: 3
+--- !u!114 &703073709571770197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108331433041269354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 90
+  HpDrainRateInSeconds: 1
+  _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
+  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
+  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
+  _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
 --- !u!114 &3743830669166555308
 MonoBehaviour:
   m_ObjectHideFlags: 0

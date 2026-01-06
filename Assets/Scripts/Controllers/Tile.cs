@@ -58,6 +58,8 @@ public class Tile : MonoBehaviour
 
         }
 
+        
+
         if (newTileCoordinate != _tileCoordinate)
         {
             Vector3 oldWorldPosition = transform.position;
@@ -81,6 +83,8 @@ public class Tile : MonoBehaviour
     {
         foreach (Transform objTransform in _containment)
         {
+            if (objTransform == null) return;
+
             TileOwnedObject owned = objTransform.GetComponent<TileOwnedObject>();
 
             if (owned != null && owned.OwningTile == this)

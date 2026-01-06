@@ -82,7 +82,11 @@ public class SpaceshipHPLogic : HPLogic
             Destroy(_hpBar);
 
         if (!_isDying)
+        {
+            GameManager.PossessableSpaceShips.Remove(this.gameObject);
             StartCoroutine(ExplodeDelayRoutine());
+        }
+            
     }
 
     public IEnumerator ExplodeDelayRoutine()

@@ -209,6 +209,15 @@ public class PlayerController : MonoBehaviour
     {
         if (obj == null) return;
 
+        if (obj.tag == "Possession")
+        {
+            SpaceshipHPLogic possessHPComponent = obj.GetComponent<SpaceshipHPLogic>();
+            if (possessHPComponent != null)
+            {
+                possessHPComponent.SetHPBarActive(isTrue);
+            }
+        }
+
         Outline outline = obj.GetComponent<Outline>();
 
         if (outline == null && isTrue)
@@ -232,16 +241,18 @@ public class PlayerController : MonoBehaviour
         //Debug.Log($"Player possessed {target.name}");
         _renderer.enabled = false;
 
-
         IsPossessionInProgress = false;
         transform.position = target.transform.position;
         _currentPossession = PossessionObject.GetComponent<IPossessable>();
+
+        //needs to happen first otherwise hp bar invisible
+        HighlightTarget(ClosestTarget, false);
+        ClosestTarget = null;
 
         //sends message to IPossessable
         if (_currentPossession != null)
         {
             _currentPossession.OnStartPossess(this);
-
         }
 
         OnPossessObject?.Invoke(this, new PossessEventArgs(target));
@@ -249,9 +260,6 @@ public class PlayerController : MonoBehaviour
         _healthComponent.HealthDrainEnabled = false;
         _healthComponent.ResetHealth();
         _collider.enabled = false;
-
-        HighlightTarget(ClosestTarget, false);
-        ClosestTarget = null;
 
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }

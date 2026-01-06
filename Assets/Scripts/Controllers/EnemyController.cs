@@ -52,9 +52,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     [Range(0f, 5f)]
     private float _retreatTimer = 2.5f;
-    [SerializeField]
-    private float _losCoolDown = 2f;
-    private float _lostimer;
+    //[SerializeField]
+    //private float _losCoolDown = 2f;
+    private float _losTimer;
 
     private float _losSampleRadius = 0.3f;
 
@@ -218,7 +218,7 @@ public class EnemyController : MonoBehaviour
             {
                 CurrentIntention = EnemyIntention.Attacking;
                 //Debug.Log($"Attacking Activated");
-                _lostimer = 0;
+                _losTimer = 0;
             }
             else
                 CurrentIntention = EnemyIntention.Pursuing;
@@ -268,7 +268,6 @@ public class EnemyController : MonoBehaviour
         }
         return true;
     }
-
 
     public void ChangeMovementStrategy(IMovementStrategy movementStrategy)
     {

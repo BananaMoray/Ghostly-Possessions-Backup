@@ -50,9 +50,6 @@ public class InfiniteGridManager : MonoBehaviour
     }
     private void LateUpdate()
     {
-
-
-
         foreach (Tile tile in allTiles)
         {
             tile.EvaluateAuthority();

@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _PixelDensity: 128
-    - _Value: 0.2997868
+    - _Value: 0.29997993
     - _VignetteIntensity: 1.5
     - _VignettePower: 6.8
     - _VoronoiDensity: 15

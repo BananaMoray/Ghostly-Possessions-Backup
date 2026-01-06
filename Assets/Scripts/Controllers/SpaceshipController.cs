@@ -44,7 +44,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private IShootable _shootComponent;
 
-    private IHealth _healthComponent;
+    public IHealth HealthComponent;
 
     public Vector2 MoveDirection;
 
@@ -55,6 +55,9 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private GameObject _sparksPrefab;
     private GameObject _sparks;
 
+    [SerializeField]
+    private int _crossHairID;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -63,7 +66,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         _normalMat = _renderer.material;
 
         _shootComponent = GetComponent<IShootable>();
-        _healthComponent = GetComponent<IHealth>();
+        HealthComponent = GetComponent<IHealth>();
 
         _mainCamera = Camera.main;
         CalculateCameraDirections();
@@ -81,7 +84,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
             _rb.freezeRotation = true;
         }
 
-        if (_healthComponent is HPLogic hpLogic)
+        if (HealthComponent is HPLogic hpLogic)
             hpLogic.OnDied += HandleDeath;
 
         if(_sparksPrefab != null)
@@ -100,9 +103,11 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         _sparks.SetActive(false);
 
-        _healthComponent.HealthDrainEnabled = true;
-        _healthComponent.SetHPBarActive(true);
-        _healthComponent.SetOriginalColour();
+        HealthComponent.HealthDrainEnabled = true;
+        HealthComponent.SetHPBarActive(true);
+        HealthComponent.SetOriginalColour();
+
+        SetActiveCrosshair(true);
     }
 
     public void OnStopPossess()
@@ -113,9 +118,11 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         gameObject.layer = 0;
 
         EnableThrusters(false);
-        _healthComponent.HealthDrainEnabled = false;
-        _healthComponent.SetHPBarActive(false);
-        _healthComponent.SetOriginalColour();
+        HealthComponent.HealthDrainEnabled = false;
+        HealthComponent.SetHPBarActive(false);
+        HealthComponent.SetOriginalColour();
+
+        SetActiveCrosshair(false);
     }
 
     private void HandleDeath()
@@ -137,9 +144,27 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         HandleRotation(moveInput, lookInput);
 
+        HandleCrossHairTransform();
+
         _rb.linearVelocity = CurrentVelocity;
 
         EnableThrusters(_isBoosting);
+    }
+
+    private void LateUpdate()
+    {
+        
+    }
+
+    private void SetActiveCrosshair(bool istrue)
+    {
+        GameManager.CrosshairObjects[_crossHairID].SetActive(istrue);
+    }
+
+    private void HandleCrossHairTransform()
+    {
+        GameManager.CrosshairObjects[_crossHairID].transform.position = transform.position;
+        GameManager.CrosshairObjects[_crossHairID].transform.rotation = transform.rotation;
     }
 
     private void HandleMovement(Vector2 moveInput)
@@ -170,8 +195,8 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private void EnableThrusters(bool b)
     {
-        if (_healthComponent != null)
-            (_healthComponent as HPLogic).HpDrainRateInSeconds = b ? 1 / _AbilityHPDrainMultiplier : 1;
+        if (HealthComponent != null)
+            (HealthComponent as HPLogic).HpDrainRateInSeconds = b ? 1 / _AbilityHPDrainMultiplier : 1;
 
         if (_thrusterParticleSystems.Length != 0)
         {

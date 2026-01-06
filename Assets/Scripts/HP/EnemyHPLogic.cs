@@ -10,7 +10,7 @@ public class EnemyHPLogic : HPLogic
     private float _shipPossessChance = 0.33f;
     [SerializeField]
     [Range(0, 6)]
-    public int PossessQuality = 1;
+    public int ShipQuality = 1;
 
     [SerializeField]
     private GameObject _spaceShipPrefab;
@@ -40,12 +40,26 @@ public class EnemyHPLogic : HPLogic
 
         GameManager.PossessableSpaceShips.Add(spaceShip);
 
-        if (GameManager.LowestShipQuality > PossessQuality)
-            GameManager.LowestShipQuality = PossessQuality;
+        SetLowestQuality();
 
-        Debug.Log($"Lowest Quality: {GameManager.LowestShipQuality}");
+        Debug.Log($"Highest Waulity: {GameManager.ShipQualites.Max()}, Lowest Quality: {GameManager.ReturnLowestQuality()}");
 
         Destroy(gameObject); //eventually make this a pool pattern please
+    }
+
+    private void SetLowestQuality()
+    {
+        if (GameManager.PossessableSpaceShips.Count() > GameManager.MaxPossessableShips)
+        {
+            if (GameManager.ShipQualites.Min() < ShipQuality)
+            {
+                GameManager.ShipQualites.Remove(GameManager.ShipQualites.Min());
+                GameManager.ShipQualites.Add(ShipQuality);
+                //this doesnt work as the quality doesnt get removed when a possessable ship explodes
+            }
+        }
+        else
+            GameManager.ShipQualites.Add(ShipQuality);
     }
 
     private bool WilTurnIntoSpaceship(float shipPossessChance)
@@ -58,6 +72,7 @@ public class EnemyHPLogic : HPLogic
                 return false;
             }
         }
+        return true;
 
         float chance = Random.Range(0f, 1f);
 
@@ -66,7 +81,7 @@ public class EnemyHPLogic : HPLogic
 
     private bool IsBetterQuality()
     {
-        if (GameManager.LowestShipQuality < PossessQuality)
+        if (GameManager.ShipQualites.Min() < ShipQuality)
             return true;
 
         return false;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int MaxShipLimit = 10;
 
     public static List<GameObject> PossessableSpaceShips = new List<GameObject>();
+    public static List<int> ShipQualites = new List<int>();
 
     public static int MaxPossessableShips = 10;
 
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
         }
 
         MaxPossessableShips = MaxShipLimit;
+
+        ShipQualites.Add(0);
     }
 
     void Update()
@@ -41,6 +45,11 @@ public class GameManager : MonoBehaviour
             LowestShipQuality = 0;
             PossessableSpaceShips = new List<GameObject>();
         }
+    }
+
+    public static int ReturnLowestQuality()
+    {
+        return ShipQualites.Min();
     }
 
 }

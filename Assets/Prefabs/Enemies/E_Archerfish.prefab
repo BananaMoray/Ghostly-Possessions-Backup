@@ -314,7 +314,7 @@ MonoBehaviour:
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
   _shipPossessChance: 0.387
-  PossessQuality: 2
+  ShipQuality: 2
   _spaceShipPrefab: {fileID: 6108331433041269354, guid: 60733209de815f94383b3e520f0738a3, type: 3}
 --- !u!114 &1481913110337422295
 MonoBehaviour:

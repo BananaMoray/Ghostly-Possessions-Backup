@@ -122,14 +122,9 @@ public class HPLogic : MonoBehaviour, IHealth
 
     protected virtual void ExplodeOnDeath()
     {
-        GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+        StartCoroutine(ExplosionDelayRoutine());
 
-        //if (explosion != null) Debug.Log("Explosion real");
 
-        OnDied?.Invoke();
-
-        //Destroy(HPBar);
-        Destroy(gameObject);
     }
 
     public IEnumerator TakeDamageFeedback(float seconds)
@@ -155,6 +150,22 @@ public class HPLogic : MonoBehaviour, IHealth
         //_rb.linearVelocity = Vector3.zero;
 
         _rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
+    }
+
+    public IEnumerator ExplosionDelayRoutine()
+    {
+        _meshRenderer.material = _damageMat;
+
+        yield return new WaitForSeconds(.5f);
+
+        GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+
+        //if (explosion != null) Debug.Log("Explosion real");
+
+        OnDied?.Invoke();
+
+        //Destroy(HPBar);
+        Destroy(gameObject);
     }
 
     public float GetCurrentHealthPercent()

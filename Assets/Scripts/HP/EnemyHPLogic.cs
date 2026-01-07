@@ -45,7 +45,7 @@ public class EnemyHPLogic : HPLogic
 
         GameManager.PossessableShipsDictionary.Add(spaceShip, ShipQuality);
 
-        Debug.Log($"Total Qualities: {GameManager.PossessableShipsDictionary.Count}, Highest Quality: {GameManager.ReturnHighestQuality()}, Lowest Quality: {GameManager.ReturnLowestQuality()}");
+        //Debug.Log($"Total Qualities: {GameManager.PossessableShipsDictionary.Count}, Highest Quality: {GameManager.ReturnHighestQuality()}, Lowest Quality: {GameManager.ReturnLowestQuality()}");
 
 
         Destroy(gameObject); //eventually make this a pool pattern please

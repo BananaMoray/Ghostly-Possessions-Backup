@@ -104,7 +104,7 @@ public class SpawnManager : MonoBehaviour
                     if (distToPlayer < _playerDistanceCheck)
                     {
                         validPosition = false;
-                        Debug.Log("Too close to player");
+                        //Debug.Log("Too close to player");
                     }
 
                 }

@@ -111,7 +111,7 @@ public class BaseShootClass : MonoBehaviour, IShootable
         GameObject damagerObj = Instantiate(_damagerPrefab, _shotOrigin, rot);
 
         if (_shootsfx != null)
-            SoundManager.Instance.PlaySoundFXClip(_shootsfx, transform, SoundManager.SFXVolume);
+            SoundManager.Instance.PlaySoundFXClip(_shootsfx, transform);
 
         IDamager damager = damagerObj.GetComponent<IDamager>();
 

@@ -95,7 +95,7 @@ public class SpaceshipHPLogic : HPLogic
         _isDying = true;
 
         _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform);
 
         yield return new WaitForSeconds(0.4f);
 
@@ -104,7 +104,7 @@ public class SpaceshipHPLogic : HPLogic
         yield return new WaitForSeconds(0.4f);
 
         _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform);
 
         yield return new WaitForSeconds(0.4f);
 
@@ -113,7 +113,7 @@ public class SpaceshipHPLogic : HPLogic
         yield return new WaitForSeconds(0.4f);
 
         _meshRenderer.material = _damageMat;
-        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+        SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform);
 
         yield return new WaitForSeconds(0.4f);
 

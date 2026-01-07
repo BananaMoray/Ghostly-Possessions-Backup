@@ -165,7 +165,7 @@ MonoBehaviour:
   _deceleration: 4
   _maxSpeed: 5
   _boostSpeed: 12
-  _AbilityHPDrainMultiplier: 3
+  _AbilityHPDrainMultiplier: 2
   _rotationSpeed: 720
   CurrentVelocity: {x: 0, y: 0, z: 0}
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  HpDrainRateInSeconds: 1
+  HpDrainRateInSeconds: 2
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
   _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}

@@ -8,8 +8,8 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance;
 
-    [SerializeField]
-    private int _currentWave;
+    //[SerializeField]
+    ////private int _currentWave;
     [SerializeField]
     [Range(0, 10)]
     private int _waveValueBase = 10;
@@ -106,7 +106,7 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        UIText.text = $"Current wave: {_currentWave}" +
+        UIText.text = $"Current wave: {GameManager.WaveCount}" +
             $"<br>Enemies to defeat: {_waveEnemyAmount}" +
             $"<br>Current WaveValue: {WaveValue}" +
             $"<br>Total Weight: {_totalWeight}";
@@ -116,8 +116,8 @@ public class WaveManager : MonoBehaviour
     {
         //WaveValue = (int)(_waveValueBase + (Mathf.Pow(_waveValueMultiplier, _currentWave - 1)));
         WaveValue = (int)(_waveValueBase
-            + (_currentWave + _waveOffset / _waveValueDivisor)
-            + (Mathf.Pow(_waveValueMultiplier, _currentWave + _waveOffset)));
+            + (GameManager.WaveCount + _waveOffset / _waveValueDivisor)
+            + (Mathf.Pow(_waveValueMultiplier, GameManager.WaveCount + _waveOffset)));
         GenerateEnemies(WaveValue);
 
         //spawnInterval = waveDuration / enemiesToSpawn.Count;
@@ -195,7 +195,7 @@ public class WaveManager : MonoBehaviour
 
         if (_waveEnemyAmount <= 0)
         {
-            _currentWave++;
+            GameManager.WaveCount++;
             //Debug.Log($"Wave {_currentWave} begin");
             StartCoroutine(StartNewWave(3f));
         }
@@ -206,7 +206,7 @@ public class WaveManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         WaveUI.SetActive(true);
-        _waveText.text = $"WAVE {_currentWave}";
+        _waveText.text = $"WAVE {GameManager.WaveCount}";
 
         yield return new WaitForSeconds(duration);
         GenerateWave();

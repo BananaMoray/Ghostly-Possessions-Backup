@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,7 +58,16 @@ public class PlayerHPLogic : HPLogic
     {
         base.TakeDamage(dmg);
 
+        UpdateGameSpeed();
+
         UpdateHUD();
+    }
+    private void UpdateGameSpeed()
+    {
+        float newSpeed = Mathf.Clamp(0.4f + GetCurrentHealthPercent(), 0.6f, 1);
+
+        Time.timeScale = newSpeed;
+        SoundMixerManager.Instance.SetMasterPitch(newSpeed);
     }
 
     public override void OnTakeEnemyDamage(IDamager damager)
@@ -108,6 +118,7 @@ public class PlayerHPLogic : HPLogic
         //_currentHealth = MaxHealth;
         
         StartCoroutine(ThawPlayer());
+        
     }
 
     public IEnumerator ExplodeDelayRoutine()
@@ -116,7 +127,11 @@ public class PlayerHPLogic : HPLogic
 
         yield return null;
 
+        GameObject explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+
         gameObject.SetActive(false);
+
+        SceneStateManager.Instance.EndGame();
     }
 
     public IEnumerator ThawPlayer()
@@ -127,6 +142,7 @@ public class PlayerHPLogic : HPLogic
         {
             _currentHealth += 0.05f;
             UpdateHUD();
+            UpdateGameSpeed();
         }
 
         yield return null;

@@ -132,7 +132,7 @@ public class HPLogic : MonoBehaviour, IHealth
         _meshRenderer.material = _damageMat;
 
         if (_damageSFX != null)
-            SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform, SoundManager.SFXVolume);
+            SoundManager.Instance.PlaySoundFXClip(_damageSFX, transform);
 
         yield return new WaitForSeconds(seconds);
 

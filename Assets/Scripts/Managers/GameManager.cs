@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     private SceneManager _sceneManager;
 
-    public GameObject[] waves;
+    public static int WaveCount;
 
     public int MaxShipLimit = 10;
 
@@ -40,16 +40,6 @@ public class GameManager : MonoBehaviour
         //ShipQualites.Add(0);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            //LowestShipQuality = 0;
-            //PossessableShips = new List<GameObject>();
-            PossessableShipsDictionary.Clear();
-        }
-    }
 
     public static int ReturnHighestQuality()
     {
@@ -75,5 +65,7 @@ public class GameManager : MonoBehaviour
 
         return minValue;
     }
+
+
 
 }

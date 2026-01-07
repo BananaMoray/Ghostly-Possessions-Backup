@@ -10,9 +10,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioResource RandAudio;
 
-    [Range(0,1)]
-    public static float SFXVolume = 1f;
-
     private void Awake()
     {
         //singleton moments
@@ -20,16 +17,13 @@ public class SoundManager : MonoBehaviour
             Instance = this;
     }
 
-    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
+    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform)
     {
         //spawn the game object
         AudioSource audioSource =Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
         //assign clip
         audioSource.clip = audioClip;
-
-        //assign volume
-        audioSource.volume = volume;
 
         //play sound
         audioSource.Play();
@@ -41,16 +35,13 @@ public class SoundManager : MonoBehaviour
         Destroy(audioSource.gameObject, clipLength);
     }
 
-    public void PlaySoundFXClip(AudioResource audioResource, Transform spawnTransform, float volume)
+    public void PlaySoundFXClip(AudioResource audioResource, Transform spawnTransform)
     {
         //spawn the game object
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
         //assign clip
         audioSource.resource = audioResource;
-
-        //assign volume
-        audioSource.volume = volume;
 
         //play sound
         audioSource.Play();

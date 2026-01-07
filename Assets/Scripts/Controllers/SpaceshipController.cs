@@ -144,7 +144,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         HandleRotation(moveInput, lookInput);
 
-        HandleCrossHairTransform();
+        
 
         _rb.linearVelocity = CurrentVelocity;
 
@@ -262,5 +262,10 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         {
             _shootComponent.OnRequestAttack(attackInput);
         }
+    }
+
+    public void HandlePossessedLateUpdate()
+    {
+        HandleCrossHairTransform();
     }
 }

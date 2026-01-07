@@ -86,6 +86,15 @@ public class PlayerController : MonoBehaviour
         if (!DebugModeEnabled)
             _healthComponent.HealthDrainEnabled = true;
     }
+
+    private void LateUpdate()
+    {
+        if (_currentPossession != null && !IsPossessionInProgress)
+        {
+            _currentPossession.HandlePossessedLateUpdate();
+        }
+    }
+
     private void FixedUpdate()
     {
 

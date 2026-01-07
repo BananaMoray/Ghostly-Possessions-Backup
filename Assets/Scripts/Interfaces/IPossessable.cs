@@ -8,6 +8,7 @@ public interface IPossessable
     void OnStopPossess();
 
     void HandlePossessedInput(Vector2 moveInput, Vector2 lookInput);
+    void HandlePossessedLateUpdate();
     void HandlePossessedAttack(bool attackInput);
     void HandlePossessedBoost(bool attackInput);
 

@@ -398,7 +398,7 @@ MonoBehaviour:
   _dmgOverride: 15
   _knockbackOverride: 20
   _speedOverride: 10
-  _lifeTimeOverride: 0.6
+  _lifeTimeOverride: 1
   _screenShakeAmount: 0.1
   _screenShakeDuration: 0.4
   _shootDelay: 2

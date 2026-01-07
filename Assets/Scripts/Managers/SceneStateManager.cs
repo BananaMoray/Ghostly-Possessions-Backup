@@ -33,14 +33,14 @@ public class SceneStateManager : MonoBehaviour
     {
         SwitchScene(SceneManager.GetActiveScene().name);
         GameManager.PossessableShipsDictionary.Clear();
-        GameManager.WaveCount = 0;
+        GameManager.WaveCount = 1;
     }
     
     public void StartGame()
     {
         SwitchScene(_playScene);
         GameManager.PossessableShipsDictionary.Clear();
-        GameManager.WaveCount = 0;
+        GameManager.WaveCount = 1;
     }
 
     public void MainMenu()

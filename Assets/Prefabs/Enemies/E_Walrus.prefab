@@ -398,7 +398,7 @@ MonoBehaviour:
   _dmgOverride: 15
   _knockbackOverride: 20
   _speedOverride: 10
-  _lifeTimeOverride: 1
+  _lifeTimeOverride: 1.3
   _screenShakeAmount: 0.1
   _screenShakeDuration: 0.4
   _shootDelay: 2
@@ -423,8 +423,8 @@ MonoBehaviour:
   AttackStrategy: {fileID: -3908162253884508728}
   CurrentIntention: 1
   _attackRange: 12
-  _cowardice: 0.1
-  _retreatTimer: 1
+  _cowardice: 0.3
+  _retreatTimer: 0.5
   _losMask:
     serializedVersion: 2
     m_Bits: 0

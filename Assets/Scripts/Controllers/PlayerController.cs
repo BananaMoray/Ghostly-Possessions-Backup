@@ -60,9 +60,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Collider _collider;
 
-    [SerializeField]
-    private bool DebugModeEnabled = false;
-
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -83,7 +80,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
 
-        if (!DebugModeEnabled)
+        if (!GameManager.DebugMode)
             _healthComponent.HealthDrainEnabled = true;
     }
 
@@ -286,7 +283,7 @@ public class PlayerController : MonoBehaviour
         }
         SetPossessObject(null, false);
 
-        if (!DebugModeEnabled)
+        if (!GameManager.DebugMode)
             _healthComponent.HealthDrainEnabled = true;
 
         _collider.enabled = true;

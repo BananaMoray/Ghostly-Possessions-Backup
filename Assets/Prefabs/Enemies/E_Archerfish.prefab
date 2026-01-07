@@ -359,7 +359,7 @@ MonoBehaviour:
   AttackStrategy: {fileID: 7975643037042432213}
   CurrentIntention: 1
   _attackRange: 10
-  _cowardice: 0.4
+  _cowardice: 0.5
   _retreatTimer: 2
   _losMask:
     serializedVersion: 2

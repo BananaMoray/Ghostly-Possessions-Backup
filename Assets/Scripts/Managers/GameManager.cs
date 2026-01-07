@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
 
     public static int WaveCount;
 
+    public static bool DebugMode;
+
+    public  bool DebugModeEnabled;
+
     public int MaxShipLimit = 10;
 
     //public static List<GameObject> PossessableShips = new List<GameObject>();
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         MaxPossessableShips = MaxShipLimit;
 
+        DebugMode = DebugModeEnabled;
         //ShipQualites.Add(0);
     }
 

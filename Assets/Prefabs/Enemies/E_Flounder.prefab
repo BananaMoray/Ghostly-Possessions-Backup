@@ -220,7 +220,7 @@ MonoBehaviour:
   _knockbackOverride: 5
   _speedOverride: 10
   _lifeTimeOverride: 3
-  _screenShakeAmount: 0.2
+  _screenShakeAmount: 0.3
   _screenShakeDuration: 0.5
   _shootDelay: 1.5
   pelletCount: 3

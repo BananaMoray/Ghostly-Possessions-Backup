@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,16 +12,18 @@ public class GameManager : MonoBehaviour
 
     public int MaxShipLimit = 10;
 
-    public static List<GameObject> PossessableSpaceShips = new List<GameObject>();
-    public static List<int> ShipQualites = new List<int>();
+    //public static List<GameObject> PossessableShips = new List<GameObject>();
+    //public static List<int> ShipQualites = new List<int>();
 
     public static int MaxPossessableShips = 10;
 
-    public static int LowestShipQuality = 0;
+    //public static int LowestShipQuality = 0;
 
     public GameObject[] CrosshairPrefabs;
 
     public static GameObject[] CrosshairObjects;
+
+    public static Dictionary<GameObject, int> PossessableShipsDictionary = new Dictionary<GameObject , int>();
 
     private void Start()
     {
@@ -34,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         MaxPossessableShips = MaxShipLimit;
 
-        ShipQualites.Add(0);
+        //ShipQualites.Add(0);
     }
 
     void Update()
@@ -42,14 +45,35 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            LowestShipQuality = 0;
-            PossessableSpaceShips = new List<GameObject>();
+            //LowestShipQuality = 0;
+            //PossessableShips = new List<GameObject>();
+            PossessableShipsDictionary.Clear();
         }
+    }
+
+    public static int ReturnHighestQuality()
+    {
+        int maxValue = int.MinValue;
+
+        foreach (KeyValuePair<GameObject, int> ship in PossessableShipsDictionary)
+        {
+            maxValue = Math.Max(maxValue, ship.Value);
+        }
+
+        return maxValue;
     }
 
     public static int ReturnLowestQuality()
     {
-        return ShipQualites.Min();
+        int minValue = int.MaxValue;
+
+        foreach (KeyValuePair<GameObject, int> ship in PossessableShipsDictionary)
+        {
+            minValue = Math.Min(minValue, ship.Value);
+
+        }
+
+        return minValue;
     }
 
 }

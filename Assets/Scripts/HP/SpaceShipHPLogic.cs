@@ -83,7 +83,8 @@ public class SpaceshipHPLogic : HPLogic
 
         if (!_isDying)
         {
-            GameManager.PossessableSpaceShips.Remove(this.gameObject);
+            GameManager.PossessableShipsDictionary.Remove(gameObject);
+            //GameManager.PossessableShips.Remove(this.gameObject);
             StartCoroutine(ExplodeDelayRoutine());
         }
             

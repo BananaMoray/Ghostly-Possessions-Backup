@@ -38,41 +38,45 @@ public class EnemyHPLogic : HPLogic
     {
         GameObject spaceShip = Instantiate(_spaceShipPrefab, transform.position, transform.rotation);
 
-        GameManager.PossessableSpaceShips.Add(spaceShip);
+        //GameManager.PossessableShips.Add(spaceShip);
 
-        SetLowestQuality();
+        //SetLowestQuality();
 
-        Debug.Log($"Highest Waulity: {GameManager.ShipQualites.Max()}, Lowest Quality: {GameManager.ReturnLowestQuality()}");
+
+        GameManager.PossessableShipsDictionary.Add(spaceShip, ShipQuality);
+
+        Debug.Log($"Total Qualities: {GameManager.PossessableShipsDictionary.Count}, Highest Quality: {GameManager.ReturnHighestQuality()}, Lowest Quality: {GameManager.ReturnLowestQuality()}");
+
 
         Destroy(gameObject); //eventually make this a pool pattern please
     }
 
-    private void SetLowestQuality()
-    {
-        if (GameManager.PossessableSpaceShips.Count() > GameManager.MaxPossessableShips)
-        {
-            if (GameManager.ShipQualites.Min() < ShipQuality)
-            {
-                GameManager.ShipQualites.Remove(GameManager.ShipQualites.Min());
-                GameManager.ShipQualites.Add(ShipQuality);
-                //this doesnt work as the quality doesnt get removed when a possessable ship explodes
-            }
-        }
-        else
-            GameManager.ShipQualites.Add(ShipQuality);
-    }
+    //private void SetLowestQuality()
+    //{
+    //    if (GameManager.PossessableShips.Count() > GameManager.MaxPossessableShips)
+    //    {
+    //        if (GameManager.ShipQualites.Min() < ShipQuality)
+    //        {
+    //            GameManager.ShipQualites.Remove(GameManager.ShipQualites.Min());
+    //            GameManager.ShipQualites.Add(ShipQuality);
+    //            //this doesnt work as the quality doesnt get removed when a possessable ship explodes
+    //        }
+    //    }
+    //    else
+    //        GameManager.ShipQualites.Add(ShipQuality);
+    //}
 
     private bool WilTurnIntoSpaceship(float shipPossessChance)
     {
         if (!IsBetterQuality())
         {
-            if (GameManager.PossessableSpaceShips.Count() > GameManager.MaxPossessableShips)
+            if (GameManager.PossessableShipsDictionary.Count() > GameManager.MaxPossessableShips)
             {
                 Debug.Log("Can't spawn spaceship");
                 return false;
             }
         }
-        return true;
+        //return true;
 
         float chance = Random.Range(0f, 1f);
 
@@ -81,7 +85,7 @@ public class EnemyHPLogic : HPLogic
 
     private bool IsBetterQuality()
     {
-        if (GameManager.ShipQualites.Min() < ShipQuality)
+        if (GameManager.ReturnLowestQuality() < ShipQuality)
             return true;
 
         return false;

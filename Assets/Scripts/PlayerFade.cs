@@ -10,7 +10,7 @@ public class PlayerFade : MonoBehaviour
 
     private void Awake()
     {
-        _renderer = GetComponent<Renderer>();
+        _renderer = GetComponentInChildren<Renderer>();
         _material = _renderer.material;
     }
 

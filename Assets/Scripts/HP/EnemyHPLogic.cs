@@ -76,11 +76,18 @@ public class EnemyHPLogic : HPLogic
                 return false;
             }
         }
-        //return true;
 
+        if (GameManager.DebugMode)
+            return true;
+
+        float possessChanceOffset = -0.2f + ((GameManager.WaveCount + (float)Mathf.Pow(1.06f, GameManager.WaveCount)) / 70);
+
+        //lets make this more sophisticated
         float chance = Random.Range(0f, 1f);
 
-        return chance <= _shipPossessChance;
+        Debug.Log($"{chance}, {possessChanceOffset}, {chance + possessChanceOffset}");
+
+        return chance + possessChanceOffset <= _shipPossessChance;
     }
 
     private bool IsBetterQuality()

@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseRelativeMovement: 0
   UseRelativeRotation: 0
-  _acceleration: 22
+  _acceleration: 15
   _deceleration: 2
   _maxSpeed: 10
   _boostSpeed: 17

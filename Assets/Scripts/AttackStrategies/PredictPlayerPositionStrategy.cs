@@ -59,6 +59,7 @@ public class PredictPlayerPositionStrategy : MonoBehaviour, IAttackStrategy
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
         }
     }
+
     private Vector3 GetPredictedPosition(Vector3 playerPosition, Vector3 playerVelocity)
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerPosition);

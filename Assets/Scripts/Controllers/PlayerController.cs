@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PossessionObject;
     private IPossessable _currentPossession;
 
+    [SerializeField]
     private MeshRenderer _renderer;
     private PlayerMovement _movement;
 
@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
-        _renderer = GetComponent<MeshRenderer>();
         _movement = GetComponent<PlayerMovement>();
         _fade = GetComponent<PlayerFade>();
 
@@ -136,7 +135,7 @@ public class PlayerController : MonoBehaviour
             if (_interact && _currentPossession != null)
             {
                 
-                _fade.FadeIn(_holdDuration);
+                //_fade.FadeIn(_holdDuration);
 
                 _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
                 {

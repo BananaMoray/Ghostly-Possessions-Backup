@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class LoadingScreenManager : MonoBehaviour
@@ -7,14 +9,33 @@ public class LoadingScreenManager : MonoBehaviour
     [SerializeField]
     private string[] _hints;
 
+    [SerializeField]
+    private TextMeshProUGUI _textMeshPro;
+
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        RandomiseTip();
+    }
+
+    private void RandomiseTip()
+    {
+        int roll = UnityEngine.Random.Range(0, _hints.Length);
+
+        _textMeshPro.text = _hints[roll];
     }
 
     public void PlayLoadingScreen()
     {
-
+        
     }
 }

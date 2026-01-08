@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ScreenShakeManager : MonoBehaviour
 {
-    private static ScreenShakeManager _screenShakeInstance;
+    private static ScreenShakeManager Instance;
 
     [SerializeField]
     private AnimationCurve _animationCurve;
@@ -11,13 +11,13 @@ public class ScreenShakeManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_screenShakeInstance == null)
-            _screenShakeInstance = this;
+        if (Instance == null)
+            Instance = this;
     }
 
     public static void ShakeScreen(float strength, float duration)
     {
-        _screenShakeInstance.StartCoroutine(_screenShakeInstance.ShakeRoutine(strength, duration));
+        Instance.StartCoroutine(Instance.ShakeRoutine(strength, duration));
     }
 
     private IEnumerator ShakeRoutine(float strength, float duration)

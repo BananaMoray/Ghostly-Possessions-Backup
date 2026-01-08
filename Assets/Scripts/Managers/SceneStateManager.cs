@@ -43,22 +43,10 @@ public class SceneStateManager : MonoBehaviour
 
     }
 
-    public async void LoadScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
-        Time.timeScale = 1.0f;
-
-        var scene = SceneManager.LoadSceneAsync(sceneName);
-        scene.allowSceneActivation = false;
-
-        //_loadingTimer = 0;
-        _progressTimer = 0;
-
-        _loadingCanvas.SetActive(true);
-
-        await Task.Delay(1000);
-
-        scene.allowSceneActivation = true;
-        _loadingCanvas.SetActive(true);
+        SoundMixerManager.Instance.SetMasterPitch(1);
+        SceneManager.LoadScene(sceneName);
 
     }
 
@@ -68,12 +56,37 @@ public class SceneStateManager : MonoBehaviour
         GameManager.PossessableShipsDictionary.Clear();
         GameManager.WaveCount = 1;
     }
-    
-    public void StartGame()
+
+    public async void StartGame()
     {
-        LoadScene(_playScene);
+
         GameManager.PossessableShipsDictionary.Clear();
         GameManager.WaveCount = 1;
+
+        Time.timeScale = 1.0f;
+
+        var scene = SceneManager.LoadSceneAsync(_playScene);
+        scene.allowSceneActivation = false;
+
+        if (_loadingCanvas != null)
+            _loadingCanvas.SetActive(true);
+
+        do
+        {
+            await Task.Delay(100);
+
+        } while (scene.progress < 0.9f);
+
+        await Task.Delay(3500);
+
+        scene.allowSceneActivation = true;
+
+        await Task.Delay(200);
+
+        if (_loadingCanvas != null)
+            _loadingCanvas.SetActive(false);
+
+
     }
 
     public void MainMenu()

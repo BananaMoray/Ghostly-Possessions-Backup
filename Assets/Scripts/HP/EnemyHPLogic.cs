@@ -72,13 +72,17 @@ public class EnemyHPLogic : HPLogic
         {
             if (GameManager.PossessableShipsDictionary.Count() > GameManager.MaxPossessableShips)
             {
-                Debug.Log("Can't spawn spaceship");
                 return false;
             }
         }
 
         if (GameManager.DebugMode)
             return true;
+
+        if (GameManager.WaveCount == 1 && GameManager.PossessableShipsDictionary.Count() == 1)
+        {
+            return true;
+        }
 
         float possessChanceOffset = -0.2f + ((GameManager.WaveCount + (float)Mathf.Pow(1.06f, GameManager.WaveCount)) / 70);
 

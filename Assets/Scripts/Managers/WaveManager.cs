@@ -59,12 +59,8 @@ public class WaveManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
 
         _waveText = WaveUI.GetComponentInChildren<TextMeshProUGUI>();
         WaveUI.SetActive(false);

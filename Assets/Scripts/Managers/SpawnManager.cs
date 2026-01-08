@@ -22,14 +22,8 @@ public class SpawnManager : MonoBehaviour
     {
         //SpawnAsteroids();
         if (Instance == null)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
 
         _player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -64,7 +58,7 @@ public class SpawnManager : MonoBehaviour
                         validPosition = false;
                         Debug.Log("Too close to player");
                     }
-                        
+
                 }
 
                 attempts++;
@@ -89,38 +83,38 @@ public class SpawnManager : MonoBehaviour
         GameObject lastSpawned = null;
 
 
-            Vector3 spawnPos = Vector3.zero;
-            bool validPosition = false;
+        Vector3 spawnPos = Vector3.zero;
+        bool validPosition = false;
 
-            int attempts = 0;
-            int maxAttempts = 50;
+        int attempts = 0;
+        int maxAttempts = 50;
 
-            while (!validPosition && attempts < maxAttempts)
+        while (!validPosition && attempts < maxAttempts)
+        {
+            spawnPos = RandomisePosition(radius);
+
+            Collider[] hits = Physics.OverlapSphere(spawnPos, checkRadius, _losMask);
+
+
+            validPosition = hits.Length == 0;
+
+            if (respectPlayerRadius)
             {
-                spawnPos = RandomisePosition(radius);
+                float distToPlayer = Vector3.Distance(spawnPos, _player.transform.position);
 
-                Collider[] hits = Physics.OverlapSphere(spawnPos, checkRadius, _losMask);
-
-
-                validPosition = hits.Length == 0;
-
-                if (respectPlayerRadius)
+                if (distToPlayer < _playerDistanceCheck)
                 {
-                    float distToPlayer = Vector3.Distance(spawnPos, _player.transform.position);
-
-                    if (distToPlayer < _playerDistanceCheck)
-                    {
-                        validPosition = false;
-                        //Debug.Log("Too close to player");
-                    }
-
+                    validPosition = false;
+                    //Debug.Log("Too close to player");
                 }
 
-                attempts++;
             }
 
-            lastSpawned = Instantiate(prefab, spawnPos, Quaternion.identity);
-        
+            attempts++;
+        }
+
+        lastSpawned = Instantiate(prefab, spawnPos, Quaternion.identity);
+
 
         return lastSpawned;
     }

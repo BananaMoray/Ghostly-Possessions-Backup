@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     private SceneManager _sceneManager;
 
     public static int WaveCount;
@@ -28,6 +30,15 @@ public class GameManager : MonoBehaviour
     public static GameObject[] CrosshairObjects;
 
     public static Dictionary<GameObject, int> PossessableShipsDictionary = new Dictionary<GameObject , int>();
+
+    private void Awake()
+    {
+        //singleton moments
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {

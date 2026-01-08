@@ -1057,10 +1057,14 @@ PrefabInstance:
     - target: {fileID: 1857303436840328706, guid: 4866aff312f3ae94ca93f773bd251ce6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 15838149}
     - target: {fileID: 1857303436840328706, guid: 4866aff312f3ae94ca93f773bd251ce6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: StopApplication
+      objectReference: {fileID: 0}
+    - target: {fileID: 1857303436840328706, guid: 4866aff312f3ae94ca93f773bd251ce6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2154904103836028725, guid: 4866aff312f3ae94ca93f773bd251ce6, type: 3}
       propertyPath: m_text

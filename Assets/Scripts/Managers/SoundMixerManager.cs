@@ -14,14 +14,8 @@ public class SoundMixerManager : MonoBehaviour
     {
         //singleton moments
         if (Instance == null)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
     }
 
     public void SetMasterVolume(float level)

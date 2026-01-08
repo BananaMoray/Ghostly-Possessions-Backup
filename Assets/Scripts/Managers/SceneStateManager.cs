@@ -31,17 +31,17 @@ public class SceneStateManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LoadScene(SceneManager.GetActiveScene().name);
-        }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.R) && GameManager.DebugMode)
+    //    {
+    //        LoadScene(SceneManager.GetActiveScene().name);
+    //    }
 
-        _loadingTimer += Time.deltaTime;
+    //    _loadingTimer += Time.deltaTime;
 
 
-    }
+    //}
 
     public void LoadScene(string sceneName)
     {

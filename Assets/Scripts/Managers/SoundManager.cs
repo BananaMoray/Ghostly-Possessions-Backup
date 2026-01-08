@@ -14,7 +14,14 @@ public class SoundManager : MonoBehaviour
     {
         //singleton moments
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform)

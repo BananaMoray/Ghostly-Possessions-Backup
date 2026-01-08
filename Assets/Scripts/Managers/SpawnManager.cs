@@ -22,7 +22,14 @@ public class SpawnManager : MonoBehaviour
     {
         //SpawnAsteroids();
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         _player = GameObject.FindGameObjectWithTag("Player");
     }

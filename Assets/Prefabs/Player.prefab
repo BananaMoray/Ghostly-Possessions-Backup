@@ -472,7 +472,7 @@ MonoBehaviour:
   _renderer: {fileID: 7788877554088768249}
   PossessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   _holdDuration: 0.5
-  _possessionCooldown: 0.5
+  _possessionCooldown: 1.2
   _maxTargetDistance: 5
   CurrentVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &9093478421797158847
@@ -528,6 +528,10 @@ MonoBehaviour:
   _possessingDistanceCheck: 0.5
   MovementInput: {x: 0, y: 0}
   LookInput: {x: 0, y: 0}
+  _starLargeMat: {fileID: 2100000, guid: 3cc1670106112a64cb4c84328fd7f031, type: 2}
+  _starSmallMat: {fileID: 2100000, guid: ff36ba7d16bf39e4eacf10d56c7e705f, type: 2}
+  _starLargeParallaxMultiplier: 2
+  _starSmallParallaxMultiplier: 1.9
 --- !u!114 &3103305359699008752
 MonoBehaviour:
   m_ObjectHideFlags: 0

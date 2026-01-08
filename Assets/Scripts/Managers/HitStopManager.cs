@@ -3,18 +3,26 @@ using System.Collections;
 
 public class HitStopManager : MonoBehaviour
 {
-    private static HitStopManager _instance;
+    private static HitStopManager Instance;
     private bool _isHitStopping = false;
     private void Awake()
     {
-        _instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public static void HitStop(float duration)
     {
         //singelton lmaoooooo
-        if (_instance != null)
-            _instance.StartCoroutine(_instance.DoHitStop(duration));
+        if (Instance != null)
+            Instance.StartCoroutine(Instance.DoHitStop(duration));
     }
 
     private IEnumerator DoHitStop(float duration)

@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_FullScreenFreeze
-  m_Shader: {fileID: -6465566751694194690, guid: 72d5b09a7abf11143bcf8fa996add746, type: 3}
+  m_Name: StarsSmall
+  m_Shader: {fileID: -6465566751694194690, guid: d441daae79b828e4fa007b32f4397241, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -18,7 +18,8 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -37,15 +38,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _PixelDensity: 128
-    - _Value: 0.29994714
-    - _VignetteIntensity: 1.5
-    - _VignettePower: 6.8
-    - _VoronoiDensity: 15
-    - _VoronoiIntensity: 0.75
-    - _VoronoiPower: 0.85
-    - _VoronoiSpeed: 1
+    - _Brightness: 0.34
+    - _BrightnessPower: 1.26
+    - _BrightnessVariationScale: 0.135
+    - _OverallScale: 1
+    - _PixelDensity: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Randomness: 5
+    - _Rotation: 0
+    - _StarsScale: 33
+    - _Threshold: 0.95
     m_Colors:
-    - _VignetteColor: {r: 0.40450338, g: 0.6933458, b: 0.8490566, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Offset: {r: -59.95841, g: -5.508382, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &6379190121120578523
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9

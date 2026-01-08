@@ -85,7 +85,7 @@ public class EnemyHPLogic : HPLogic
         //lets make this more sophisticated
         float chance = Random.Range(0f, 1f);
 
-        Debug.Log($"{chance}, {possessChanceOffset}, {chance + possessChanceOffset}");
+        //Debug.Log($"{chance}, {possessChanceOffset}, {chance + possessChanceOffset}");
 
         return chance + possessChanceOffset <= _shipPossessChance;
     }

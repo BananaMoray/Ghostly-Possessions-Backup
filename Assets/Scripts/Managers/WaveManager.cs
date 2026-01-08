@@ -57,7 +57,14 @@ public class WaveManager : MonoBehaviour
     {
         //singleton moments
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         _waveText = WaveUI.GetComponentInChildren<TextMeshProUGUI>();
         WaveUI.SetActive(false);

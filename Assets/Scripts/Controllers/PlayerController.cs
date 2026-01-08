@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
     public static event EventHandler<PossessEventArgs> OnDetectClostestPossessObject;
 
     [Header("Misc")]
-    [SerializeField] 
+    [SerializeField]
     private PlayerInput _input;
-    [SerializeField] 
+    [SerializeField]
     private Camera _mainCamera;
 
     [Header("Possession Data")]
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _holdDuration = 0.5f;
     [SerializeField]
-    private float _possessionCooldown = 0.5f;
+    private float _possessionCooldown = 0.7f;
     private float _holdTimer = 0f;
     private bool _canPossess = true;
     [SerializeField]
@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour
         {
             _currentPossession.HandlePossessedLateUpdate();
         }
+
+        _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
     }
 
     private void FixedUpdate()
@@ -109,10 +111,7 @@ public class PlayerController : MonoBehaviour
         {
             CurrentVelocity = _movement.CurrentVelocity;
         }
-
-            HandleInteractInput();
-
-        _movement.HandleMovement(IsPossessing, IsPossessionInProgress, PossessionObject);
+        HandleInteractInput();
 
         _previousInteract = _interact;
         _previousAttack = _attack;
@@ -134,10 +133,12 @@ public class PlayerController : MonoBehaviour
 
             if (_interact && _currentPossession != null)
             {
-                
+
                 //_fade.FadeIn(_holdDuration);
 
-                _holdTimer += Time.deltaTime; if (_holdTimer >= _holdDuration)
+                _holdTimer += Time.deltaTime; 
+                
+                if (_holdTimer >= _holdDuration && _canPossess)
                 {
                     UnpossessObject();
                     //_holdTimer = 0f;
@@ -197,14 +198,14 @@ public class PlayerController : MonoBehaviour
             {
                 closestDistance = distance;
                 newClosest = obj;
-                
+
             }
         }
 
         if (newClosest != ClosestTarget)
         {
-            HighlightTarget(ClosestTarget, false); 
-            HighlightTarget(newClosest, true);      
+            HighlightTarget(ClosestTarget, false);
+            HighlightTarget(newClosest, true);
             ClosestTarget = newClosest;
             OnDetectClostestPossessObject?.Invoke(this, new PossessEventArgs(newClosest));
         }
@@ -286,9 +287,9 @@ public class PlayerController : MonoBehaviour
             _healthComponent.HealthDrainEnabled = true;
 
         _collider.enabled = true;
-        
 
-        StartCoroutine(PossessionCooldown(_possessionCooldown));
+
+        StartCoroutine(PossessionCooldown(.5f));
     }
 
     public static Vector3 StartPossessionPosition;

@@ -58,6 +58,10 @@ public class EnemyController : MonoBehaviour
 
     private float _losSampleRadius = 0.3f;
 
+    private float _imLostTimer;
+    private float _lostTimeInterval = 2f;
+    private float _maxLostDistance = 35f;
+
     [SerializeField]
     private LayerMask _losMask;
 
@@ -77,7 +81,7 @@ public class EnemyController : MonoBehaviour
             _healthComponent = GetComponent<IHealth>();
 
         if (MovementStrategy == null)
-            
+
             Debug.LogError($"Movement Strategy not implemented for {gameObject.name}");
         else
             _movementStrategy = MovementStrategy as IMovementStrategy;
@@ -104,6 +108,45 @@ public class EnemyController : MonoBehaviour
 
         HandleAttackIntention(targetPos);
 
+        _imLostTimer += Time.deltaTime;
+
+        if (_imLostTimer >= _lostTimeInterval)
+        {
+            //Debug.Log("did i get lost?");
+
+            Vector3 deltaDistance = _player.transform.position - transform.position;
+
+            if (CheckIfLost(deltaDistance))
+            {
+                ReturnToPlayArea(deltaDistance);
+            }
+
+            _imLostTimer = 0;
+        }
+    }
+
+    private bool CheckIfLost(Vector3 delta)
+    {
+        if (delta.magnitude >= _maxLostDistance)
+        {
+            //Debug.Log("i am lost");
+            return true;
+        }
+        return false;
+    }
+
+    private void ReturnToPlayArea(Vector3 delta)
+    {
+        //get normalised delta direction
+        Vector3 direction = delta.normalized * -1;
+
+        //grab player position
+        Vector3 startPos = _player.transform.position;
+
+        //teleport enemy to player position + inverse delta nromalized time offset
+        Vector3 endPos = _player.transform.position + direction * 30;
+
+        transform.position = endPos;
     }
 
     private void HandleAttackIntention(Vector3 targetPos)

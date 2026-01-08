@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,9 +26,21 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 LookInput = Vector2.zero;
 
     private float _currentPossessionProgress;
+    [Header("Stars and stuff")]
+    [SerializeField]
+    private Material _starLargeMat;
+    [SerializeField]
+    private Material _starSmallMat;
+
+    [SerializeField]
+    private float _starLargeParallaxMultiplier = 3f;
+    [SerializeField]
+    private float _starSmallParallaxMultiplier = 3f;
 
     public void HandleMovement(bool isPossessing, bool isPossessionInProgress, GameObject possessionObject)
     {
+        HandleBackground();
+
         if (isPossessing)
         {
             HandlePossessionMovement(isPossessionInProgress, possessionObject);
@@ -36,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
         {
             HandleNormalMovement();
         }
+    }
+
+    private void HandleBackground()
+    {
+        _starLargeMat.SetVector("_Offset", new Vector2(transform.position.x, transform.position.z) * _starLargeParallaxMultiplier);
+        _starSmallMat.SetVector("_Offset", new Vector2(transform.position.x, transform.position.z) * _starSmallParallaxMultiplier);
     }
 
     private void HandleNormalMovement()

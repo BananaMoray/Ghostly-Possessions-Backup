@@ -27,7 +27,7 @@ public class LoadingScreenManager : MonoBehaviour
         RandomiseTip();
     }
 
-    private void RandomiseTip()
+    public void RandomiseTip()
     {
         int roll = UnityEngine.Random.Range(0, _hints.Length);
 

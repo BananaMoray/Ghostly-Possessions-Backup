@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] CrosshairPrefabs;
 
+    public GameObject[] CanvasWeaponPrefabs;
+
     public static GameObject[] CrosshairObjects;
 
     public static Dictionary<GameObject, int> PossessableShipsDictionary = new Dictionary<GameObject , int>();

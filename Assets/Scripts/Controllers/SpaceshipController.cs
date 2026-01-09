@@ -12,6 +12,13 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private PlayerController owner;
 
+    [Header("Name of Spaceship")]
+    public string HUDSpaceShipName;
+    [Header("Name of Spaceship Weapon")]
+    public string HUDSpaceShipDescription;
+    [Header("ID of Spaceship Weapon")]
+    public int HUDWeaponID;
+
     [Header("Movement Settings")]
     public bool UseRelativeMovement = false;
     public bool UseRelativeRotation = false;
@@ -108,6 +115,9 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         HealthComponent.SetOriginalColour();
 
         SetActiveCrosshair(true);
+
+        HudScreenManager.Instance.SetHUD(HUDSpaceShipName, HUDSpaceShipDescription, HUDWeaponID);
+        HudScreenManager.Instance.SetHUDActive(true);
     }
 
     public void OnStopPossess()
@@ -123,6 +133,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         HealthComponent.SetOriginalColour();
 
         SetActiveCrosshair(false);
+        HudScreenManager.Instance.SetHUDActive(false);
     }
 
     private void HandleDeath()

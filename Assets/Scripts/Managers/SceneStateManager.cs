@@ -68,6 +68,10 @@ public class SceneStateManager : MonoBehaviour
         var scene = SceneManager.LoadSceneAsync(_playScene);
         scene.allowSceneActivation = false;
 
+        LoadingScreenManager lsc = _loadingCanvas.GetComponent<LoadingScreenManager>();
+
+        lsc.RandomiseTip();
+
         if (_loadingCanvas != null)
             _loadingCanvas.SetActive(true);
 

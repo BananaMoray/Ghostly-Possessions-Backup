@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: 44}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 269.9, y: 48.7}
+  m_SizeDelta: {x: 238.9387, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3804542
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Possess
+  m_text: "(Hold) \nPossess / Unpossess"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8031d68cd42a352459360e79aebe357c, type: 2}
   m_sharedMaterial: {fileID: -5957276561581102721, guid: 8031d68cd42a352459360e79aebe357c, type: 2}
@@ -609,6 +609,7 @@ MonoBehaviour:
   - {fileID: 4716459978739903971, guid: c199d7e9db39c2b439f5e151a1bebfba, type: 3}
   - {fileID: 2086084464364795594, guid: a0304ce0404f30a4ea12c47207a6923f, type: 3}
   - {fileID: 6984558153825569754, guid: 3527981d5dcabdc4883bdc6e24465c6b, type: 3}
+  CanvasWeaponPrefabs: []
 --- !u!4 &162724684
 Transform:
   m_ObjectHideFlags: 0

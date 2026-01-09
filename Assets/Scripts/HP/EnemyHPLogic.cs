@@ -79,7 +79,7 @@ public class EnemyHPLogic : HPLogic
         if (GameManager.DebugMode)
             return true;
 
-        if (GameManager.WaveCount == 1 && GameManager.PossessableShipsDictionary.Count() == 1)
+        if (GameManager.WaveCount < 2 && GameManager.PossessableShipsDictionary.Count() < 2)
         {
             return true;
         }

@@ -38,13 +38,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _PixelDensity: 128
-    - _Value: 0.2999829
+    - _Value: 0
     - _VignetteIntensity: 1.5
     - _VignettePower: 6.8
     - _VoronoiDensity: 15
     - _VoronoiIntensity: 0.75
     - _VoronoiPower: 0.85
-    - _VoronoiSpeed: 1
+    - _VoronoiSpeed: 0.1
     m_Colors:
     - _VignetteColor: {r: 0.40450338, g: 0.6933458, b: 0.8490566, a: 0}
   m_BuildTextureStacks: []

@@ -194,6 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HUDSpaceShipName: ISC-Flounder
+  HUDSpaceShipDescription: Scattersystem
+  HUDWeaponID: 0
   UseRelativeMovement: 0
   UseRelativeRotation: 0
   _acceleration: 15

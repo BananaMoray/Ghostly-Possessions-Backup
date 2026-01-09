@@ -98,7 +98,9 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateIntention();
+
+        if (_player != null)
+            UpdateIntention();
 
         //current velocity needs constant refreshing
         _currentVelocity = _rb.linearVelocity;

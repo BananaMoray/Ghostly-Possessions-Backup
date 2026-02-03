@@ -10,10 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2882e8a6c0e3c2b40bbdeb75b079a068, type: 3}
-  m_Name: Tadpole
+  m_Name: 02_Flounder
   m_EditorClassIdentifier: 
-  _hudShipName: Tadpole
-  _hudWeaponName: BoltThrower
+  _ShipName: Boltthrower
+  _shipQuality: 1
+  _hudWeaponName: ...
   _hudWeaponID: 0
-  _crossHairID: 0
+  _crossHairVisual: 0
   _health: 100
+  _maxSpeed: 5
+  _acceleration: 10
+  _deceleration: 5
+  _rotationSpeed: 720
+  _damage: 5
+  _knockBack: 5
+  _attackSpeed: 40
+  _attackLifeTime: 2
+  _attackDelay: 0.5
+  _screenShakeIntensity: 0
+  _screenShakeDuration: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Ship : MonoBehaviour, IPossessable
@@ -196,13 +197,13 @@ public class Ship : MonoBehaviour, IPossessable
 
     private void SetActiveCrosshair(bool istrue)
     {
-        GameManager.CrosshairObjects[Data.CrossHairID].SetActive(istrue);
+        GameManager.CrosshairObjects[(int)Data.CrossHairVisual].SetActive(istrue);
     }
 
-    private void HandleCrossHairTransform()
+    private void HandleCrossHairTransform(int i)
     {
-        GameManager.CrosshairObjects[Data.CrossHairID].transform.position = transform.position;
-        GameManager.CrosshairObjects[Data.CrossHairID].transform.rotation = transform.rotation;
+        GameManager.CrosshairObjects[i].transform.position = transform.position;
+        GameManager.CrosshairObjects[i].transform.rotation = transform.rotation;
     }
 
     private void HandleMovement(Vector2 moveInput)
@@ -304,6 +305,6 @@ public class Ship : MonoBehaviour, IPossessable
 
     public void HandlePossessedLateUpdate()
     {
-        HandleCrossHairTransform();
+        HandleCrossHairTransform((int)Data.CrossHairVisual);
     }
 }

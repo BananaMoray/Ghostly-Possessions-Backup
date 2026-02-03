@@ -61,4 +61,15 @@ public class EnemyShipData : ScriptableObject
     [SerializeField]
     private float _attackDelay = 0.5f;
     public float AttackDelay => _attackDelay;
+
+    [Header("Screenshake")]
+    [SerializeField]
+    [Range(0, 3f)]
+    private float _screenShakeIntensity = 0.0f;
+    public float ScreenShakeIntensity => _screenShakeIntensity;
+
+    [SerializeField]
+    [Range(0, 1f)]
+    private float _screenShakeDuration = 0.0f;
+    public float ScreenShakeDuration => _screenShakeDuration;
 }

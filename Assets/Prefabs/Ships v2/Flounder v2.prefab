@@ -76,9 +76,10 @@ GameObject:
   - component: {fileID: 1710247725831840057}
   - component: {fileID: 4943814630331521060}
   - component: {fileID: 840052614104282755}
+  - component: {fileID: 8619220616677140600}
+  - component: {fileID: 7415789384156996339}
   - component: {fileID: 2848377591108101326}
   - component: {fileID: 4862650625233269129}
-  - component: {fileID: 8619220616677140600}
   - component: {fileID: 7285156186381943434}
   m_Layer: 0
   m_Name: Flounder v2
@@ -182,55 +183,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2848377591108101326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413028498818811229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HUDSpaceShipName: ISC-Flounder
-  HUDSpaceShipDescription: Scattersystem
-  HUDWeaponID: 0
-  UseRelativeMovement: 0
-  UseRelativeRotation: 0
-  _acceleration: 15
-  _deceleration: 4
-  _maxSpeed: 4
-  _boostSpeed: 14
-  _AbilityHPDrainMultiplier: 3
-  _rotationSpeed: 720
-  CurrentVelocity: {x: 0, y: 0, z: 0}
-  _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
-  MoveDirection: {x: 0, y: 0}
-  _thrusterParticleSystems:
-  - {fileID: 6094970256298403744}
-  - {fileID: 9058232099123606912}
-  _sparksPrefab: {fileID: 9139647719430629355, guid: 37fa8b38f2e017c40810076aa6f2c92d, type: 3}
-  _crossHairID: 2
---- !u!114 &4862650625233269129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413028498818811229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 125
-  HpDrainRateInSeconds: 1
-  _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
-  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
-  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
-  _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
 --- !u!54 &8619220616677140600
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -258,6 +210,75 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 1
+--- !u!114 &7415789384156996339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413028498818811229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f84b1efcefc97a43b087a3dca87805b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 0}
+  _boostSpeed: 10
+  _AbilityHPDrainMultiplier: 3
+  _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+  MoveDirection: {x: 0, y: 0}
+  _thrusterParticleSystems:
+  - {fileID: 7761227704117199982, guid: 980c5607a88dc7b4c985d0162187486f, type: 3}
+  _sparksPrefab: {fileID: 9139647719430629355, guid: 37fa8b38f2e017c40810076aa6f2c92d, type: 3}
+--- !u!114 &2848377591108101326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413028498818811229}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 0}
+  HUDSpaceShipName: ISC-Flounder
+  HUDSpaceShipDescription: Scattersystem
+  HUDWeaponID: 0
+  UseRelativeMovement: 0
+  UseRelativeRotation: 0
+  _acceleration: 15
+  _deceleration: 4
+  _maxSpeed: 4
+  _boostSpeed: 14
+  _AbilityHPDrainMultiplier: 3
+  _rotationSpeed: 720
+  _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
+  MoveDirection: {x: 0, y: 0}
+  _thrusterParticleSystems:
+  - {fileID: 6094970256298403744}
+  - {fileID: 9058232099123606912}
+  _sparksPrefab: {fileID: 9139647719430629355, guid: 37fa8b38f2e017c40810076aa6f2c92d, type: 3}
+  _crossHairID: 2
+--- !u!114 &4862650625233269129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413028498818811229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 125
+  HpDrainRateInSeconds: 1
+  _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
+  _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}
+  _explosionPrefab: {fileID: 4766984346164904708, guid: 42cd7edb075c30f4cbb4e4b78e92233e, type: 3}
+  _hpBarPrefab: {fileID: 5868782854271056207, guid: a7879bfd5c8d7b1458dbb751cb0e86c7, type: 3}
 --- !u!114 &7285156186381943434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +301,7 @@ MonoBehaviour:
   _knockbackOverride: 8
   _speedOverride: 40
   _lifeTimeOverride: 1.5
+  _attackDelayOverride: 0
   _screenShakeAmount: 0.6
   _screenShakeDuration: 0.5
   _shootDelay: 0.75

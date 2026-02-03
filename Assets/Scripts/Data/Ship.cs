@@ -1,52 +1,54 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
 
-public class SpaceshipController : MonoBehaviour, IPossessable
+public class Ship : MonoBehaviour, IPossessable
 {
+    [SerializeField]
+    private ShipData _data;
+    public ShipData Data => _data;
+
     public static event EventHandler<PossessEventArgs> OnSpaceShipDeath;
 
     private PlayerController owner;
 
-    [SerializeField]
-    private ShipData _data;
+    //[Header("Name of Spaceship")]
+    //public string HUDSpaceShipName;
+    //[Header("Name of Spaceship Weapon")]
+    //public string HUDSpaceShipDescription;
+    //[Header("ID of Spaceship Weapon")]
+    //public int HUDWeaponID;
 
-    public ShipData Data => _data;
-
-    [Header("Name of Spaceship")]
-    public string HUDSpaceShipName;
-    [Header("Name of Spaceship Weapon")]
-    public string HUDSpaceShipDescription;
-    [Header("ID of Spaceship Weapon")]
-    public int HUDWeaponID;
-
-    [Header("Movement Settings")]
-    public bool UseRelativeMovement = false;
-    public bool UseRelativeRotation = false;
-    [Header("Accelleration and Deceleration")]
-    [Tooltip("Increases Speed at which Velocity is being gained.")]
-    [SerializeField]
-    private float _acceleration = 15f;
-    [Tooltip("Increases Speed at which Velocity is being lost.")]
-    [SerializeField]
-    private float _deceleration = 8f;
-    [Header("Speed Variables")]
-    [SerializeField]
-    private float _maxSpeed = 6f;
+    //[Header("Movement Settings")]
+    //public bool UseRelativeMovement = false;
+    //public bool UseRelativeRotation = false;
+    //[Header("Accelleration and Deceleration")]
+    //[Tooltip("Increases Speed at which Velocity is being gained.")]
+    //[SerializeField]
+    //private float _acceleration = 15f;
+    //[Tooltip("Increases Speed at which Velocity is being lost.")]
+    //[SerializeField]
+    //private float _deceleration = 8f;
+    //[Header("Speed Variables")]
+    //[SerializeField]
+    //private float _maxSpeed = 6f;
     [Tooltip("Maximum Speed at which the player moves when boosting.")]
     [SerializeField]
     private float _boostSpeed = 10f;
     [Tooltip("Multiplier by which the HP is drained while boosting.")]
     [SerializeField]
     private float _AbilityHPDrainMultiplier = 3f;
-    [SerializeField]
-    private float _rotationSpeed = 360f;
-    public Vector3 CurrentVelocity { get; set; }
+    //[SerializeField]
+    //private float _rotationSpeed = 360f;
 
+
+    public Vector3 CurrentVelocity {  get; set; }
+
+
+
+    //-----------------
+    // Components
+    //-----------------
     private MeshRenderer _renderer;
     private Material _normalMat;
     [SerializeField]
@@ -67,18 +69,28 @@ public class SpaceshipController : MonoBehaviour, IPossessable
     private GameObject _sparksPrefab;
     private GameObject _sparks;
 
-    [SerializeField]
-    private int _crossHairID;
+    //[SerializeField]
+    //private int _crossHairID;
 
     private void Awake()
     {
+        Debug.Log(_data.ShipName);
+
         _rb = GetComponent<Rigidbody>();
 
         _renderer = GetComponent<MeshRenderer>();
         _normalMat = _renderer.material;
 
         _shootComponent = GetComponent<IShootable>();
-        HealthComponent = GetComponent<IHealth>();
+        //if shootcomponent exists, override all the variables
+        if (_shootComponent != null)
+        {
+            _shootComponent.DamageOverride = Data.Damage;
+            _shootComponent.KnockbackOverride = Data.KnockBack;
+            _shootComponent.SpeedOverride = Data.AttackSpeed;
+            _shootComponent.LifeTimeOverride = Data.AttackLifeTime;
+            _shootComponent.AttackDelayOverride = Data.AttackDelay;
+        }
 
         _mainCamera = Camera.main;
         CalculateCameraDirections();
@@ -96,18 +108,25 @@ public class SpaceshipController : MonoBehaviour, IPossessable
             _rb.freezeRotation = true;
         }
 
+        HealthComponent = GetComponent<IHealth>();
         if (HealthComponent is HPLogic hpLogic)
         {
+            //set health component health
+            HealthComponent.MaxHealth = Data.Health;
+            (HealthComponent as SpaceshipHPLogic).ResetHealth();
+            //then afterwards create the health bar
             (HealthComponent as SpaceshipHPLogic).CreateHPBar();
+            //subscribe to die event
             hpLogic.OnDied += HandleDeath;
         }
+            
 
-        if(_sparksPrefab != null)
+        if (_sparksPrefab != null)
         {
             _sparks = Instantiate(_sparksPrefab, transform.position, Quaternion.identity) as GameObject;
             _sparks.transform.SetParent(transform);
         }
-            
+
     }
 
     public void OnStartPossess(PlayerController controller)
@@ -124,7 +143,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         SetActiveCrosshair(true);
 
-        HudScreenManager.Instance.SetHUD(HUDSpaceShipName, HUDSpaceShipDescription, HUDWeaponID);
+        HudScreenManager.Instance.SetHUD(Data.ShipName, Data.HUDWeaponName, Data.HUDWeaponID);
         HudScreenManager.Instance.SetHUDActive(true);
     }
 
@@ -163,7 +182,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         HandleRotation(moveInput, lookInput);
 
-        
+
 
         _rb.linearVelocity = CurrentVelocity;
 
@@ -172,18 +191,18 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
     private void LateUpdate()
     {
-        
+
     }
 
     private void SetActiveCrosshair(bool istrue)
     {
-        GameManager.CrosshairObjects[_crossHairID].SetActive(istrue);
+        GameManager.CrosshairObjects[Data.CrossHairID].SetActive(istrue);
     }
 
     private void HandleCrossHairTransform()
     {
-        GameManager.CrosshairObjects[_crossHairID].transform.position = transform.position;
-        GameManager.CrosshairObjects[_crossHairID].transform.rotation = transform.rotation;
+        GameManager.CrosshairObjects[Data.CrossHairID].transform.position = transform.position;
+        GameManager.CrosshairObjects[Data.CrossHairID].transform.rotation = transform.rotation;
     }
 
     private void HandleMovement(Vector2 moveInput)
@@ -193,7 +212,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         Vector3 inputVelocity = Vector3.zero;
 
         //Absolute-Movement
-        inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * _maxSpeed;
+        inputVelocity = new Vector3(moveInput.x, 0, moveInput.y) * Data.MaxSpeed;
 
         if (_isBoosting)
         {
@@ -204,11 +223,11 @@ public class SpaceshipController : MonoBehaviour, IPossessable
 
         }
 
-        CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, inputVelocity, _acceleration * Time.deltaTime);
+        CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, inputVelocity, Data.Acceleration * Time.deltaTime);
 
         if (moveInput.magnitude < 0.01f)
         {
-            CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, Vector3.zero, _deceleration * Time.deltaTime);
+            CurrentVelocity = Vector3.MoveTowards(CurrentVelocity, Vector3.zero, Data.Deceleration * Time.deltaTime);
         }
     }
 
@@ -270,7 +289,7 @@ public class SpaceshipController : MonoBehaviour, IPossessable
         if (_lookDirection.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(_lookDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Data.RotationSpeed * Time.deltaTime);
         }
     }
 

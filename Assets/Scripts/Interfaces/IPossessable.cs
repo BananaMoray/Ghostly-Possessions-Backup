@@ -13,4 +13,6 @@ public interface IPossessable
     void HandlePossessedBoost(bool attackInput);
 
     Transform GetPossessionTransform();
+
+    public Vector3 CurrentVelocity {  get; set; }
 }

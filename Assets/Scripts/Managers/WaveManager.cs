@@ -29,7 +29,7 @@ public class WaveManager : MonoBehaviour
 
     public int WaveValue;
 
-    public List<EnemyData> enemies = new List<EnemyData>();
+    public List<EnemySpawnData> enemies = new List<EnemySpawnData>();
 
     public TextMeshProUGUI UIText;
     public GameObject WaveUI;
@@ -60,7 +60,6 @@ public class WaveManager : MonoBehaviour
         {
             Instance = this;
         }
-
 
         _waveText = WaveUI.GetComponentInChildren<TextMeshProUGUI>();
         WaveUI.SetActive(false);
@@ -103,10 +102,7 @@ public class WaveManager : MonoBehaviour
             spawnTimer -= Time.fixedDeltaTime;
             waveTimer -= Time.fixedDeltaTime;
         }
-
-
     }
-
     private void UpdateUI()
     {
         UIText.text = $"Current wave: {GameManager.WaveCount}" +
@@ -127,8 +123,6 @@ public class WaveManager : MonoBehaviour
         _waveEnemyAmount = enemiesToSpawn.Count;
         waveTimer = waveDuration;
     }
-
-
 
     public void GenerateEnemies(int waveValue)
     {
@@ -158,7 +152,7 @@ public class WaveManager : MonoBehaviour
 
         _totalWeight = 0;
 
-        foreach (EnemyData enemy in enemies)
+        foreach (EnemySpawnData enemy in enemies)
         {
             _totalWeight += enemy.Weight;
         }
@@ -167,7 +161,7 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < spawnCount; i++)
         {
-            EnemyData selectedEnemy = GetWeightedEnemy();
+            EnemySpawnData selectedEnemy = GetWeightedEnemy();
 
             if (selectedEnemy == null)
                 break;
@@ -176,19 +170,20 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private EnemyData GetWeightedEnemy()
+    private EnemySpawnData GetWeightedEnemy()
     {
         float roll = Random.Range(0f, _totalWeight);
         float cumulative = 0f;
 
-        foreach (EnemyData enemy in enemies)
+        foreach (EnemySpawnData enemy in enemies)
         {
             cumulative += enemy.Weight;
             if (roll <= cumulative)
                 return enemy;
         }
 
-        return null; // fallback (should never hit)
+        // fallback this should never be hit
+        return null; 
     }
 
     public void DecreaseEnemyCount()
@@ -219,7 +214,7 @@ public class WaveManager : MonoBehaviour
 }
 
 [System.Serializable] //otherwise i cant access them in the inspector
-public class EnemyData
+public class EnemySpawnData
 {
     public GameObject EnemyPrefab;
     [Range(1, 30)]

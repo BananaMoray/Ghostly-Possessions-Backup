@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         if (_currentPossession != null && !IsPossessionInProgress)
         {
             _currentPossession.HandlePossessedInput(_movement.MovementInput, _movement.LookInput);
-            CurrentVelocity = (_currentPossession as SpaceshipController).CurrentVelocity;
+            CurrentVelocity = (_currentPossession as IPossessable).CurrentVelocity;
         }
 
         if (_currentPossession != null)

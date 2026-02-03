@@ -13,4 +13,5 @@ public interface IShootable
     public float KnockbackOverride { get; set; }
     public float LifeTimeOverride { get; set; }
     public float SpeedOverride { get; set; }
+    public float AttackDelayOverride { get; set; }
 }

@@ -580,6 +580,17 @@
                     "action": "PauseInput",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20d05e1e-decb-46af-a3f6-3a37ab0d8400",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

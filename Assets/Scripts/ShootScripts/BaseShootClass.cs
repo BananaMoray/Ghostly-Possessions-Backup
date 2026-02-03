@@ -48,6 +48,14 @@ public class BaseShootClass : MonoBehaviour, IShootable
         set { _lifeTimeOverride = value; }
     }
 
+    [SerializeField]
+    protected float _attackDelayOverride;
+    public float AttackDelayOverride
+    {
+        get { return _attackDelayOverride; }
+        set { _attackDelayOverride = value; }
+    }
+
     [Header("Screenshake Variables")]
     [SerializeField]
     [Range(0, 3f)]

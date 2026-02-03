@@ -20,13 +20,15 @@ public class SpaceshipHPLogic : HPLogic
     {
         base.Awake();
 
-        if (_hpBarPrefab != null)
-            CreateHPBar();
+        //if (_hpBarPrefab != null)
+        //    CreateHPBar();
     }
 
-    private void CreateHPBar()
+    public void CreateHPBar()
     {
-        //instantiate HPBAr
+        if (_hpBarPrefab == null) return;
+
+        //instantiate HPBar
         _hpBar = Instantiate(_hpBarPrefab, transform.position, Quaternion.identity);
 
         HPBarController controller = _hpBar.GetComponent<HPBarController>();
@@ -71,6 +73,7 @@ public class SpaceshipHPLogic : HPLogic
         if (_hpSlider != null)
             _hpSlider.value = GetCurrentHealthPercent();
 
+        //lerps between the full health colour and low health colour
         _fillImage.color = Color.Lerp(_lowColour, _fullColour, hpPercent);
     }
 
@@ -87,7 +90,7 @@ public class SpaceshipHPLogic : HPLogic
             //GameManager.PossessableShips.Remove(this.gameObject);
             StartCoroutine(ExplodeDelayRoutine());
         }
-            
+
     }
 
     public IEnumerator ExplodeDelayRoutine()

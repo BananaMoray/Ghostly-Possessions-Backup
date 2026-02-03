@@ -46,6 +46,18 @@ public class PauseScreenController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void TogglePause()
+    {
+        if (IsPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.performed)

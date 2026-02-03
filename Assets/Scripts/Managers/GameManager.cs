@@ -33,6 +33,13 @@ public class GameManager : MonoBehaviour
 
     public static Dictionary<GameObject, int> PossessableShipsDictionary = new Dictionary<GameObject , int>();
 
+    [Header("Multiplier Variables")]
+    public static float GlobalSpeedMultiplier = 1;
+
+    public static float EnemySpeedMultiplier = 0.6f;
+    public static float EnemyRotationMultiplier = 0.3f;
+    public static float EnemyKnockbackMultiplier = 0.3f;
+
     private void Awake()
     {
         //singleton moments

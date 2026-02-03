@@ -22,9 +22,10 @@ public class ExplosionHandler : MonoBehaviour
     }
     private void Update()
     {
-        _currentLife += Time.deltaTime;
+        Destroy(gameObject, _lifeTime);
+        //_currentLife += Time.deltaTime;
 
-        if (_currentLife >= _lifeTime )
-            Destroy(gameObject);
+        //if (_currentLife >= _lifeTime )
+        //    Destroy(gameObject, _lifeTime);
     }
 }

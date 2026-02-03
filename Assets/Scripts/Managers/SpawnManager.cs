@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
@@ -124,7 +125,12 @@ public class SpawnManager : MonoBehaviour
         float xpos = Random.Range(-radius, radius);
         float ypos = Random.Range(-radius, radius);
 
-        return new Vector3(xpos, 0, ypos);
+        Vector3 playerPos = _player.transform.position;
+        Vector3 spawnPos = new Vector3(xpos, 0, ypos);
+
+        //Debug.Log(playerPos + " " + spawnPos);
+
+        return playerPos + spawnPos;
     }
 
     private void OnDrawGizmos()

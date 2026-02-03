@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2882e8a6c0e3c2b40bbdeb75b079a068, type: 3}
+  m_Name: Heron
+  m_EditorClassIdentifier: 
+  _ShipName: ...
+  _shipQuality: 1
+  _hudWeaponName: ...
+  _hudWeaponID: 0
+  _crossHairID: 0
+  _health: 100
+  _enemyHealth: 100
+  _maxSpeed: 5
+  _acceleration: 10
+  _deceleration: 5
+  _damage: 5
+  _knockBack: 5

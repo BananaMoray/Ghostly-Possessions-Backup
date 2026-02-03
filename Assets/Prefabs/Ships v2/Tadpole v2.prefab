@@ -43,12 +43,13 @@ GameObject:
   - component: {fileID: 5675102283743419612}
   - component: {fileID: 4421258953501227331}
   - component: {fileID: 4175918170459968173}
+  - component: {fileID: 3531915309834710498}
   - component: {fileID: 8813444827238799425}
   - component: {fileID: 6703285735080579789}
   - component: {fileID: 5390384798569412578}
   - component: {fileID: 6759399942432822723}
   m_Layer: 0
-  m_Name: Tadpole
+  m_Name: Tadpole v2
   m_TagString: Possession
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +148,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 1, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8813444827238799425
+--- !u!114 &3531915309834710498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,6 +156,26 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731174497448066085}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f84b1efcefc97a43b087a3dca87805b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 0}
+  _boostSpeed: 10
+  _AbilityHPDrainMultiplier: 3
+  _possessMat: {fileID: 0}
+  MoveDirection: {x: 0, y: 0}
+  _thrusterParticleSystems:
+  - {fileID: 7761227704117199982}
+  _sparksPrefab: {fileID: 9139647719430629355, guid: 37fa8b38f2e017c40810076aa6f2c92d, type: 3}
+--- !u!114 &8813444827238799425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731174497448066085}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b7878cbccdddd54eb5dd263d724e3b4, type: 3}
   m_Name: 
@@ -171,7 +192,6 @@ MonoBehaviour:
   _boostSpeed: 12
   _AbilityHPDrainMultiplier: 2
   _rotationSpeed: 720
-  CurrentVelocity: {x: 0, y: 0, z: 0}
   _possessMat: {fileID: 2100000, guid: 3fd07b478d7a06442917903b0673f66f, type: 2}
   MoveDirection: {x: 0, y: 0}
   _thrusterParticleSystems:
@@ -190,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fffd3d20865804aa15b973389d1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 0
   HpDrainRateInSeconds: 2
   _damageSFX: {fileID: 6418180475301049370, guid: ac7fb4a7ef887cd4e9a2f9d578f8555f, type: 2}
   _damageMat: {fileID: 2100000, guid: 379e0228cbe727b499bed2c937606912, type: 2}

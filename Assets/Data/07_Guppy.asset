@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2882e8a6c0e3c2b40bbdeb75b079a068, type: 3}
-  m_Name: 02_Flounder
+  m_Name: 07_Guppy
   m_EditorClassIdentifier: 
-  _ShipName: ISC-Flounder
-  _shipQuality: 2
-  _hudWeaponName: Scattersystem
-  _hudWeaponID: 0
-  _crossHairVisual: 2
-  _health: 125
-  _maxSpeed: 4
-  _acceleration: 15
-  _deceleration: 4
+  _ShipName: S-Guppy
+  _shipQuality: 1
+  _hudWeaponName: Guppy Blaster
+  _hudWeaponID: 1
+  _crossHairVisual: 0
+  _health: 80
+  _maxSpeed: 8
+  _acceleration: 20
+  _deceleration: 1
   _rotationSpeed: 720
-  _damage: 10
-  _knockBack: 8
+  _damage: 5
+  _knockBack: 1
   _attackSpeed: 40
-  _attackLifeTime: 1.5
-  _attackDelay: 0.75
-  _screenShakeIntensity: 0.6
-  _screenShakeDuration: 0.5
+  _attackLifeTime: 1.25
+  _attackDelay: 0.05
+  _screenShakeIntensity: 0.1
+  _screenShakeDuration: 0.3

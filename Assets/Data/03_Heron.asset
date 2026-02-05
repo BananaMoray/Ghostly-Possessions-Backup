@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2882e8a6c0e3c2b40bbdeb75b079a068, type: 3}
   m_Name: 03_Heron
   m_EditorClassIdentifier: 
-  _ShipName: Laserthrower
+  _ShipName: F-Heron
   _shipQuality: 3
-  _hudWeaponName: ...
-  _hudWeaponID: 0
-  _crossHairVisual: 0
-  _health: 100
-  _maxSpeed: 5
-  _acceleration: 10
-  _deceleration: 5
+  _hudWeaponName: Laserthrower
+  _hudWeaponID: 2
+  _crossHairVisual: 1
+  _health: 125
+  _maxSpeed: 10
+  _acceleration: 15
+  _deceleration: 2
   _rotationSpeed: 720
   _damage: 5
-  _knockBack: 5
+  _knockBack: 3
   _attackSpeed: 40
   _attackLifeTime: 2
-  _attackDelay: 0.5
-  _screenShakeIntensity: 0
-  _screenShakeDuration: 0
+  _attackDelay: 0.15
+  _screenShakeIntensity: 0.2
+  _screenShakeDuration: 0.2

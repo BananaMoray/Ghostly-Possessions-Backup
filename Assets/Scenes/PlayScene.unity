@@ -722,7 +722,7 @@ PrefabInstance:
     - target: {fileID: 3531915309834710498, guid: 980c5607a88dc7b4c985d0162187486f, type: 3}
       propertyPath: _data
       value: 
-      objectReference: {fileID: 11400000, guid: f4153fd8564557f41bc7fa0d9d2c5027, type: 2}
+      objectReference: {fileID: 11400000, guid: 1ac792034b9950f4d875f69cd1aa9d19, type: 2}
     - target: {fileID: 3531915309834710498, guid: 980c5607a88dc7b4c985d0162187486f, type: 3}
       propertyPath: _boostSpeed
       value: 12
@@ -743,6 +743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tadpole v2
       objectReference: {fileID: 0}
+    - target: {fileID: 6759399942432822723, guid: 980c5607a88dc7b4c985d0162187486f, type: 3}
+      propertyPath: _damagerPrefab
+      value: 
+      objectReference: {fileID: 7965188665383883108, guid: fe0b6ece9d3b276468d8fd1ecb09602e, type: 3}
     m_RemovedComponents:
     - {fileID: 8813444827238799425, guid: 980c5607a88dc7b4c985d0162187486f, type: 3}
     m_RemovedGameObjects: []
